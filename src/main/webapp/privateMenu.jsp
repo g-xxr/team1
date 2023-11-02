@@ -23,8 +23,8 @@
                 </button>
             </form>
              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/loginForm.jsp">로그인</a></li>
-                <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a></li>
+            	<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/loginForm.jsp">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/insertMemberForm.jsp">로그아웃</a></li>
             </ul>
         </div>
     </div>

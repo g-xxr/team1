@@ -28,9 +28,10 @@
 	String dbuser = "root";
 	String dbpw = "java1234";
 	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+	System.out.println("DB접속 성공");
 
 	// 입력한 비밀번호가 예전 번호와 일치하는지 확인.
-	String sql = "UPDATE customer SET customer_pw = PASSWORD(?) WHERE customer_id=? AND customer_pw = PASSWORD(?)";
+	String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id=? AND customer_pw = PASSWORD(?)";
 	PreparedStatement stmt = conn.prepareStatement(sql);
 	stmt.setString(1, newPw);
 	stmt.setString(2, customerId);

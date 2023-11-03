@@ -107,6 +107,13 @@
 				<td><%=c.getUpdatedate()%></td>
 			</tr>
 		</table>
+<%
+System.out.println("Customer ID: " + c.getCustomerId());
+System.out.println("Created Date: " + c.getCreatedate());
+System.out.println("Updated Date: " + c.getUpdatedate());
+%>
+
+
 	</form>
 	<a href="<%=request.getContextPath()%>/updateCustomerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;

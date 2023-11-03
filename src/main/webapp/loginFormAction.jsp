@@ -25,7 +25,7 @@
 	
    if(rs.next()) { // 로그인 성공
 	   session.setAttribute("loginId", rs.getString("memberId"));
-		response.sendRedirect(request.getContextPath()+"/publichome.jsp");
+		response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
    } else { // 로그인 실패
 	   	String msg = URLEncoder.encode("아이디 비밀번호를 확인하세요");
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);

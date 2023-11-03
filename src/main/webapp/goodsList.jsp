@@ -36,26 +36,26 @@
 	int beginRow = (currentPage-1)*rowPerPage;
 	
 	/*
-		SELECT product_no p.productNo, product_name p.productName, product_price p.productPrice, i.name
-		FROM product p INNER JOIN image i ON p.product_no = i.product_no
-		ORDER BY p.product_no DESC
-		LIMIT ?,?
+		SELECT g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_price goodsPrice, g.soldout soldout, g.goods_memo memo, i.filename filename
+		FROM goods g INNER JOIN goods_img i ON g.goods_no = i.goods_no
+		ORDER BY g.goods_no DESC
+		LIMIT ?,?;
 	*/
 	
-	String sql2 = "SELECT p.product_no productNo, p.product_name productName, p.product_price productPrice, i.name FROM product p INNER JOIN image i ON p.product_no = i.product_no ORDER BY p.product_no DESC LIMIT ?,?";
+	String sql2 = "SELECT g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_price goodsPrice, g.soldout soldout, g.goods_memo memo, i.filename filename FROM goods g INNER JOIN goods_img i ON g.goods_no = i.goods_no ORDER BY g.goods_no DESC LIMIT ?,?";
 	PreparedStatement stmt2 = conn.prepareStatement(sql2);
 	stmt2.setInt(1, beginRow);
 	stmt2.setInt(2, rowPerPage);
 	ResultSet rs2 = stmt2.executeQuery();
 	
-	ArrayList<Product> list = new ArrayList<Product>();
+	ArrayList<Goods> list = new ArrayList<Goods>();
 	while(rs2.next()){
-		Product p = new Product();
-		p.productNo = rs2.getInt("productNo");
-		p.productName = rs2.getString("productName");
-		p.productPrice = rs2.getInt("productPrice");
-		p.name = rs2.getString("name");
-		list.add(p);
+		Goods g = new Goods();
+		g.goodsNo = rs2.getInt("goodsNo");
+		g.goodsTitle = rs2.getString("goodsTitle");
+		g.goodsPrice = rs2.getInt("goodsPrice");
+		g.soldout = rs2.getString("soldout");
+		list.add(g);
 	}
 	
 	rs1.close();

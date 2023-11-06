@@ -54,48 +54,48 @@
             	</div>
 			</div>
 			
-			<!-- 매니저 상품관리 게시판 링크 -->
+			<!-- 매니저 공지사항 관리 게시판 링크 -->
 			<div class="col mb-5">
 				<div class="card h-100">
-	                <!-- 상품관리 홈 이미지 -->
+	                <!-- 공지사항 관리 홈 이미지 -->
 	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
-	                <!-- 상품 관리 페이지 제목 -->
+	                <!-- 공지사항 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">공지사항 관리</h3>
 	                </div>
-	                <!-- 상품 관리 페이지 링크 -->
+	                <!-- 공지사항 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
 	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/notice.jsp">클릭!</a>
 	      			</div>
             	</div>
 			</div>
 			
-			<!-- 매니저 상품관리 게시판 링크 -->
+			<!-- 매니저 문의게시판 관리 링크 -->
 			<div class="col mb-5">
 				<div class="card h-100">
-	                <!-- 상품관리 홈 이미지 -->
+	                <!-- 문의게시판 관리 홈 이미지 -->
 	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
-	                <!-- 상품 관리 페이지 제목 -->
+	                <!-- 문의게시판 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">문의게시판 관리</h3>
 	                </div>
-	                <!-- 상품 관리 페이지 링크 -->
+	                <!-- 문의게시판 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
 	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/question.jsp">클릭!</a>
 	      			</div>
             	</div>
 			</div>
 			
-			<!-- 매니저 상품관리 게시판 링크 -->
+			<!-- 매니저 리뷰게시판 관리 링크 -->
 			<div class="col mb-5">
 				<div class="card h-100">
-	                <!-- 상품관리 홈 이미지 -->
+	                <!-- 리뷰게시판 관리 홈 이미지 -->
 	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
-	                <!-- 상품 관리 페이지 제목 -->
+	                <!-- 리뷰게시판 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">리뷰게시판 관리</h3>
 	                </div>
-	                <!-- 상품 관리 페이지 링크 -->
+	                <!-- 리뷰게시판 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
 	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/review.jsp">클릭!</a>
 	      			</div>

@@ -24,12 +24,14 @@
     }
     .container {
         text-align: center;
+        display: flex; /* 테이블이 세로가 아닌 가로로 정렬*/
     }
     .form-container {
         background-color: #007BFF;
         color: white;
         padding: 20px;
         border-radius: 10px;
+        margin: 20px; /* 테이블 간의 간격을 주는 역할*/
     }
 </style>
 </head>
@@ -40,21 +42,43 @@
 	-->
  <div class="container">
         <div class="form-container">
-            <h1>로그인</h1>
+            <h1>고객 <br> 로그인</h1>
             <p>ID와 PW를 입력하시오.</p>
             <form method="post" action="<%=request.getContextPath()%>/loginFormAction.jsp">
                 <table>
                     <tr>
                         <th>아이디</th>
-                        <th><input type="text" name="memberId"></th>
+                        <th><input type="text" name="customerId"></th>
                     </tr>
                     <tr>
                         <th>비밀번호</th>
-                        <th><input type="password" name="memberPw"></th>
+                        <th><input type="password" name="customerPw"></th>
                     </tr>
                     <tr>
                         <th colspan="2"><button type="submit">로그인</button></th>
                         <a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
+                    </tr>
+         </table>
+            </form>
+        </div>
+
+ <div class="container">
+        <div class="form-container">
+            <h1>관리자 로그인<br>(Admin)</h1>
+            <p>ID와 PW를 입력하시오.</p>
+            <form method="post" action="<%=request.getContextPath()%>/managerLoginFormAction.jsp">
+                <table>
+                    <tr>
+                        <th>아이디</th>
+                        <th><input type="text" name="managerId"></th>
+                    </tr>
+                    <tr>
+                        <th>비밀번호</th>
+                        <th><input type="password" name="managerPw"></th>
+                    </tr>
+                    <tr>
+                        <th colspan="2"><button type="submit">로그인</button></th>
+                        <a href="<%=request.getContextPath()%>/insertManagerForm.jsp">회원가입</a>
                     </tr>
          </table>
             </form>

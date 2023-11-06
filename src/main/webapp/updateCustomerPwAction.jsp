@@ -1,3 +1,5 @@
+<%@page import="dao.CustomerDao"%>
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
@@ -9,6 +11,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,34 +24,38 @@
 	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 	return;}
 
-	String customerId = (String)session.getAttribute("loginId");
-	String oldPw = request.getParameter("oldPw");
-	String newPw = request.getParameter("newPw");
-	
-	Class.forName("org.mariadb.jdbc.Driver");
-	String url = "jdbc:mariadb://localhost:3306/mall";
-	String dbuser = "root";
-	String dbpw = "java1234";
-	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-	System.out.println("DB접속 성공");
+	CustomerDao customerDao = new CustomerDao();
+	Customer customer = new Customer();
+	customer.setNewPw(request.getParameter("newPw"));
+	customer.setNewPw(request.getParameter("oldPw"));
 
-	// 입력한 비밀번호가 예전 번호와 일치하는지 확인.
-	String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id=? AND customer_pw = PASSWORD(?)";
-	PreparedStatement stmt = conn.prepareStatement(sql);
-	stmt.setString(1, newPw);
-	stmt.setString(2, customerId);
-	stmt.setString(3, oldPw);
-	System.out.println(stmt + "<-- stmt");
+	int row = customerDao.updateCustomerPw(customer);
+	
+	if (row==1){
+		System.out.println("입력성공");
+		response.sendRedirect(request.getContextPath()+"/customerOne.jsp");
+		System.out.println("비번 변경 완료"); 
+	}  else {
+		System.out.println("입력실패");
+		response.sendRedirect(request.getContextPath()+"/publichome.jsp");
+
+	}
+/*
+
+	String msg = null;
+	// 새 비밀번호와 확인 번호가 같은지 확인
+	if(!request.getParameter("newPw").equals(request.getParameter("checkPw"))){
+		msg = URLEncoder.encode("비밀번호가 서로 다릅니다.","utf-8");
+		response.sendRedirect(request.getContextPath()+"updateCustomer.jsp?msg="+msg);
+	}
 			
 		int row = stmt.executeUpdate();
 		if(row ==1) {
-		response.sendRedirect(request.getContextPath()+"/customerOne.jsp");
-		System.out.println("비번 변경 완료");
+
 		} else { // 입력한 비번이 다를 경우
-			response.sendRedirect(request.getContextPath()+"/publichome.jsp");
+
 		}
-		stmt.close();
-		conn.close();
+*/
 		
 %>
 

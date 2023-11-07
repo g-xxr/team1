@@ -74,9 +74,9 @@ public class CustomerDao {
 	// 입력한 비밀번호가 예전 번호와 일치하는지 확인.
 		String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id=? AND customer_pw = PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customer.getNewPw()); // 새롭게 설정한 비번이어야 함
+		stmt.setString(1, customer.getNewPw()); 		// 새롭게 설정한 비번이어야 함
 		stmt.setString(2, customer.getCustomerId());
-		stmt.setString(3, customer.getCustomerPw());					// 전에 사용했던 비번.
+		stmt.setString(3, customer.getCustomerPw());	// 전에 사용했던 비번.
 		System.out.println(stmt + "<-- stmt");
 			
 		row = stmt.executeUpdate();

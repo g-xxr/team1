@@ -2,10 +2,6 @@
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
 <%@page import="vo.*"%>
 <!DOCTYPE html>
 <html>
@@ -23,12 +19,12 @@
 	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 	return;}
-
+	
 	CustomerDao customerDao = new CustomerDao();
 	Customer customer = new Customer();
 	customer.setNewPw(request.getParameter("newPw"));
 	customer.setCustomerPw(request.getParameter("oldPw"));
-	customer.setCustomerId(request.getParameter("customerId"));
+	customer.setCustomerId((String)(session.getAttribute("loginId")));
 
 	int row = customerDao.updateCustomerPw(customer);
 	

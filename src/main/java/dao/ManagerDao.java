@@ -69,11 +69,15 @@ public class ManagerDao {
 		String sql = "UPDATE manager SET manager_pw = PASSWORD(?), updatedate = NOW() WHERE manager_id=? AND manager_pw = PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, manager.getNewPw()); // 새롭게 설정한 비번이어야 함
-		stmt.setString(2, manager.getManagerPw());					// 전에 사용했던 비번.
+		stmt.setString(2, manager.getManagerId());
+		stmt.setString(3, manager.getManagerPw());// 전에 사용했던 비번.
 		System.out.println(stmt + "<-- stmt");
-			
-	row = stmt.executeUpdate();
-	return row;
+
+		row = stmt.executeUpdate();
+		stmt.close();
+		conn.close();
+	
+		return row;
 
 	}
 	

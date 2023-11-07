@@ -2,10 +2,6 @@
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
 <%@page import="vo.*"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +23,9 @@
 	ManagerDao managerDao = new ManagerDao();
 	Manager manager = new Manager();
 	manager.setNewPw(request.getParameter("newPw"));
+	manager.setManagerId((String)(session.getAttribute("loginId")));
 	manager.setManagerPw(request.getParameter("oldPw"));
+
 
 	int row = managerDao.updateManagerPw(manager);
 	

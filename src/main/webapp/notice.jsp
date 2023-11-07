@@ -12,13 +12,14 @@
 	int rowPerPage = 10;
 	int beginRow = (currentPage-1)*rowPerPage;
 	// model 호출 코드(cotroller code)
-	NoticeDao nd = new NoticeDao();
-	ArrayList<Notice> list = nd.selectNoticeList(beginRow, rowPerPage);							
+	NoticeDao no = new NoticeDao();
+	ArrayList<Notice> list = no.selectNoticeList(beginRow, rowPerPage);							
 %>       
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>홈페이지 팀플</title>
 	
 <!-- 파비콘 코드 -->
@@ -30,12 +31,12 @@
 <!-- 코어 테마 css -->
 <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
+	
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
 	<jsp:include page="/privateMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
-		
+	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
 	    <div class="container px-4 px-lg-5 my-5">
@@ -45,12 +46,13 @@
 	        </div>
 	    </div>
 	</header>
+		
         <!-- 공지사항 -->
         <div class="container">
         	<h1>공지사항</h1>
         	<hr>
-        	<form action="./noticeForm.jsp">
-        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right;">글 작성</button>
+        	<form action="/noticeForm.jsp">
+        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right">공지사항 추가</button>
         	  <h2>목록</h2>      	     	    
         	  <table class="table table-hover">
         	  	<thead>

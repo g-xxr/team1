@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+/*
+	// 관리자만 확인 가능
+	//세션관리자만 들어올수있게
+	if(session.getAttribute("loginEmpId1") == null && session.getAttribute("loginEmpId2") == null){
+		response.sendRedirect(request.getContextPath()+"/notice.jsp");
+		return;
+	}
+*/
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +44,7 @@
     <div class="container" >      
 				  
 		  <form action="./noticeFormAction.jsp">
-			<h2>글 작성</h2> 			
+			<h2>공지사항 추가</h2> 			
      		<div class="mb-3 mt-3">
      		<label for="comment">작성자:</label>
       		<input type="text" class="form-control w-25 p-1" name="managerNo">

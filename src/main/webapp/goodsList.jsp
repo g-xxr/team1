@@ -1,74 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
-<%@ page import = "vo.*" %>  
+<%@ page import = "vo.*" %>
+<%@ page import = "dao.*" %>
 
 <!-- 유정 -->
     <%
+    // 페이징 하기
+    // 현재 페이지
 	int currentPage = 1;
+    // 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
 	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	
-	int rowPerPage = 8;
-	
-	// DB goods 테이블 & goodsimg 테이블에 입력하기
-	Class.forName("org.mariadb.jdbc.Driver");
-	String url = "jdbc:mariadb://localhost:3306/mall";
-	String dbuser = "root";
-	String dbpw = "java1234";
-	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-
-	// 쿼리 2개 들어감
-	String sql1 = "SELECT COUNT(*) FROM goods";   
-	PreparedStatement stmt1 = conn.prepareStatement(sql1);
-	ResultSet rs1 = stmt1.executeQuery();
-	int totalRow = 0;
-	if(rs1.next()){
-		totalRow = rs1.getInt("COUNT(*)");    // "COUNT(*)" 대신 1을 사용
-	}
-	
-	int lastPage = totalRow / rowPerPage;
-	if(totalRow % rowPerPage != 0){
+    // 페이지 당 몇개의 항목을 나타내는지 (여기 페이지는 8개 항목)
+    int rowPerPage = 8;
+    // 시작 상품의 번호
+    int beginRow = (currentPage-1)*rowPerPage;
+ 	// 총 상품 수
+    int totalRow = gd.count(*);
+    // 마지막 페이지
+    int lastPage = totalRow / rowPerPage;
+    // 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
+    if(totalRow % rowPerPage != 0){
 		lastPage = lastPage +1;
-	}
 	
-	int beginRow = (currentPage-1)*rowPerPage;
+    // GoodsDao 호출 코드
+    GoodsDao gd = new GoodsDao();
+    ArrayList<Goods> list = gd.goodsList(beginRow, rowPerPage);
 	
-	/*
-		SELECT g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_price goodsPrice, g.soldout soldout, g.goods_memo memo, i.filename filename
-		FROM goods g INNER JOIN goods_img i ON g.goods_no = i.goods_no
-		ORDER BY g.goods_no DESC
-		LIMIT ?,?;
-	*/
-	
-	String sql2 = "SELECT g.goods_no goodsNo, g.goods_title goodsTitle, g.goods_price goodsPrice, g.soldout soldout, g.goods_memo goodsMemo, i.filename filename FROM goods g INNER JOIN goods_img i ON g.goods_no = i.goods_no ORDER BY g.goods_no DESC LIMIT ?,?";
-	PreparedStatement stmt2 = conn.prepareStatement(sql2);
-	stmt2.setInt(1, beginRow);
-	stmt2.setInt(2, rowPerPage);
-	ResultSet rs2 = stmt2.executeQuery();
-	
-	ArrayList<Goods> list = new ArrayList<Goods>();
-	while(rs2.next()){	// 여러행을 받으니까 while
-		Goods g = new Goods();
-		GoodsImg i = new GoodsImg();
-		g.setGoodsNo(rs2.getInt("goodsNo"));
-		g.setGoodsTitle(rs2.getString("goodsTitle"));
-		g.setGoodsPrice(rs2.getInt("goodsPrice"));
-		g.setSoldout(rs2.getString("soldout"));
-		g.setGoodsMemo(rs2.getString("goodsMemo"));
-		g.setFilename(rs2.getString("filename"));
-		list.add(g);
-	}
-	
-	rs1.close();
-	stmt1.close();
-	conn.close();
-	
-	rs2.close();
-	stmt2.close();
-
-%>
+	%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -153,23 +114,25 @@
 			<br>
 			<br>
 			
-	<!-- 페이징 -->
+	<!-- 페이지네이션 -->
 	<div class="d-flex justify-content-center">
-	<%
-		if(currentPage > 1){
-	%>
-		<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/goodsList.jsp?currentPage=<%=currentPage-1%>">이전</a>
-	<%
-		}
-	%>
-	
-	<%
-		if(currentPage < lastPage){
-	%>
-		<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/goodsList.jsp?currentPage=<%=currentPage+1%>">다음</a>
-	<%
-		}
-	%>        
+		<div>
+		<%
+			if(currentPage > 1){
+		%>
+			<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/goodsList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+		<%
+			}
+		%>
+		
+		<%
+			if(currentPage < lastPage){
+		%>
+			<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/goodsList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+		<%
+			}
+		%>
+		</div>        
 	</div>
 	
 	

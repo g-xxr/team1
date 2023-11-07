@@ -3,7 +3,7 @@
     
 <%
 	session.invalidate();
-	response.sendRedirect(request.getContextPath()+"/publichome.jsp");
+	response.sendRedirect(request.getContextPath()+"/publicHome.jsp");
 %>
 <!DOCTYPE html>
 <html>

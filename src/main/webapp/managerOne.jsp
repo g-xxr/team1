@@ -4,7 +4,7 @@
 <%@ page import = "java.util.ArrayList" %>
 
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<jsp:include page="/managerMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 
 <%
@@ -59,19 +59,19 @@
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
 				<th>매니저 ID</th>
-				<td><%=m.getManagerId()%></td>
+				<td><%=manager.getManagerId()%></td>
 			</tr>
 			<tr>
 				<th>매니저명</th>
-				<td><%=m.getManagerName()%></td>
+				<td><%=manager.getManagerName()%></td>
 			</tr>
 			<tr>
 				<th>생성일자</th>
-				<td><%=m.getCreatedate()%></td>
+				<td><%=manager.getCreatedate()%></td>
 			</tr>
 			<tr>
 				<th>변경일자</th>
-				<td><%=m.getUpdatedate()%></td>
+				<td><%=manager.getUpdatedate()%></td>
 			</tr>
 		</table>
 	</form>

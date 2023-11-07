@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 
 public class CustomerDao {
 	
-	// 로그인 (id,pw) 일치하는지 확인
+	// 로그인 (ID, PW) 일치하는지 확인
 	public int ckIdPw(String customerId, String customerPw) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");  

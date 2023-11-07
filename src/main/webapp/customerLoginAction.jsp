@@ -17,12 +17,15 @@
 	
 	// 1) id, pw 일치 확인
 	int login = customerDao.ckIdPw(customerId, customerPw);
+	
 	if(login == 0){
 		msg = URLEncoder.encode("아이디 또는 비밀번호를 확인하세요 :( ","UTF-8");
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
-		return;
-	} else {
+
+	} else { 		
+		session.setAttribute("loginId", customerId);
 		response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
+		
 	}
 /*	
 	Customer customer = new Customer();

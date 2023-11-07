@@ -26,6 +26,11 @@
         text-align: center;
         display: flex; /* 테이블이 세로가 아닌 가로로 정렬*/
     }
+    .container2 {
+    /* Push the container2 to the bottom */
+        text-align: center;
+
+    }
     .form-container {
         background-color: #007BFF;
         color: white;
@@ -33,6 +38,15 @@
         border-radius: 10px;
         margin: 20px; /* 테이블 간의 간격을 주는 역할*/
     }
+        .form-container2 {
+        background-color: #BDBDBD;
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px; /* 테이블 간의 간격을 주는 역할*/
+    }
+    
+    
 </style>
 </head>
 <body>
@@ -44,7 +58,7 @@
         <div class="form-container">
             <h1>고객 <br> 로그인</h1>
             <p>ID와 PW를 입력하시오.</p>
-            <form method="post" action="<%=request.getContextPath()%>/loginFormAction.jsp">
+            <form method="post" action="<%=request.getContextPath()%>/customerLoginAction.jsp">
                 <table>
                     <tr>
                         <th>아이디</th>
@@ -56,17 +70,17 @@
                     </tr>
                     <tr>
                         <th colspan="2"><button type="submit">로그인</button></th>
-                        <a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
                     </tr>
          </table>
             </form>
-        </div>
+      </div>
+ </div>
 
  <div class="container">
         <div class="form-container">
             <h1>관리자 로그인<br>(Admin)</h1>
             <p>ID와 PW를 입력하시오.</p>
-            <form method="post" action="<%=request.getContextPath()%>/managerLoginFormAction.jsp">
+            <form method="post" action="<%=request.getContextPath()%>/managerLoginAction.jsp">
                 <table>
                     <tr>
                         <th>아이디</th>
@@ -78,16 +92,25 @@
                     </tr>
                     <tr>
                         <th colspan="2"><button type="submit">로그인</button></th>
-                        <a href="<%=request.getContextPath()%>/insertManagerForm.jsp">회원가입</a>
                     </tr>
-         </table>
+	           </table>
             </form>
-        </div>
+      </div>
+ </div>
+ <div class="container2">
+     	<div class="form-container2">
+            <h1>회원가입</h1>
+           		 <p>회원가입 정보가 없으면 <br> 지금 가입하세요!</p>
+            <a href="<%=request.getContextPath()%>/insertMemberForm.jsp">->가입하기<-</a>
+    	</div>
+</div>
+
+        
         <% if(msg != null) { %>
             <div><%=msg%></div>
         <% } %>
         
-    </div>
+ 
 	
 </body>
 </html>

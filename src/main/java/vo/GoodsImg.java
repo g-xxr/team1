@@ -1,18 +1,18 @@
 package vo;
 
 public class GoodsImg {
-	private int goodNo;
+	private int goodsNo;
 	private String filename;
 	private String originName;
 	private String contentType;
 	private String createdate;
 	private String updatedate;
 	
-	public int getGoodNo() {
-		return goodNo;
+	public int getGoodsNo() {
+		return goodsNo;
 	}
 	public void setGoodNo(int goodNo) {
-		this.goodNo = goodNo;
+		this.goodsNo = goodNo;
 	}
 	public String getFilename() {
 		return filename;

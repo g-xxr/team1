@@ -9,6 +9,37 @@ import java.sql.ResultSet;
 
 public class CustomerDao {
 	
+	// 로그인 (id,pw) 일치하는지 확인
+	public int ckIdPw(String customerId, String customerPw) throws Exception{
+		int row = 0;
+		Class.forName("org.mariadb.jdbc.Driver");  
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                             
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql = "SELECT COUNT(*) FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
+		stmt.setString(2, customerPw);
+	
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			row = rs.getInt(1);
+		if(row>0) {
+			System.out.println("로그인 성공");
+
+		} else {
+			System.out.println("로그인 실패");
+		}
+		}
+		stmt.close();
+		conn.close();
+		rs.close();
+		return row;
+	}
+	
+	
 	// 고객 추가 insertCustomerAction.jsp 호출
 	public int insertCustomer(Customer customer) throws Exception{
 		int row =0;
@@ -24,8 +55,12 @@ public class CustomerDao {
 		stmt1.setString(2, customer.getCustomerPw());
 		System.out.println(stmt1 + " <-- stmt insertCustomer()");
 		row = stmt1.executeUpdate();
+		stmt1.close();
+		conn.close();
+		
 		return row;
 	}
+	
 	
 	// 고객 비밀번호 수정 updateCustomerPwAction.jsp 호출
 	public int updateCustomerPw(Customer customer) throws Exception {
@@ -37,14 +72,19 @@ public class CustomerDao {
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		   
 	// 입력한 비밀번호가 예전 번호와 일치하는지 확인.
-	String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id=? AND customer_pw = PASSWORD(?)";
-	PreparedStatement stmt = conn.prepareStatement(sql);
-	stmt.setString(1, customer.getNewPw()); // 새롭게 설정한 비번이어야 함
-	stmt.setString(2, customer.getCustomerId());					// 전에 사용했던 비번.
-	System.out.println(stmt + "<-- stmt");
+		String sql = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_id=? AND customer_pw = PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getNewPw()); // 새롭게 설정한 비번이어야 함
+		stmt.setString(2, customer.getCustomerId());
+		stmt.setString(3, customer.getCustomerPw());					// 전에 사용했던 비번.
+		System.out.println(stmt + "<-- stmt");
 			
-	row = stmt.executeUpdate();
-	return row;
+		row = stmt.executeUpdate();
+		stmt.close();
+		conn.close();
+
+		return row;
+
 	}
 	
 	// 고객 회원정보 삭제 deleteCustomerAction.jsp
@@ -61,17 +101,45 @@ public class CustomerDao {
 		stmt.setString(2, customer.getCustomerPw());
 		
 		int row = stmt.executeUpdate();
+		stmt.close();
+		conn.close();
+
+		
 		return row;
 	}
-	
-	
 }
+
+	// 고객 상세정보 customerOne.jsp
+	
+
+
+
+
+
+
+
+
+	/*
+	// DB에 등록된 회원정보 일치하는지 확인 후 로그인
+	public int customerLoginAction(Customer customer) throws Exception{
+		Class.forName("org.mariadb.jdbc.Driver");  
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                             
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql = "SELECT customer_id customerId FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		
+		ResultSet rs = stmt.executeQuery();
+		return rs;
+	
+	}
+	*/
 	
 /*
-	
-	
-		   
-	}
 
 	
 	public int login(Customer id) throws Exception{

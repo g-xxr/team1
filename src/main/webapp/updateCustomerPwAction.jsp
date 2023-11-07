@@ -27,7 +27,8 @@
 	CustomerDao customerDao = new CustomerDao();
 	Customer customer = new Customer();
 	customer.setNewPw(request.getParameter("newPw"));
-	customer.setNewPw(request.getParameter("oldPw"));
+	customer.setCustomerPw(request.getParameter("oldPw"));
+	customer.setCustomerId(request.getParameter("customerId"));
 
 	int row = customerDao.updateCustomerPw(customer);
 	
@@ -37,7 +38,7 @@
 		System.out.println("비번 변경 완료"); 
 	}  else {
 		System.out.println("입력실패");
-		response.sendRedirect(request.getContextPath()+"/publichome.jsp");
+		response.sendRedirect(request.getContextPath()+"/updateCustomerPwForm.jsp");
 
 	}
 /*

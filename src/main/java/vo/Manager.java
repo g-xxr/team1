@@ -8,7 +8,14 @@ public class Manager {
 	private String createdate;
 	private String updatedate;
 	private String active;
+	private String newPw;
 	
+	public String getNewPw() {
+		return newPw;
+	}
+	public void setNewPw(String newPw) {
+		this.newPw = newPw;
+	}
 	public int getManagerNo() {
 		return managerNo;
 	}

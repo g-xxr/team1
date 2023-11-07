@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import= "java.sql.*" %>
 <%@ page import = "vo.*" %>
+<%@ page import = "java.util.ArrayList" %>
+
+	<!-- 메뉴 시작 (절대주소 적으세요)-->
+	<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<!-- 메뉴 끝 -->
+
 <%
 		if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 			return;
 		}
 		
-		String customerId = (String)(session.getAttribute("loginId")); 
+		String managerId = (String)(session.getAttribute("loginId")); 
 		System.out.println(managerId + "<--managerId");
 		
 		Class.forName("org.mariadb.jdbc.Driver");  
@@ -24,13 +30,13 @@
 		ResultSet rs = stmt.executeQuery();
 		
 		ArrayList<Manager> list = new ArrayList<>();
-		Manager m = new Manager();
+		Manager manager = new Manager();
 		if(rs.next()){
-			m.managerId = rs.getString("managerId");
-			m.managerPw(rs.getString("managerPw"));
-			m.managerName(rs.getString("managerName"));
-			m.createdate(rs.getString("createdate"));
-			m.updatedate(rs.getString("updatedate"));
+			manager.setManagerId(rs.getString("managerId"));
+			manager.setManagerPw(rs.getString("managerPw"));
+			manager.setManagerName(rs.getString("managerName"));
+			manager.setCreatedate(rs.getString("createdate"));
+			manager.setUpdatedate(rs.getString("updatedate"));
 		}
 		
 		rs.close();
@@ -52,19 +58,19 @@
 	<form action="">
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
-				<th>managerId</th>
-				<td><%=m.managerId()%></td>
+				<th>매니저 ID</th>
+				<td><%=m.getManagerId()%></td>
 			</tr>
 			<tr>
-				<th>managerName</th>
-				<td><%=m.managerName()%></td>
+				<th>매니저명</th>
+				<td><%=m.getManagerName()%></td>
 			</tr>
 			<tr>
-				<th>createdate</th>
-				<td><%m.createdate()%></td>
+				<th>생성일자</th>
+				<td><%=m.getCreatedate()%></td>
 			</tr>
 			<tr>
-				<th>updatedate</th>
+				<th>변경일자</th>
 				<td><%=m.getUpdatedate()%></td>
 			</tr>
 		</table>
@@ -73,7 +79,7 @@
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/deleteManagerForm.jsp" class="btn btn-outline-success">회원탈퇴</a> <!-- 비밀번호 입력 -->
 	&nbsp;
-	<a href="<%=request.getContextPath()%>//logoutAction.jsp" class="btn btn-outline-success">로그아웃</a>
+	<a href="<%=request.getContextPath()%>//managerLogoutAction.jsp" class="btn btn-outline-success">로그아웃</a>
 </div>
 </body>
 </html>

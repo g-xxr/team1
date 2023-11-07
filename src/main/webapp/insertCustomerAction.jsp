@@ -4,6 +4,7 @@
 <%@ page import ="dao.*" %>
 
 <%
+	request.setCharacterEncoding("UTF-8");
 	String customerId = request.getParameter("customerId");
 	String customerPw = request.getParameter("customerPw");	
 

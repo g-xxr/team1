@@ -38,12 +38,12 @@
                         <label for="managerName">이름</label>
                         <input type="text" class="form-control" id="managerName" name="managerName" required placeholder="이름을 입력하세요.">
                     </div>
-                    
+                    <!--  
                      <div class="form-group">
                         <label for="managerConfirmPw">관리자 인증번호</label>
-                        <input type="text" class="form-control" id="managerConfirmPw" name="managerConfirmPw" required placeholder="관리자 인증번호를 입력하세요.">
+                        <input type="text" class="form-control" id="managerConfirmPw" name="managerConfirmPw" placeholder="관리자 인증번호를 입력하세요.">
                     </div>
-                    
+                    -->
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">가입하기</button>
                     </div>

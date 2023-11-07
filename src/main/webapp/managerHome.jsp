@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
+<!-- 유정 -->
        
 <title>홈페이지 팀플</title>
 	
@@ -33,7 +35,7 @@
 	    </div>
 	</header>
 
-	<!-- 홈페이지 맨 앞 부분 상품 정렬 (productList 알고리즘 쓰기) -->	
+	<!-- 로그인한 매니저만 볼 수 있는 홈페이지 -->	
 	<section>
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -101,7 +103,6 @@
 	      			</div>
             	</div>
 			</div>
-			
 			
 		</div>
 	</div>

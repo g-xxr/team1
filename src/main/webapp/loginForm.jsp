@@ -97,6 +97,7 @@
             </form>
       </div>
  </div>
+ <br>
  <div class="container2">
      	<div class="form-container2">
             <h1>회원가입</h1>

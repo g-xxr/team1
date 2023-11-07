@@ -2,7 +2,7 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
-import vo.Goods;
+import vo.*;
 
 public class GoodsDao {
 	

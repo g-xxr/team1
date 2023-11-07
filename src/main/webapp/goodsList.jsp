@@ -15,20 +15,19 @@
 	}
     // 페이지 당 몇개의 항목을 나타내는지 (여기 페이지는 8개 항목)
     int rowPerPage = 8;
-    // 시작 상품의 번호
-    int beginRow = (currentPage-1)*rowPerPage;
- 	// 총 상품 수
-    int totalRow = gd.count(*);
-    // 마지막 페이지
+    
+    // GoodsDao 호출 코드
+    GoodsDao gd = new GoodsDao();
+    ArrayList<Goods> list = gd.goodsList(beginRow, rowPerPage);
+    
+ 	// 마지막 페이지
     int lastPage = totalRow / rowPerPage;
     // 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
     if(totalRow % rowPerPage != 0){
 		lastPage = lastPage +1;
-	
-    // GoodsDao 호출 코드
-    GoodsDao gd = new GoodsDao();
-    ArrayList<Goods> list = gd.goodsList(beginRow, rowPerPage);
-	
+		}
+    // 시작 상품의 번호
+    int beginRow = (currentPage-1)*rowPerPage;	
 	%>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +75,7 @@
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 상품 이미지 -->
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=g.getFilename()%>" >
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=gi.getFilename()%>" >
 	                <!-- 상품 상세정보 -->
 	                <div class="card-body p-4">
 	                <div class="text-center">
@@ -99,8 +98,8 @@
 			</div>
 			<%
 				} i=i+1;
-			}
 			%>
+			
 			<%
 			// 남은 열을 닫음
 			if (i % 4 != 1) {
@@ -111,6 +110,8 @@
 				}
 			}
 			%>
+			}
+			
 			<br>
 			<br>
 			
@@ -132,8 +133,9 @@
 		<%
 			}
 		%>
-		</div>        
+		</div>
 	</div>
+	
 	
 	
 	<!-- 맨 아래 배너 -->

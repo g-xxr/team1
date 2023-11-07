@@ -33,11 +33,13 @@ public class GoodsDao {
 			g.setGoodsMemo(rs.getString("goodsMemo"));
 			g.setCreatedate(rs.getString("createdate"));
 			g.setUpdatedate(rs.getString("updatedate"));
-		list.add(g);
-		
-		// 자원 닫기
-		conn.close();
+			list.add(g);
 		}
+		// 자원 닫기
+		rs.close();
+		conn.close();
+		stmt.close();
+		
 		return list;
 	}
 	
@@ -67,11 +69,14 @@ public class GoodsDao {
 			go.setGoodsMemo(rs.getString("goodsMemo"));
 			go.setCreatedate(rs.getString("createdate"));
 			go.setUpdatedate(rs.getString("updatedate"));
+		}
 		// 자원 닫기
+		rs.close();
 		conn.close();
-		}
+		stmt.close();	
+		
 		return go;
-		}
+	}
 	
 	// 상품 추가 controller : insertGoods
 	 public int insertGoods(Goods g) throws Exception {
@@ -126,7 +131,8 @@ public class GoodsDao {
 			
 		// 자원 닫기
 		conn.close();
-	
+		stmt.close();
+		
 		return row;
 		}
 		 

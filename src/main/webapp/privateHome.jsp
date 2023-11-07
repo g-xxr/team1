@@ -50,7 +50,7 @@
 					<!-- 베스트 상품 -->
                     <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">🏅</div>
 	                <!-- 상품 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
 	                <!-- 상품 상세정보 -->
 	                <div class="card-body p-4">
 	                <div class="text-center">

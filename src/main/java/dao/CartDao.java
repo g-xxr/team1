@@ -31,10 +31,13 @@ public class CartDao {
 		c.setCustomerNo(rs.getInt("customerNo"));
 		c.setQuantity(rs.getInt("quantity"));
 		c.setUpdatedate(rs.getString("createdate"));
-		c.setUpdatedate(rs.getString("updatedate"));
-		// 자원 닫기
-		conn.close();	
+		c.setUpdatedate(rs.getString("updatedate"));	
 		}
+		// 자원 닫기
+		rs.close();
+		conn.close();
+		stmt.close();
+				
 		return c;
 	}
 	
@@ -58,7 +61,10 @@ public class CartDao {
 			cartQuantity = rs.getInt(1);
 		}
 		// 자원 닫기
-		conn.close();	
+		rs.close();
+		conn.close();
+		stmt.close();
+		
 		return cartQuantity;
 	}
 	
@@ -83,6 +89,8 @@ public class CartDao {
 		
 		// 자원 닫기
 		conn.close();
+		stmt.close();
+		
 		return row;
 	}
 	
@@ -101,6 +109,8 @@ public class CartDao {
 		
 		// 자원 닫기
 		conn.close();
+		stmt.close();
+		
 		return row;
 	}
 }

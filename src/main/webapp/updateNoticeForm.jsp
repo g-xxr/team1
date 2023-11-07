@@ -46,8 +46,7 @@
 		  <form action="<%=request.getContextPath() %>/updateNoticeAction.jsp">
 			<h2>공지사항 수정</h2> 			
      		<div class="mb-3 mt-3">
-     		<label for="comment">작성자:</label>
-      		<input type="text" class="form-control w-25 p-1" name="managerNo">
+     		
      		<label for="comment">제목:</label>
       		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
       		<label for="comment">내용:</label>

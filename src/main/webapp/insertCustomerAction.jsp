@@ -5,21 +5,25 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
+
 	String customerId = request.getParameter("customerId");
 	String customerPw = request.getParameter("customerPw");	
+	String customerName = request.getParameter("customerName");
+	String customerPhone = request.getParameter("customerPhone");
 
 	CustomerDao customerDao = new CustomerDao();
-	Customer customer = new Customer();
-	customer.setCustomerId(customerId);
-	customer.setCustomerPw(customerPw);
-	
-	int row = customerDao.insertCustomer(customer);
-	if (row==1) {
-		System.out.println("입력성공");
-	}  else {
-		System.out.println("입력실패");
-	}
 
+	Customer customer = new Customer();
+	CustomerDetail customerdetail = new CustomerDetail();
+
+	customer.setCustomerId(customerId);
+	customer.setCustomerPw(customerPw);	
+	customerdetail.setCustomerName(customerName);
+	customerdetail.setCustomerPhone(customerPhone);
+	
+	customerDao.insertCustomer(customer, customerdetail);
+
+	response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
 	/*
 	INSERT into customer_id c.customerId, customer_pw, c.customerPw
 	SELECT(ad.customer_no, ad.address, ad.createdate, ad.updatedate
@@ -37,13 +41,6 @@
 		System.out.println("입력실패");
 	}
 	*/
-	
-	
-	
-	response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
-	
-	
-	
 	
 %>
 

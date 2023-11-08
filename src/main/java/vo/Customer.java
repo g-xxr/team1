@@ -8,8 +8,7 @@ public class Customer {
 	private String updatedate;
 	private String active;
 	private String newPw;
-	
-	
+
 	public String getNewPw() {
 		return newPw;
 	}

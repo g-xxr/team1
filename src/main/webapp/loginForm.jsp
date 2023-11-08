@@ -26,11 +26,6 @@
         text-align: center;
         display: flex; /* 테이블이 세로가 아닌 가로로 정렬*/
     }
-    .container2 {
-    /* Push the container2 to the bottom */
-        text-align: center;
-
-    }
     .form-container {
         background-color: #007BFF;
         color: white;
@@ -97,8 +92,7 @@
             </form>
       </div>
  </div>
- <br>
- <div class="container2">
+ <div class="container">
      	<div class="form-container2">
             <h1>회원가입</h1>
            		 <p>회원가입 정보가 없으면 <br> 지금 가입하세요!</p>

@@ -37,4 +37,5 @@ public class CustomerDetail {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
+
 }

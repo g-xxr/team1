@@ -39,27 +39,73 @@ public class CustomerDao {
 		return row;
 	}
 	
-	
-	// 고객 추가 insertCustomerAction.jsp 호출
-	public int insertCustomer(Customer customer) throws Exception{
-		int row =0;
+/*
+	// 회원 상세정보
+	public int insertCustomerDetail(CustomerDetail customerdetail) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
-		
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		String sql = "INSERT INTO customer(customer_id, customer_pw, createdate, updatedate) VALUES(?, PASSWORD(?), NOW(), NOW())";
-		PreparedStatement stmt1 = conn.prepareStatement(sql);
+	
+		// cust_detail 테이블에 새로운 입력값 추가
+		String sql = "INSERT INTO customer_detail(customer_name, customer_phone, customer_email, birthdate, createdate, updatedate) VALUES(?,?,?,?, NOW(), NOW())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerdetail.getCustomerName());
+		stmt.setString(2, customerdetail.getCustomerPhone());
+		stmt.setString(3, customerdetail.getCustomerEmail());
+		stmt.setString(4, customerdetail.getBirthDate());
+		
+		int insertCustomerDetail = stmt.executeUpdate();
+		return insertCustomerDetail;
+	
+	}
+*/
+	
+	// 고객 추가 insertCustomerAction.jsp 호출
+	public void insertCustomer(Customer customer, CustomerDetail customerdetail) throws Exception{
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		conn.setAutoCommit(false);
+		
+		String sql1 = "INSERT INTO customer(customer_id, customer_pw, createdate, updatedate, active) VALUES(?, PASSWORD(?), NOW(), NOW(), 'Y')";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
 		stmt1.setString(1, customer.getCustomerId());
 		stmt1.setString(2, customer.getCustomerPw());
 		System.out.println(stmt1 + " <-- stmt insertCustomer()");
-		row = stmt1.executeUpdate();
-		stmt1.close();
-		conn.close();
+		stmt1.executeUpdate();
 		
-		return row;
+		
+		ResultSet rs1 = stmt1.getGeneratedKeys();
+		int customerNo = 0; // 초기화된 값
+		if (rs1.next()) {
+			customerNo = rs1.getInt(1);
+		} else {
+			conn.rollback();
+			return;
+		}
+		
+		String sql2 = "INSERT INTO customer_detail(customer_no, customer_name, customer_phone, createdate, updatedate) VALUES(?,?,?, NOW(), NOW())";
+		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		stmt2.setInt(1, customerNo); // 위 SQL문에서 얻은 customer_no 설정.
+		stmt2.setString(2, customerdetail.getCustomerName());
+		stmt2.setString(3, customerdetail.getCustomerPhone());
+		System.out.println(stmt2 + "<-- stmt2 insert테스트");
+		
+		int row2 = stmt2.executeUpdate();
+		if (row2 !=1) {
+			conn.rollback();
+			return;
+		}		
+		conn.commit();
+		stmt1.close();
+		rs1.close();
+		stmt2.close();
 	}
+
 	
 	
 	// 고객 비밀번호 수정 updateCustomerPwAction.jsp 호출

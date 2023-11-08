@@ -43,17 +43,15 @@
         <hr>
     <div class="container" >      
 				  
-		  <form action="./noticeFormAction.jsp">
+		  <form action="./insertNoticeAction.jsp">
 			<h2>공지사항 추가</h2> 			
      		<div class="mb-3 mt-3">
-     		<label for="comment">작성자:</label>
-      		<input type="text" class="form-control w-25 p-1" name="managerNo">
      		<label for="comment">제목:</label>
       		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
       		<label for="comment">내용:</label>
       		<textarea class="form-control" rows="5" name="noticeContent"></textarea>
    		    </div>
-           <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
+           <button class="btn btn-outline-dark mt-auto " type="submit">작성완료</button>    		 
   		  </form>		  
 	</div>		     
 	<hr>	

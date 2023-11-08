@@ -89,7 +89,7 @@
 	                </div>
 	                <!-- 공지사항 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/notice.jsp">클릭!</a>
+	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/managerNotice.jsp">클릭!</a>
 	      			</div>
             	</div>
 			</div>

@@ -23,7 +23,7 @@
 
 	} else { 		
 		session.setAttribute("loginId", managerId);
-		response.sendRedirect(request.getContextPath()+"/managerMenu.jsp");
+		response.sendRedirect(request.getContextPath()+"/managerHome.jsp");
 		
 	}
 %>

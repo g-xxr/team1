@@ -51,13 +51,14 @@
         <div class="container">
         	<h1>공지사항</h1>
         	<hr>
+        	<form action="<%=request.getContextPath()%>/insertNoticeForm.jsp">
+        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right">공지사항 추가</button>
         	  <h2>목록</h2>      	     	    
         	  <table class="table table-hover">
         	  	<thead>
         		<tr>
         			<th class="col-sm-1">번호</th>    			
-        			<th class="col-sm-7">제목</th>
-        			<th class="col-sm-1">작성자</th>        			
+        			<th class="col-sm-7">제목</th>        			
         			<th class="col-sm-1">작성일</th>	
         		</tr>	
         		<thead>        	
@@ -74,6 +75,7 @@
         			}
         		%>        		
         	  </table>	         
+        	</form>
         	
         </div>
         <!-- Footer-->

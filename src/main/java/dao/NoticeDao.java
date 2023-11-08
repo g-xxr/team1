@@ -80,15 +80,23 @@ public class NoticeDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "UPDATE notice SET notice_title = ?, notice_content = ?, updatedate = now() WHERE notice_no = ?";
+		String sql = "INSERT INTO notice(manager_no, notice_title, notice_content, createdate, updatedate) VALUES(?,?,?,NOW(),NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, notice.getNoticeTitle());
 		stmt.setString(2, notice.getNoticeContent());
-		stmt.setInt(3, notice.getNoticeNo());
+		stmt.setInt(3, notice.getManagerNo());
 		row = stmt.executeUpdate();
+		
+		conn.close();
+		stmt.close();
 		return row;
 	}
 
+	
+
+	
+	
+	
 	//noticeDeleteAction.jsp
 	public int deleteNotice(int notice_no) throws Exception{
 		int row = 0;

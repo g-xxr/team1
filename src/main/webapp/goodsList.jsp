@@ -32,22 +32,32 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
         <title>상품 리스트</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
         <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet">
     </head>
 <body>
-	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/menu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
+	<%
+		if(session.getAttribute("customerId") == null){
+	%>		
+		<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
+		<jsp:include page="/menu.jsp"></jsp:include>
+	<%		
+		} else {
+	%>
+		<!-- 회원으로 접근할 때 보이는 메뉴바-->
+		<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<%
+		}
+	%>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-4">
@@ -140,7 +150,7 @@
 	
 	<!-- 맨 아래 배너 -->
 	<footer class="py-5 bg-dark">
-	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭 </p></div>
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭</p></div>
 	</footer>
 	   
 	<!-- Bootstrap core JS-->

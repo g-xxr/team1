@@ -1,30 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% 
-		if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
-			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-			return;
-		}
+	String customerId = (String)(session.getAttribute("loginId")); // customerId를 loginId로 형변환 필수
+	
+	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-       
-<title>홈페이지 팀플</title>
-	
-<!-- 파비콘 코드 -->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-	
-<!-- 부트스트랩 아이콘 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-	
-<!-- 코어 테마 css -->
-<link href="css/styles.css" rel="stylesheet">
-</head>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>홈페이지 팀플</title>
+		<!-- 파비콘 코드 -->
+		<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+		<!-- 부트스트랩 아이콘 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+		<!-- 코어 테마 css -->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->

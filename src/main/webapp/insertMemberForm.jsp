@@ -1,83 +1,89 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>회원 가입 선택</title>
-    <style>
-        body {
-            background-color: #f8f9fa;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .radio {
-            margin: 10px 0;
-        }
-
-        .form {
-            display: none;
-        }
-
-        .form .btn {
-            margin-top: 10px;
-        }
-    </style>
-</head>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>회원가입 페이지</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    
 <body>
-    <div class="container">
-        <h1>회원 가입 선택</h1>
-
-        <div class="radio">
-            <label>
-                <input type="radio" name="optradio" id="option1">고객 가입
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="optradio" id="option2">관리자 가입
-            </label>
-        </div>
-
-        <form id="form1" class="form" action="insertCustomerForm.jsp" method="post">
-            <!-- Form 1 fields and controls -->
-            <button type="submit" class="btn btn-primary btn-block">다음</button>
-        </form>
-
-        <form id="form2" class="form" action="insertManagerForm.jsp" method="post">
-            <!-- Form 2 fields and controls -->
-            <button type="submit" class="btn btn-danger btn-block">다음</button>
-        </form>
-
-        <script>
-            let option1 = document.getElementById("option1");
-            let option2 = document.getElementById("option2");
-            let form1 = document.getElementById("form1");
-            let form2 = document.getElementById("form2");
-
-            option1.addEventListener("click", () => {
-                form1.style.display = "block";
-                form2.style.display = "none";
-            });
-
-            option2.addEventListener("click", () => {
-                form1.style.display = "none";
-                form2.style.display = "block";
-            });
-        </script>
-    </div>
+	<!-- 메뉴 시작 (절대주소 적으세요)-->
+	<jsp:include page="/menu.jsp"></jsp:include>
+	<!-- 메뉴 끝 -->
+		
+	<!-- 헤드 배너 부분 -->
+	<header class="bg-dark py-5">
+	    <div class="container px-4 px-lg-5 my-5">
+	        <div class="text-center text-white">
+	            <h1 class="display-4 fw-bolder">📝회원가입 페이지📝</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">😃우리 샵의 가족이 되어주세요😃<br>❤️‍🔥완전 환영해요❤️‍🔥</p>
+	        </div>
+	    </div>
+	</header>
+	
+	<br>
+	<br>
+	
+	<div class="container text-center"><h1>회원 가입 선택</h1></div>
+    
+	<section>
+	<div class="container px-4 px-lg-5 mt-5">
+		<div class="row justify-content-center row-cols-1 row-cols-md-5 g-3">
+		
+			<!-- 매니저 상품관리 게시판 링크 -->
+			<div class="col mb-3">
+				<div class="card h-100">
+	                <!-- 상품 관리 페이지 제목 -->
+	                <div class="card-body p-4 text-center">
+	                <h3 class="fw-bolder">고객<br>회원가입</h3>
+	                </div>
+	                <!-- 상품 관리 페이지 링크 -->
+	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
+	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/insertCustomerForm.jsp">클릭!</a>
+	      			</div>
+            	</div>
+			</div>
+			
+			<!-- 매니저 회원정보관리 게시판 링크 -->
+			<div class="col mb-3">
+				<div class="card h-100">
+					<!-- 상품 관리 페이지 제목 -->
+	                <div class="card-body p-4 text-center">
+	                <h3 class="fw-bolder">매니저<br>회원가입</h3>
+	                </div>
+	                <!-- 상품 관리 페이지 링크 -->
+	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
+	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/insertManagerForm.jsp">클릭!</a>
+	      			</div>
+            	</div>
+			</div>
+		</div>
+	</div>
+	</section>
+	
+	<br>
+	<br>
+	<br>
+	
+	<!-- 맨 아래 배너 -->
+	<footer class="py-5 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭 </p></div>
+	</footer>
+	   
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	   
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>

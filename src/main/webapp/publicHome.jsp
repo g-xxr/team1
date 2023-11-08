@@ -55,8 +55,8 @@
 	                </div>
 	                <!-- Product actions-->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-	            	<a class="btn btn-outline-dark mt-auto" href="#">상세보기</a>
-	            	<a class="btn btn-outline-dark mt-auto" href="#">장바구니</a>
+	            	<a class="btn btn-outline-dark mt-auto" href="">상세보기</a>
+	            	<a class="btn btn-outline-dark mt-auto" href="">장바구니</a>
 	      			</div>
             	</div>
 			</div>

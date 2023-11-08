@@ -17,8 +17,8 @@
 	System.out.println(noticeNo + "<-- noticeOne.jsp noticeNo");
 
 	//model 호출 코드(cotroller code)
-	NoticeDao no = new NoticeDao();
-	ArrayList<HashMap<String, Object>> notice = no.noticeOne(noticeNo);
+	NoticeDao nd = new NoticeDao();
+	Notice no = nd.selectNoticeOne(noticeNo);
 %>
 
 <!DOCTYPE html>

@@ -12,8 +12,8 @@
 	int rowPerPage = 10;
 	int beginRow = (currentPage-1)*rowPerPage;
 	// model 호출 코드(cotroller code)
-	NoticeDao no = new NoticeDao();
-	ArrayList<Notice> list = no.selectNoticeList(beginRow, rowPerPage);							
+	NoticeDao nd = new NoticeDao();
+	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);							
 %>       
 <!DOCTYPE html>
 <html>
@@ -55,7 +55,7 @@
         <!-- 공지사항 -->
         <div class="container">
         	<h1>공지사항</h1>
-        	<hr>
+        	<br>
         	  <h2>목록</h2>      	     	    
         	  <table class="table table-hover">
         	  	<thead>
@@ -67,13 +67,15 @@
         		</tr>	
         		<thead>        	
         		<%
-        			for(Notice n : list){
+        			for(HashMap<String, Object> n : list){
         		%>
         			  <tr>
-        			  	<td><%=n.getNoticeNo()%></td>
-        			  	<td><%=n.getNoticeTitle()%></td>
-        			  	<td><%=n.getManagerNo()%></td>
-        			    <td><%=n.getCreatedate()%></td>			  
+        			  	<td><%=n.get("noticeNo")%></td>
+        			  	<td><%=n.get("managerNo")%></td>
+        			  	<td><%=n.get("noticeTitle")%></td>
+        			    <td><%=n.get("noticeContent")%></td>
+        			    <td><%=n.get("createdate")%></td>
+        			    <td><%=n.get("noticeContent")%></td>			  
         			  </tr>  
         		<%
         			}

@@ -12,8 +12,8 @@
 	int rowPerPage = 10;
 	int beginRow = (currentPage-1)*rowPerPage;
 	// model 호출 코드(cotroller code)
-	NoticeDao no = new NoticeDao();
-	ArrayList<Notice> list = no.selectNoticeList(beginRow, rowPerPage);							
+	NoticeDao nd = new NoticeDao();
+	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);							
 %>       
 <!DOCTYPE html>
 <html>
@@ -21,6 +21,11 @@
 <meta charset="UTF-8">
 
 <title>홈페이지 팀플</title>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -50,33 +55,35 @@
         <!-- 공지사항 -->
         <div class="container">
         	<h1>공지사항</h1>
-        	<hr>
-        	<form action="<%=request.getContextPath()%>/insertNoticeForm.jsp">
-        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right">공지사항 추가</button>
-        	  <h2>목록</h2>      	     	    
+        	<br>
+        	  <h2>목록</h2>
+        	  <form action="<%=request.getContextPath()%>/insertNoticeForm.jsp">
+        		<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right">공지사항 추가</button>      	     	    
         	  <table class="table table-hover">
         	  	<thead>
         		<tr>
         			<th class="col-sm-1">번호</th>    			
-        			<th class="col-sm-7">제목</th>        			
+        			<th class="col-sm-7">제목</th>
+        			<th class="col-sm-1">작성자</th>        			
         			<th class="col-sm-1">작성일</th>	
         		</tr>	
         		<thead>        	
         		<%
-        			for(Notice n : list){
+        			for(HashMap<String, Object> n : list){
         		%>
         			  <tr>
-        			  	<td><%=n.getNoticeNo()%></td>
-        			  	<td><%=n.getNoticeTitle()%></td>
-        			  	<td><%=n.getManagerNo()%></td>
-        			    <td><%=n.getCreatedate()%></td>			  
+        			  	<td><%=n.get("noticeNo")%></td>
+        			  	<td><%=n.get("managerNo")%></td>
+        			  	<td><%=n.get("noticeTitle")%></td>
+        			    <td><%=n.get("noticeContent")%></td>
+        			    <td><%=n.get("createdate")%></td>
+        			    <td><%=n.get("noticeContent")%></td>			  
         			  </tr>  
         		<%
         			}
         		%>        		
-        	  </table>	         
-        	</form>
-        	
+        	  </table>	
+        	  </form>
         </div>
         <!-- Footer-->
         <footer class="py-5 bg-dark">

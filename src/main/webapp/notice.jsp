@@ -21,6 +21,11 @@
 <meta charset="UTF-8">
 
 <title>홈페이지 팀플</title>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">

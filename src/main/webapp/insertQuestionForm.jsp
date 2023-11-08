@@ -4,7 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script>
+
+</script>
+
+
+
 <title>홈페이지 팀플</title>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -30,23 +41,33 @@
 	        </div>
 	    </div>
 	</header>
-        <hr>
-    <div class="container" >      
-				  
-		  <form action="./noticeFormAction.jsp">
-			<h2>글 작성</h2> 			
-     		<div class="mb-3 mt-3">
-     		<label for="comment">작성자:</label>
-      		<input type="text" class="form-control w-25 p-1" name="managerNo">
-     		<label for="comment">제목:</label>
-      		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
-      		<label for="comment">내용:</label>
-      		<textarea class="form-control" rows="5" name="noticeContent"></textarea>
-   		    </div>
-           <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
-  		  </form>		  
-	</div>		     
-	<hr>	
+        <br>
+    <div class="container mb-3 mt-3 " > 
+      <h2>문의사항 작성</h2>
+        <form  action="<%=request.getContextPath()%>/insertQuestionAction.jsp">	
+          <div>                             	
+	         <select style="width:100px "class="form-select">
+	              <option>구분</option>
+				  <option>상품문의</option>
+				  <option>계정관련</option>
+			 </select>  				
+		     <label for="comment">제목:</label>
+			 <input type="text" style="width:400px" class="form-control" name="questionTitle">
+		  	
+		  	<label for="comment">내용:</label>
+      		<textarea class="form-control" rows="5" name="questionContent"></textarea>
+          </div>
+          <br>
+          <div style="float:right">
+          <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>
+          </div>  
+        
+        
+        
+        </form>			  
+	</div>      
+	<br>	     
+	&nbsp;
 	 <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

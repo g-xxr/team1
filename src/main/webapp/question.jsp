@@ -13,13 +13,18 @@
 	int beginRow = (currentPage-1)*rowPerPage;
 	// model 호출 코드(cotroller code)
 	QuestionDao qd = new QuestionDao();
-	ArrayList<Question> list = qd.selectQuestionList(beginRow, rowPerPage);							
+	ArrayList<HashMap<String, Object>> list = qd.selectQuestion(beginRow, rowPerPage);				
 %>       
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>홈페이지 팀플</title>
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -45,33 +50,35 @@
 	        </div>
 	    </div>
 	</header>
+	<br>
         <!-- 공지사항 -->
         <div class="container">
-        	<h1>문의사항</h1>
-        	<hr>
-        	<form action="./questionForm.jsp">
-        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right;">글 작성</button>
-        	  <h2>목록</h2>      	     	    
+        	<h2>문의사항</h2>
+        	<br>
+        	<form action="./insertQuestionForm.jsp">
+        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right;">글 작성</button> 	    
         	  <table class="table table-hover">
         	  	<thead>
         		<tr>
-        			<th class="col-sm-1">번호</th>       		        			  			
+        			<th class="col-sm-1">번호</th> 
+        			<th class="col-sm-2">카테고리</th>      		        			  			
         			<th class="col-sm-7">제목</th>
         			<th class="col-sm-1">작성자</th>        			
         			<th class="col-sm-1">작성일</th>	
         		</tr>	
         		<thead>        	
         		<%
-        			for(Question q : list){
+        			for(HashMap<String, Object> q : list){
         		%>
         			  <tr>
-        			  	<td><%=q.getQuestionNo()%></td>
-        			  	<td><%=q.getCustomerNo()%></td>
-        			  	<td><%=q.getGoodsNo()%></td>
-        			  	<td><%=q.getQuestionTitle()%></td>
-        			  	<td><%=q.getQuestionContent()%></td>
-        			    <td><%=q.getCreatedate()%></td>
-        			    <td><%=q.getUpdatedate()%></td>			  
+        			  	<td><%=q.get("questionNo")%></td>
+        			  	<td><%=q.get("goodsNo")%></td>
+        			  	<td><%=q.get("customerNo")%></td>
+        			  	<td><%=q.get("questTitle")%></td>
+        			  	<td><%=q.get("questContent")%></td>
+        			  	<td><%=q.get("createdate")%></td>
+        			  	<td><%=q.get("updatedate")%></td>
+        			  			  
         			  </tr>  
         		<%
         			}

@@ -6,28 +6,28 @@
 
 <!-- 유정 -->
     <%
-    // 페이징 하기
-    // 현재 페이지
-	int currentPage = 1;
-    // 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
-	if(request.getParameter("currentPage") != null){
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
-    // 페이지 당 몇개의 항목을 나타내는지 (여기 페이지는 8개 항목)
-    int rowPerPage = 8;
-    
-    // GoodsDao 호출 코드
-    GoodsDao gd = new GoodsDao();
-    ArrayList<Goods> list = gd.goodsList(beginRow, rowPerPage);
-    
- 	// 마지막 페이지
-    int lastPage = totalRow / rowPerPage;
-    // 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
-    if(totalRow % rowPerPage != 0){
-		lastPage = lastPage +1;
+	    // 페이징 하기
+	    // 현재 페이지
+		int currentPage = 1;
+	    // 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
+		if(request.getParameter("currentPage") != null){
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-    // 시작 상품의 번호
-    int beginRow = (currentPage-1)*rowPerPage;	
+	    // 페이지 당 몇개의 항목을 나타내는지 (여기 페이지는 8개 항목)
+	    int rowPerPage = 8;
+	    
+	    // GoodsDao 호출 코드
+	    GoodsDao gd = new GoodsDao();
+	    int totalRow =gd.goodsList();
+	   	// 마지막 페이지
+	    int lastPage = totalRow / rowPerPage;
+	    // 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
+	    if(totalRow % rowPerPage != 0){
+			lastPage = lastPage +1;
+			}
+	    // 시작 상품의 번호
+	    int beginRow = (currentPage-1)*rowPerPage;
+	    ArrayList<Goods>list =gd.goodsList(beginRow, rowPerPage);
 	%>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,21 +71,13 @@
 	
 	<!-- 상품 섹션 -->
 		<%
-			int i = 1;
 			for(Goods g : list){
 		%>
-		
-		<%
-		if (i % 4 == 1) { // 한 행의 첫 번째 상품
-		%>
 		<div class="row gx-4 gx-lg-5">
-		<%
-		}
-		%>
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 상품 이미지 -->
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=gi.getFilename()%>" >
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=%>" >
 	                <!-- 상품 상세정보 -->
 	                <div class="card-body p-4">
 	                <div class="text-center">
@@ -102,28 +94,12 @@
 	      			</div>
             	</div>
 			</div>
-            <%
-				if(i%4==0){ // 한 행의 마지막 상품
-			%>
-			</div>
+		</div>
 			<%
-				} i=i+1;
-			%>
-			
-			<%
-			// 남은 열을 닫음
-			if (i % 4 != 1) {
-			for (int j = 0; j < 4 - (i % 4); j = j + 1) {
-			%>
-			<div class="col mb-5"></div>
-			<%
-				}
 			}
 			%>
-			}
-			
-			<br>
-			<br>
+		<br>
+		<br>
 			
 	<!-- 페이지네이션 -->
 	<div class="d-flex justify-content-center">

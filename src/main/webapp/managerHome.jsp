@@ -62,14 +62,14 @@
             	</div>
 			</div>
 			
-			<!-- 매니저 회원정보관리 게시판 링크 -->
+			<!-- 매니저 회원 주문·배송 관리 게시판 링크 -->
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 상품관리 홈 이미지 -->
 	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
 	                <!-- 상품 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
-	                <h3 class="fw-bolder">회원정보 관리</h3>
+	                <h3 class="fw-bolder">주문·배송<br>관리</h3>
 	                </div>
 	                <!-- 상품 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">

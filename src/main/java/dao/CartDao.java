@@ -1,14 +1,8 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import java.sql.*;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
-
 import vo.Cart;
 
 
@@ -34,14 +28,13 @@ public class CartDao {
 		 *  WHERE c.customer_no = ?
 		 */
 		
-		String sql = "SELECT g.goods_title goodsTitle, g.goods_price goodsPrice, c.quantity quantity, gi.filename filename FROM goods g INNER JOIN cart c ON g.goods_no = c.goods_no INNER JOIN goods_img gi ON gi.goods_no = g.goods_no WHERE c.customer_no = ?";
+		String sql = "SELECT g.goods_title goodsTitle, g.goods_price goodsPrice, c.cart_no cartNo, c.quantity quantity, gi.filename filename FROM goods g INNER JOIN cart c ON g.goods_no = c.goods_no INNER JOIN goods_img gi ON gi.goods_no = g.goods_no WHERE c.customer_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, customerNo);
 		ResultSet rs = stmt.executeQuery();
 		
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		while(rs.next()) {	// hashmap 사용해보기
-			
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("goodsTitle", rs.getString("goodsTitle"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
@@ -84,7 +77,7 @@ public class CartDao {
 	}
 	
 	// 이미 장바구니에 담긴 상품의 개수
-	public int cartQuantity(int goodsNo, String loginId) throws Exception {
+	public int cartQuantity(int customerNo) throws Exception {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
@@ -92,12 +85,11 @@ public class CartDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		
-		String sql = "SELECT COUNT(*) FROM cart WHERE goods_no = ? AND customer_no = (SELECT customer_no FROM customer WHERE customer_id = ?)";
+		String sql = "SELECT COUNT(*) FROM cart WHERE customer_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, goodsNo);
-		stmt.setString(2, loginId);
+		stmt.setInt(1, customerNo);
 		System.out.println(stmt + "<-- cartQuantity");
+		
 		ResultSet rs = stmt.executeQuery();
 		int cartQuantity = 0;
 		if(rs.next()) {
@@ -112,29 +104,29 @@ public class CartDao {
 	}
 	
 	// 장바구니 추가 controller
-	public int insertCart(Cart c) throws Exception{
-		int row =0;
+	public void insertCart(Cart c) throws Exception{
+		
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "INSERT INTO cart(cart_no, goods_no, customer_no, quantity, createdate, updatedate) VALUES(?,?,?,1,NOW(),NOW())";
+		String sql = "INSERT INTO cart(goods_no, customer_no, quantity, createdate, updatedate) VALUES(?,?,1,NOW(),NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 //		stmt.setInt(1, c.getCartNo()); 이건 auto increment라 개별 설정 x
 		stmt.setInt(1, c.getGoodsNo());
 		stmt.setInt(2, c.getCustomerNo());
-		stmt.setInt(3, c.getQuantity());
-		
 		System.out.println(stmt + "<-- insertCart");
-		row = stmt.executeUpdate();
 		
+		int row = stmt.executeUpdate();
+		if(row != 1) {
+			conn.rollback();
+			return;
+		}
 		// 자원 닫기
 		conn.close();
 		stmt.close();
-		
-		return row;
 	}
 	
 	
@@ -147,7 +139,7 @@ public class CartDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		for(int cartNo : cartsNo) { // 특정 고객에 대한 장바구니 번호들을 1개씩 가져 오기  [
+		for(int cartNo : cartsNo) { // 특정 고객에 대한 장바구니 번호들을 1개씩 가져 오기 
 			
 			String cartNoToString = Integer.toString(cartNo);
 			
@@ -161,14 +153,12 @@ public class CartDao {
 			stmt.executeUpdate();
 			
 			stmt.close();
-			
 		}
-		
 		conn.close();
 	}
 	
 	// 장바구니 삭제 controller
-	public int deleteCart(int cartNo) throws Exception {
+	public void deleteCart(int cartNo) throws Exception {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
@@ -179,13 +169,7 @@ public class CartDao {
 		String sql = "DELETE FROM cart WHERE cart_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, cartNo);
-		int row = stmt.executeUpdate();
-		
-		// 자원 닫기
-		conn.close();
-		stmt.close();
-		
-		return row;
+		stmt.executeUpdate();
 	}
 }
 

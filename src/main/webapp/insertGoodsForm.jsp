@@ -39,8 +39,8 @@
 	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-4">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">📑상품입력 페이지📑</h1>
-	        	<p class="lead fw-normal text-white mb-0">상품 리스트 추가/수정 후 관리자 채널에 공유 바랍니다</p>
+	            <h1 class="display-4 fw-bolder">📑상품추가 페이지📑</h1>
+	        	<p class="lead fw-normal text-white mb-0">상품 추가/수정 후 관리자 채널에 공유 바랍니다</p>
 	        </div>
 	    </div>
 	</header>

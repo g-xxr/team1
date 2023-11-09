@@ -57,9 +57,16 @@
 	        </div>
 	    </div>
 	</header>
+	
+	
+	<!-- 상품 리스트 테이블 -->
+	<div class="container mt-3">
+	<!-- 상품 추가 버튼 -->
+	<div style="text-align: right;">
+		<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/insertGoodsForm.jsp">새로운 상품 추가하기</a>
+	</div>
 	<br>
-	<!-- 상품 리스트 -->
-	<div class="container mt-3">  
+	<!-- 상품 목록 -->
 	<table class="table table-bordered table-hover" style="text-align:center; vertical-align: middle;">
 		<thead>
 			<tr>

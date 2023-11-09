@@ -5,8 +5,15 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>   
 <%
-	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+	String customerId = (String)(session.getAttribute("loginId")); 
+	System.out.println(customerId + "<--customerId");
+
+	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
 	
+	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
 	QuestionDao qd = new QuestionDao();
 	ArrayList<HashMap<String, Object>> list = qd.selectQuestionOne(questionNo);
 	
@@ -27,39 +34,39 @@
 	        </div>
 	    </div>
 	</header>
-        <!-- 공지사항 상세보기-->
+        <!-- 문의사항 상세보기-->
         <div class="container">
-        	<h1>공지사항 상세보기</h1>   	     	    
+        	<h1>문의사항 상세보기</h1>   	     	    
         	  <table class="table table-hover">    	
         		<%
-        			for(HashMap<String, Object> q : list){
+        			for(HashMap<String, Object> o : list){
         		%>        			
         			  <tr>
-        			  	<th>제목</th>
- 						<td><%=q.get("goodsNo")%></td> 						        			  				  
+        			  	<th>상품번호</th>
+ 						<td><%=o.get("goodsNo")%></td> 						        			  				  
         			  </tr>
         			  <tr>
         			  	<th>작성자</th>
- 						<td><%=q.get("customerNo") %></td>       			  				  
+ 						<td><%=o.get("customerNo") %></td>       			  				  
         			  </tr> 
         			  <tr>
         			  	<th>제목</th>
- 						<td><%=q.get("noticeTitle")%></td>       			  				  
+ 						<td><%=o.get("noticeTitle")%></td>       			  				  
         			  </tr> 
         			  <tr>
         			  	<th>내용</th>
- 						<td><%=q.get("noticeContent")%></td>       			  				  
+ 						<td><%=o.get("noticeContent")%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>작성일</th>
- 						<td><%=q.get("createdate")%></td>       			  				  
+ 						<td><%=o.get("createdate")%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>수정일</th>
- 						<td><%=q.get("updatedate")%></td>       			  				  
+ 						<td><%=o.get("updatedate")%></td>       			  				  
         			  </tr>    			
-        			  	 <a href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=q.get("noticeNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
-			             <a href="<%=request.getContextPath()%>/deleteNoticeAction.jsp?noticeNo=<%=q.get("noticeNo")%>" class="btn btn-outline-dark mt-auto">삭제</a> 
+        			  	 <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
+			             <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?QuestionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto">삭제</a> 
         		
         		<%
         			}

@@ -3,25 +3,22 @@
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>  
 <%	
-/*
-	//세션관리자만 들어올수있게
-	if(session.getAttribute("loginEmpId1") == null && session.getAttribute("loginEmpId2") == null){
-		response.sendRedirect(request.getContextPath()+"/notice.jsp");
-		return;
-	}
-*/	
-
-	String notice_title = request.getParameter("noticeTitle");
-	String notice_content = request.getParameter("noticeContent");
+	
+	int managerNo = Integer.parseInt(request.getParameter("managerNo"));
+	String noticeTitle = request.getParameter("noticeTitle");
+	String noticeContent = request.getParameter("noticeContent");
+	
+	System.out.println(request.getParameter("managerNo") + "<--managerNO");
 	
 	
 	NoticeDao no = new NoticeDao();
 	
 	
 	Notice notice = new Notice();
-	notice.setNoticeTitle(notice_title);
-	notice.setNoticeContent(notice_content);
-
+	
+	notice.setNoticeTitle(noticeTitle);
+	notice.setNoticeContent(noticeContent);
+	
 	
 	int row = no.insertNotice(notice);
 	if(row == 1) {

@@ -18,7 +18,7 @@
 
 	//model 호출 코드(cotroller code)
 	NoticeDao nd = new NoticeDao();
-	Notice no = nd.selectNoticeOne(noticeNo);
+	ArrayList<HashMap<String, Object>> noticeOne = nd.noticeOne(noticeNo);
 %>
 
 <!DOCTYPE html>
@@ -56,7 +56,7 @@
         	<h1>공지사항 상세보기</h1>   	     	    
         	  <table class="table table-hover">    	
         		<%
-        			for(HashMap<String, Object> o : notice){
+        			for(HashMap<String, Object> o : noticeOne){
         		%>        			
         			  <tr>
         			  	<th>제목</th>

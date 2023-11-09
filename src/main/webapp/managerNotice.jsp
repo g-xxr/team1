@@ -5,6 +5,8 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>      
 <%
+	
+
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));

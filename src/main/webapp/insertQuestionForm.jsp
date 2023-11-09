@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String customerId = (String)(session.getAttribute("loginId")); 
+	System.out.println(customerId + "<--customerId");
+	
+	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>

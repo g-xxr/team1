@@ -73,12 +73,12 @@
         			  	<th>수정일</th>
  						<td><%=o.get("updatedate")%></td>       			  				  
         			  </tr>    			
-      		  	 	  <tr>
+        			  <tr>
         			  	<label for="comment">답변:</label>
       					<textarea class="form-control" rows="5" name="qComment"></textarea>       			 
          			  </tr>	 
       		  	 	  <div style="float:right">
-			            <button class="btn btn-outline-dark mt-auto" type="submit">답변완료</button>         
+			          <button class="btn btn-outline-dark mt-auto" type="submit">답변완료</button>         
 			          </div>
         		<%
         			}

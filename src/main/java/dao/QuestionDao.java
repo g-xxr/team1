@@ -120,7 +120,7 @@ public class QuestionDao {
 	}
 	
 	//updateQuestionForm.jsp 문의사항 상세정보 수정
-	public int updateQuestion(int question_no) throws Exception{
+	public int updateQuestion(Question question) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
@@ -128,10 +128,12 @@ public class QuestionDao {
 		String dbpw = "java1234";		
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "UPDATE question SET ";
+		String sql = "UPDATE question SET question_title = ?, question_content = ? WHERE = question_no = ?";
 				
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, question_no);
+		stmt.setString(1, question.getQuestionTitle());
+		stmt.setString(2, question.getQuestionContent());
+		stmt.setInt(1, question.getQuestionNo());
 		System.out.println(stmt + " <-- stmt deleteQuestion()");
 		row = stmt.executeUpdate();
 		
@@ -141,7 +143,8 @@ public class QuestionDao {
 		return row;
 	}
 	
-	
+//------------------------------------------------------------------------
+	//qComment
 		
 		
 		

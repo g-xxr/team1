@@ -4,12 +4,11 @@
 <%@ page import ="vo.*" %>
 
 <%
-	
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	
 	// goodsOne 호출
-	//GoodsDao gd = new GoodsDao();
-	//Goods g = gd.goodsOne(goodsNo);
+	GoodsDao gd = new GoodsDao();
+	Goods g = gd.goodsOne(goodsNo);
 	
 	// goodsImg 호출 (사진 파일 가져와야 하기 때문에)
 	GoodsDao goodsDao = new GoodsDao();
@@ -49,32 +48,31 @@
 	<!-- 상품 상세 정보 페이지 -->
 	<section>
 		<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
 			 <div class="col mb-5">
-				<h4>상품 상세정보</h4>
-				<div class="card h-100">
-			    
+				<h3>상품 상세정보</h3>
+				<div class="card" style="width:500px">
 			    <!-- 상품 이미지 -->
 			    <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=filename%>">
-			    
 			    <!-- 상품 상세정보 -->
 			    <div class="card-body p-4">
+			    
 			    <div class="text-center">
-			   
 			    <!-- 상품 이름 -->
-			    <h5 class="fw-bolder">
-			    <div>상품명 : <input type="text" value="<%g.getGoodsTitle%>" readonly></div>
-			    </h5>
-			    
+			    <h3 class="fw-bolder"><%=g.getGoodsTitle()%></h3>
+			    <br>
 			    <!-- 상품 가격 -->
-			    <mark>💰 💰</mark>
+			    <h4><mark>💰<%=g.getGoodsPrice()%>원💰</mark></h4>
+			    <br>
+			    <!-- 상품 상세정보 -->
+			    <h4><%=g.getGoodsMemo()%></h4>
+			    </div>
 			    
 			    </div>
-			    </div>
-			    
 			    <!-- 상품 관련 액션 -->
 			    <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-				<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=goodsNo%>">장바구니 추가</a>
+				<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=goodsNo%>">장바구니 추가</a>
+				<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/goodsList.jsp">다른상품 보기</a>
 				</div>
 		    	</div>
 			</div>

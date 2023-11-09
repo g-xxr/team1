@@ -45,19 +45,8 @@
     </head>
 <body>
 
-	<%
-		if(session.getAttribute("customerId") == null){
-	%>		
-		<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
-		<jsp:include page="/menu.jsp"></jsp:include>
-	<%		
-		} else {
-	%>
-		<!-- 회원으로 접근할 때 보이는 메뉴바-->
-		<jsp:include page="/privateMenu.jsp"></jsp:include>
-	<%
-		}
-	%>
+	<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
+	<jsp:include page="/menu.jsp"></jsp:include>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-4">

@@ -79,7 +79,6 @@
 	        <th>삭제</th>
 	      	</tr>
 		</thead>
-	
 	<%
 		for(HashMap<String, Object> map : list){
 	%>
@@ -90,14 +89,14 @@
         	<td><mark><%=map.get("goodsPrice")%>원</mark></td>
         	<td><%=map.get("soldout")%></td>
         	<td><%=map.get("goodsMemo")%></td>
-        	<td><button type="button" class="btn btn-outline-info" onclick="location.href='<%=request.getContextPath()%>/updateGoodsForm.jsp'">💡수정💡</button></td>
-        	<td><button type="button" class="btn btn-outline-danger" onclick="location.href='<%=request.getContextPath()%>/deleteGoodsAction.jsp'">🗑️삭제🗑️</button></td>
+        	<td><a class="btn btn-outline-info" href="<%=request.getContextPath()%>/updateGoodsForm.jsp?goodsNo=<%=map.get("goodsNo")%>">💡수정💡</a></td>
+        	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteGoodsAction.jsp?goodsNo=<%=map.get("goodsNo")%>">🗑️삭제🗑️</a></td>
       		</tr>
     	</tbody>
     <%
        }
 	%>
-  	</table>
+	</table>
 	</div>
 
 	<br>	

@@ -229,6 +229,7 @@ public class CustomerDao {
 		String dbuser = "root";                             
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		conn.setAutoCommit(false);
 		
 		// customer_detail 수정
 		String sql = "UPDATE customer_detail SET customer_name = ?, customer_phone = ?, updatedate=NOW() WHERE customer_no=?";
@@ -237,8 +238,9 @@ public class CustomerDao {
 		stmt.setString(2, customerPhone);
 		stmt.setInt(3, customerNo);
 		
-		int row = stmt.executeUpdate();
-	}
+		int row1 = stmt.executeUpdate();
+	
+}
 
 	// 고객 상세정보 호출
 	public int updateCustomerOne2(String newName, String newPhone, int customerNo) throws Exception {

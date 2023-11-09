@@ -23,6 +23,8 @@
 
 	} else { 		
 		session.setAttribute("loginId", customerId);
+		int customerNo = 0;
+		session.setAttribute("customerNo", customerNo);
 		response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
 		
 	}

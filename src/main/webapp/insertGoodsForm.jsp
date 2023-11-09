@@ -37,18 +37,18 @@
 		
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-1">
-	    <div class="container px-4 px-lg-5 my-5">
+	    <div class="container px-4 px-lg-5 my-4">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">📑상품입력 페이지📑</h1>
+	        	<p class="lead fw-normal text-white mb-0">상품 리스트 추가/수정 후 관리자 채널에 공유 바랍니다</p>
 	        </div>
 	    </div>
 	</header>
 	<br>
 	<!-- 상품 입력 양식 폼 -->
-	<div style="border:1px solid gray" class="container" >
-	<br>
 	
-	<h3>상품 입력하기</h3>
+	<div class="container">	
+	<h3>상품 업로드</h3>
 	<form  method="post" enctype="multipart/form-data"
 		   action="<%=request.getContextPath()%>/insertGoodsAction.jsp">
 		

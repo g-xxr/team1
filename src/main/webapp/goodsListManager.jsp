@@ -52,7 +52,7 @@
 	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-4">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">상품 리스트(추가/수정)</h1>
+	            <h1 class="display-4 fw-bolder">상품 리스트(추가/수정/삭제)</h1>
 	            <p class="lead fw-normal text-white mb-0">상품 리스트 추가/수정 후 관리자 채널에 공유 바랍니다</p>
 	        </div>
 	    </div>
@@ -60,7 +60,7 @@
 	<br>
 	<!-- 상품 리스트 -->
 	<div class="container mt-3">  
-	<table class="table table-bordered table-hover" style="text-align:center;">
+	<table class="table table-bordered table-hover" style="text-align:center; vertical-align: middle;">
 		<thead>
 			<tr>
 	        <th>상품 사진</th>
@@ -80,11 +80,11 @@
      		<tr>
         	<td><img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;"></td>
         	<td><%=map.get("goodsTitle")%></td>
-        	<td><mark>💰<%=map.get("goodsPrice")%>원💰</mark></td>
-        	<td>Y/S</td>
-        	<td><%=map.get("goodsMemo") %></td>
-        	<td>수정버튼</td>
-        	<td>삭제버튼</td>
+        	<td><mark><%=map.get("goodsPrice")%>원</mark></td>
+        	<td><%=map.get("soldout")%></td>
+        	<td><%=map.get("goodsMemo")%></td>
+        	<td><button type="button" class="btn btn-outline-info" onclick="location.href='<%=request.getContextPath()%>/updateGoodsForm.jsp'">💡수정💡</button></td>
+        	<td><button type="button" class="btn btn-outline-danger" onclick="location.href='<%=request.getContextPath()%>/deleteGoodsAction.jsp'">🗑️삭제🗑️</button></td>
       		</tr>
     	</tbody>
     <%

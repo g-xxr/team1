@@ -38,7 +38,7 @@
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<jsp:include page="/menu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
@@ -57,7 +57,7 @@
         	<br>
         	<form action="./insertQuestionForm.jsp">
         	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right;">글 작성</button> 	    
-        	  <table class="table table-hover">
+        	  <table class="table table-hover" style="text-align:center;">
         	  	<thead>
         		<tr>
         			<th class="col-sm-1">번호</th> 

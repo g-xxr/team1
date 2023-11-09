@@ -97,6 +97,7 @@ public class NoticeDao {
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
 		String sql = "DELETE FROM notice WHERE notice_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, notice_no);

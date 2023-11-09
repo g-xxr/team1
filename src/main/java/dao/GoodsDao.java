@@ -283,6 +283,7 @@ public class GoodsDao {
 		String sql3= "DELETE FROM cart WHERE goods_no = ?";
 		PreparedStatement stmt3 = conn.prepareStatement(sql3);
 		stmt3.setInt(1, goodsNo);
+		// int row2 = stmt3.executeUpdate();
 		stmt3.executeUpdate();
 		// 카트는 삭제되는 행의 값이 없을 수도 있으므로 rollback 처리를 하지 않는다.
 		

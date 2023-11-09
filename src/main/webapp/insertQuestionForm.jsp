@@ -4,12 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script>
-
-</script>
-
-
-
 <title>홈페이지 팀플</title>
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +35,7 @@
 	        </div>
 	    </div>
 	</header>
-        <br>
+        
     <div class="container mb-3 mt-3 " > 
       <h2>문의사항 작성</h2>
         <form  action="<%=request.getContextPath()%>/insertQuestionAction.jsp">	
@@ -59,16 +53,13 @@
           </div>
           <br>
           <div style="float:right">
-          <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>
-          </div>  
-        
-        
-        
+          <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>         
+          </div>         
         </form>			  
 	</div>      
-	<br>	     
-	&nbsp;
+	  
 	 <!-- Footer-->
+	 <br>   
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>

@@ -9,27 +9,16 @@
 	<!-- 메뉴 끝 -->
 
 <%
-
-		int customerNo = 0;
-/*
 		if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 			return;
-		} else {
-			customerNo = (Integer) session.getAttribute("customerNo");
-		}
-*/		
+		} 
 
-		if(session.getAttribute("loginId") == null) { // 로그인이 안되어있으면 login.jsp로 보냄
-			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-			return;
-		}
-			String customerId = (String)(session.getAttribute("loginId"));
-			
-		System.out.println(customerNo+ "<--customerId");
+		String customerId = (String)(session.getAttribute("loginId"));	
+		System.out.println(customerId+ "<--customerId");
 	
 		CustomerDao customerDao = new CustomerDao();
-		ArrayList<HashMap<String, Object>> list = customerDao.customerOne(customerNo);
+		ArrayList<HashMap<String, Object>> list = customerDao.customerList(customerId);
 		
 %>
 <!DOCTYPE html>
@@ -74,6 +63,8 @@
 			<% 
 			}	
 			%>
+	<a href="<%=request.getContextPath()%>/updateCustomerOne.jsp?" class="btn btn-outline-success">회원정보 수정</a>
+	&nbsp;
 	<a href="<%=request.getContextPath()%>/updateCustomerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-success">회원탈퇴</a> <!-- 비밀번호 입력 -->

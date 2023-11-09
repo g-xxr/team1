@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import= "java.sql.*" %>
 <%@ page import = "vo.*" %>
-<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "dao.*" %>
+<%@ page import = "java.util.*" %>
 
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
 	<jsp:include page="/managerMenu.jsp"></jsp:include>
@@ -16,32 +17,8 @@
 		String managerId = (String)(session.getAttribute("loginId")); 
 		System.out.println(managerId + "<--managerId");
 		
-		Class.forName("org.mariadb.jdbc.Driver");  
-		System.out.println("드라이브 로딩성공");
-		String url = "jdbc:mariadb://localhost:3306/mall";  
-		String dbuser = "root";                             
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		String sql = "SELECT manager_id managerId, manager_pw managerPw, manager_name managerName, createdate, updatedate FROM manager WHERE manager_id =?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, managerId);
-		System.out.print(stmt + "<--stmt");
-		ResultSet rs = stmt.executeQuery();
-		
-		ArrayList<Manager> list = new ArrayList<>();
-		Manager manager = new Manager();
-		if(rs.next()){
-			manager.setManagerId(rs.getString("managerId"));
-			manager.setManagerPw(rs.getString("managerPw"));
-			manager.setManagerName(rs.getString("managerName"));
-			manager.setCreatedate(rs.getString("createdate"));
-			manager.setUpdatedate(rs.getString("updatedate"));
-		}
-		
-		rs.close();
-		stmt.close();
-		conn.close();
+		ManagerDao managerDao = new ManagerDao();
+		HashMap<String,Object> manager = managerDao.getManagerData(managerId);
 		
 %>
 <!DOCTYPE html>
@@ -59,19 +36,19 @@
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
 				<th>매니저 ID</th>
-				<td><%=manager.getManagerId()%></td>
+				<td><%=manager.get("managerId")%></td>
 			</tr>
 			<tr>
 				<th>매니저명</th>
-				<td><%=manager.getManagerName()%></td>
+				<td><%=manager.get("managerName")%></td>
 			</tr>
 			<tr>
 				<th>생성일자</th>
-				<td><%=manager.getCreatedate()%></td>
+				<td><%=manager.get("createdate")%></td>
 			</tr>
 			<tr>
 				<th>변경일자</th>
-				<td><%=manager.getUpdatedate()%></td>
+				<td><%=manager.get("updatedate")%></td>
 			</tr>
 		</table>
 	</form>

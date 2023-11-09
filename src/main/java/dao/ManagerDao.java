@@ -1,6 +1,9 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import vo.*;
 
 public class ManagerDao {
@@ -34,6 +37,36 @@ public class ManagerDao {
 		rs.close();
 		return row;
 		
+	}
+	
+	// 관리자 상세정보  managerOne.jsp 호출 HashMap
+	public HashMap<String, Object> getManagerData(String managerId) throws Exception{
+		Class.forName("org.mariadb.jdbc.Driver");  
+		System.out.println("드라이브 로딩성공");
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                             
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		String sql =  "SELECT manager_id managerId, manager_pw managerPw, manager_name managerName, createdate, updatedate FROM manager WHERE manager_id =?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, managerId);
+		ResultSet rs = stmt.executeQuery();
+			
+		HashMap<String, Object> m = new HashMap<>();
+		if (rs.next()) {
+		m.put("managerId", rs.getString("managerId"));
+        m.put("managerPw", rs.getString("managerPw"));
+        m.put("managerName", rs.getString("managerName"));
+        m.put("createdate", rs.getString("createdate"));
+        m.put("updatedate", rs.getString("updatedate"));
+		}
+		
+		rs.close();
+		stmt.close();
+		conn.close();
+		
+		return m;
 	}
 	
 	

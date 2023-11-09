@@ -17,25 +17,34 @@ public class CustomerDao {
 	
 	
 	// 로그인 (ID, PW) 일치하는지 확인
-	public ResultSet customerLogin(Customer customer) throws Exception{
-
+	public int ckIdPw(String customerId, String customerPw) throws Exception{
+		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");  
 		String url = "jdbc:mariadb://localhost:3306/mall";  
 		String dbuser = "root";                             
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT customer_no customerNo FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
+		String sql = "SELECT COUNT(*) FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customer.getCustomerId());
-		stmt.setString(2, customer.getCustomerPw());
+		stmt.setString(1, customerId);
+		stmt.setString(2, customerPw);
 		ResultSet rs = stmt.executeQuery();
 		
+		if(rs.next()) {
+			row = rs.getInt(1);
+		if(row>0) {
+			System.out.println("로그인 성공");
+
+		} else {
+			System.out.println("로그인 실패");
+		}
+		}
 		stmt.close();
 		conn.close();
 		rs.close();
+		return row;
 		
-		return rs;
 	}
 	
 /*
@@ -104,8 +113,6 @@ public class CustomerDao {
 		rs1.close();
 		stmt2.close();
 	}
-
-	
 	
 	// 고객 비밀번호 수정 updateCustomerPwAction.jsp 호출
 	public int updateCustomerPw(Customer customer) throws Exception {
@@ -129,7 +136,6 @@ public class CustomerDao {
 		conn.close();
 
 		return row;
-
 	}
 	
 	// 고객 회원정보 삭제 deleteCustomerAction.jsp
@@ -148,14 +154,13 @@ public class CustomerDao {
 		int row = stmt.executeUpdate();
 		stmt.close();
 		conn.close();
-
 		
 		return row;
 	}
-
-
+	
+	
 	// 고객 상세정보 customerOne.jsp
-	public ArrayList<HashMap<String, Object>> customerList() throws Exception{
+	public ArrayList<HashMap<String, Object>> customerList(String customerId) throws Exception{
 
 		Class.forName("org.mariadb.jdbc.Driver");  
 		System.out.println("드라이브 로딩성공");
@@ -168,12 +173,11 @@ public class CustomerDao {
 		SELECT customer_id customerId, customer_pw customerPw, createdate, updatedate 
 		FROM customer c inner join customer_detail cd
 		ON c.customer_no = cd.customer_no
-		
 		*/
 		
-		
-		String sql = "SELECT c.customer_no customerNo, c.customer_id customerId, c.customer_pw customerPw, c.createdate, c.updatedate, cd.customer_name customerName, cd.customer_phone customerPhone FROM customer c inner join customer_detail cd ON c.customer_no = cd.customer_no";
+		String sql = "SELECT c.customer_no customerNo, c.customer_id customerId, c.customer_pw customerPw, c.createdate, c.updatedate, cd.customer_name customerName, cd.customer_phone customerPhone FROM customer c inner join customer_detail cd ON c.customer_no = cd.customer_no WHERE c.customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customerId);
 		System.out.print(stmt + "<--stmt");
 		ResultSet rs = stmt.executeQuery();
 			
@@ -201,42 +205,7 @@ public class CustomerDao {
 		
 	}
 	
-	public ArrayList<HashMap<String,Object>> customerOne(int customerNo) throws Exception {
-		
-		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
-		String dbuser = "root";
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		/*
-		 * SELECT c.customer_id customerId, cd.customer_name customerName, cd.customer_phone customerPhone, ca.address address 
-		 * FROM customer c INNER JOIN customer_detail cd 
-		 * ON c.customer_no = cd.customer_no WHERE c.customer_no = ?
-		 * */
-		String sql = "SELECT c.customer_id customerId, cd.customer_name customerName, cd.customer_phone customerPhone FROM customer c INNER JOIN customer_detail cd ON c.customer_no = cd.customer_no WHERE c.customer_no = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, customerNo);
-		ResultSet rs = stmt.executeQuery();
 	
-		
-		ArrayList<HashMap<String,Object>> list = new ArrayList<>();
-		if(rs.next()) {
-			
-			HashMap<String, Object> map = new HashMap<>();
-			
-			map.put("customerId",rs.getString("customerId"));
-			map.put("customerName", rs.getString("customerName"));
-			map.put("customerPhone", rs.getString("customerPhone"));
-			map.put("address", rs.getString("address"));
-			
-			list.add(map);
-		}
-	
-		return list;
-	
-	
-}
 
 	public void updateCustomerOne(int customerNo, String customerName, String customerPhone) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");  
@@ -255,52 +224,36 @@ public class CustomerDao {
 		int row = stmt.executeUpdate();
 	}
 
+	// 고객 상세정보 호출
+	public int updateCustomerOne2(String newName, String newPhone, int customerNo) throws Exception {
+		int row = 0;
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		   
+	// 이름과 전화번호 업데이트 쿼리
+		String sql = "UPDATE customer_detail SET customer_name = ?, customer_phone = ?, updatedate=NOW() WHERE customer_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, newName); 
+		stmt.setString(2, newPhone);
+		stmt.setInt(3, customerNo);	
+		System.out.println(stmt + "<-- stmt");
+			
+		row = stmt.executeUpdate();
+		stmt.close();
+		conn.close();
 
+		return row;
+
+	}
 
 }
 
 
-	/*
-	// DB에 등록된 회원정보 일치하는지 확인 후 로그인
-	public int customerLoginAction(Customer customer) throws Exception{
-		Class.forName("org.mariadb.jdbc.Driver");  
-		String url = "jdbc:mariadb://localhost:3306/mall";  
-		String dbuser = "root";                             
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		String sql = "SELECT customer_id customerId FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customer.getCustomerId());
-		stmt.setString(2, customer.getCustomerPw());
-		
-		ResultSet rs = stmt.executeQuery();
-		return rs;
-	
-	}
-	*/
-	
 /*
 
-	
-	public int login(Customer id) throws Exception{
-		int row;
-		Class.forName("org.mariadb.jdbc.Driver");
-		   String url = "jdbc:mariadb://localhost:3306/mall";
-		   String dbuser = "root";
-		   String dbpw = "java1234";
-		   Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		   
-		   String sql = "SELECT customer_id customerId FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
-		   PreparedStatement stmt = conn.prepareStatement(sql);
-		   stmt.setString(1, id.getCustomerId());
-		   stmt.setString(2, id.getCustomerPw());
-		   ResultSet rs = stmt.executeQuery();
-	
-		   return row;
-		}
-	
-	}
 	
 	/*
 	// 본인 정보 조회

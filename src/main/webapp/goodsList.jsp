@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
-<%@ page import = "vo.*" %>
 <%@ page import = "dao.*" %>
 
 <!-- 유정 -->
@@ -18,7 +17,7 @@
 	    
 	    // GoodsDao 호출 코드
 	    GoodsDao gd = new GoodsDao();
-	    int totalRow =gd.goodsList();
+	    int totalRow =gd.goodsListPaging();
 	   	// 마지막 페이지
 	    int lastPage = totalRow / rowPerPage;
 	    // 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
@@ -27,7 +26,8 @@
 			}
 	    // 시작 상품의 번호
 	    int beginRow = (currentPage-1)*rowPerPage;
-	    ArrayList<Goods>list =gd.goodsList(beginRow, rowPerPage);
+	    
+	    ArrayList<HashMap<String,Object>>list =gd.goodsList(beginRow, rowPerPage);
 	%>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +45,7 @@
         <link href="css/styles.css" rel="stylesheet">
     </head>
 <body>
+
 	<%
 		if(session.getAttribute("customerId") == null){
 	%>		
@@ -69,36 +70,40 @@
 	    </div>
 	</header>
 	
-	<!-- 상품 섹션 -->
-		<%
-			for(Goods g : list){
-		%>
-		<div class="row gx-4 gx-lg-5">
-			<div class="col mb-5">
-				<div class="card h-100">
+	<!-- 상품 섹션(goodsList) -->
+	<section>
+		 <div class="container px-4 px-lg-5 mt-5">
+		 <%
+		 	for(HashMap<String, Object> map : list){
+		 %>
+			 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				 <div class="col mb-5">
+					<div class="card h-100">
 	                <!-- 상품 이미지 -->
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=%>" >
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>">
 	                <!-- 상품 상세정보 -->
 	                <div class="card-body p-4">
 	                <div class="text-center">
 	                <!-- 상품 이름 -->
-	                <h5 class="fw-bolder"><%=g.getGoodsTitle()%></h5>
+	                <h5 class="fw-bolder"><%=map.get("goodsTitle")%></h5>
 	                <!-- 상품 가격 -->
-	                <mark>💰<%=g.getGoodsPrice()%>원💰</mark>
+	                <mark>💰<%=map.get("goodsPrice")%>원💰</mark>
 	                </div>
 	                </div>
 	                <!-- 상품 관련 액션 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/goodsOne.jsp?goodsNo=<%=g.getGoodsNo()%>">상세보기</a>
-	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=g.getGoodsNo()%>">장바구니</a>
+	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/goodsOne.jsp?goodsNo=<%=map.get("goodsNo")%>">상세보기</a>
+	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=map.get("goodsNo")%>">장바구니</a>
 	      			</div>
-            	</div>
+            		</div>
+				</div>
 			</div>
+		<%
+		 }
+		%>
 		</div>
-			<%
-			}
-			%>
-		<br>
+	</section>
+	
 		<br>
 			
 	<!-- 페이지네이션 -->
@@ -122,8 +127,8 @@
 		</div>
 	</div>
 	
-	
-	
+	<br>
+	<br>
 	<!-- 맨 아래 배너 -->
 	<footer class="py-5 bg-dark">
 	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭</p></div>

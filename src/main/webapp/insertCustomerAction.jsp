@@ -10,18 +10,21 @@
 	String customerPw = request.getParameter("customerPw");	
 	String customerName = request.getParameter("customerName");
 	String customerPhone = request.getParameter("customerPhone");
+	String customerAddress = request.getParameter("customerAddress");
 
 	CustomerDao customerDao = new CustomerDao();
 
 	Customer customer = new Customer();
 	CustomerDetail customerdetail = new CustomerDetail();
-
+	CustomerAddr customeraddr = new CustomerAddr();
+	
 	customer.setCustomerId(customerId);
 	customer.setCustomerPw(customerPw);	
 	customerdetail.setCustomerName(customerName);
 	customerdetail.setCustomerPhone(customerPhone);
+	customeraddr.setAddress(customerAddress);
 	
-	customerDao.insertCustomer(customer, customerdetail);
+	customerDao.insertCustomer(customer, customerdetail, customeraddr);
 
 	response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
 	/*

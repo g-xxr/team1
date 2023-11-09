@@ -34,26 +34,25 @@
                         <label for="managerPw">비밀번호</label>
                         <input type="password" class="form-control" id="managerPw" name="managerPw" required placeholder="비밀번호를 입력하세요.">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="managerName">이름</label>
                         <input type="text" class="form-control" id="managerName" name="managerName" required placeholder="이름을 입력하세요.">
                     </div>
                     <!--  
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="managerConfirmPw">관리자 인증번호</label>
                         <input type="text" class="form-control" id="managerConfirmPw" name="managerConfirmPw" placeholder="관리자 인증번호를 입력하세요.">
                     </div>
                     -->
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">가입하기</button>
+                    <div class="form-group d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary btn-lg">가입하기</button>
+                        <a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-secondary btn-lg">이전</a>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 	<script>
-	
-	
 	</script>
 
 </body>

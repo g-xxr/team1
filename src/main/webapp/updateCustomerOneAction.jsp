@@ -10,6 +10,7 @@
 
 	int customerNo = 0;
 	String customerId = (String)session.getAttribute("loginId");
+	System.out.println(customerNo + "<--customerNo");
 	System.out.println(customerId + "<--customerId");
 
     String newName = request.getParameter("newName");

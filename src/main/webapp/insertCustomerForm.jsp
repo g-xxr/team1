@@ -3,22 +3,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<style>
-    body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -42,15 +41,21 @@
                         <label for="customerPhone">전화번호</label>
                         <input type="tel" class="form-control" id="customerPhone" name="customerPhone" required placeholder="전화번호를 입력하세요.">
                     </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">가입하기</button>
+                     <div class="form-group">
+                        <label for="customerAddress">주소</label>
+                        <input type="text" class="form-control" id="customerAddress" name="customerAddress" required placeholder="주소를 입력하세요.">
                     </div>
-                </div>
-            </div>
-        </form>
-    </div>
-	<script>
-	</script>
-
+                     <div class="form-group d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary btn-lg">가입하기</button>   
+                                <a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-secondary btn-lg">이전</a>
+                    </div>
+                 </div>
+               </div>
+             </div>
+        
+       </form>
+    
+    <script>
+    </script>
 </body>
 </html>

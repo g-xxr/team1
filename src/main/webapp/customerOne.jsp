@@ -51,6 +51,10 @@
 				<td><%=map.get("customerPhone")%></td>
 			</tr>
 			<tr>
+				<th>주소</th>
+				<td><%=map.get("customerAddress")%></td>
+			</tr>
+			<tr>
 				<th>생성일</th>
 				<td><%=map.get("createdate")%></td>
 			</tr>
@@ -67,9 +71,8 @@
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/updateCustomerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;
-	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-success">회원탈퇴</a> <!-- 비밀번호 입력 -->
+	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-danger">회원탈퇴</a> <!-- 비밀번호 입력 -->
 	&nbsp;
-	<a href="<%=request.getContextPath()%>//customerLogoutAction.jsp" class="btn btn-outline-success">로그아웃</a>
 </div>
 </body>
 </html>

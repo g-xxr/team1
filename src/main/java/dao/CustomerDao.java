@@ -71,7 +71,7 @@ public class CustomerDao {
 */
 	
 	// 고객 추가 insertCustomerAction.jsp 호출
-	public void insertCustomer(Customer customer, CustomerDetail customerdetail) throws Exception{
+	public void insertCustomer(Customer customer, CustomerDetail customerdetail, CustomerAddr customeraddr) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
@@ -107,11 +107,26 @@ public class CustomerDao {
 		if (row2 !=1) {
 			conn.rollback();
 			return;
-		}		
+		}
+		
+		String sql3 = "INSERT INTO customer_addr(customer_no, address, createdate, updatedate) VALUES(?,?,NOW(),NOW())";
+		PreparedStatement stmt3 = conn.prepareStatement(sql3);
+		stmt3.setInt(1, customerNo); // 위 SQL문에서 얻은 customer_no 설정.
+		stmt3.setString(2, customeraddr.getAddress());
+		System.out.println(stmt3 + "<-- stmt3 insert테스트");
+		
+		int row3 = stmt3.executeUpdate();
+		if (row3 != 1) {
+			conn.rollback();
+			return;
+		}
+		
+		
 		conn.commit();
 		stmt1.close();
 		rs1.close();
 		stmt2.close();
+		stmt3.close();
 	}
 	
 	// 고객 비밀번호 수정 updateCustomerPwAction.jsp 호출
@@ -172,10 +187,10 @@ public class CustomerDao {
 		/*
 		SELECT customer_id customerId, customer_pw customerPw, createdate, updatedate 
 		FROM customer c inner join customer_detail cd
-		ON c.customer_no = cd.customer_no
+		ON c.customer_no = cd.customer_no inner join customer_addr ca on c.customer_no = ca.customer_no
 		*/
 		
-		String sql = "SELECT c.customer_no customerNo, c.customer_id customerId, c.customer_pw customerPw, c.createdate, c.updatedate, cd.customer_name customerName, cd.customer_phone customerPhone FROM customer c inner join customer_detail cd ON c.customer_no = cd.customer_no WHERE c.customer_id = ?";
+		String sql = "SELECT c.customer_no customerNo, c.customer_id customerId, c.customer_pw customerPw, c.createdate, c.updatedate, cd.customer_name customerName, cd.customer_phone customerPhone, ca.address customerAddress FROM customer c inner join customer_detail cd ON c.customer_no = cd.customer_no inner join customer_addr ca on c.customer_no = ca.customer_no WHERE c.customer_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		System.out.print(stmt + "<--stmt");
@@ -191,6 +206,7 @@ public class CustomerDao {
 			c.put("customerPw", rs.getString("customerPw"));
 			c.put("customerName", rs.getString("customerName"));
 			c.put("customerPhone", rs.getString("customerPhone"));
+			c.put("customerAddress", rs.getString("customerAddress"));
 			c.put("createdate", rs.getString("createdate"));
 			c.put("updatedate", rs.getString("updatedate"));
 			

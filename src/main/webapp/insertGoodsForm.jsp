@@ -49,7 +49,8 @@
 	<br>
 	
 	<h3>상품 입력하기</h3>
-	<form action="<%=request.getContextPath()%>/insertGoodsAction.jsp">
+	<form  method="post" enctype="multipart/form-data"
+		   action="<%=request.getContextPath()%>/insertGoodsAction.jsp">
 		
 		<div class="mb-4 mt-4">
     		<label for="goodsTitle" class="form-label"><mark>상품 이름</mark></label>

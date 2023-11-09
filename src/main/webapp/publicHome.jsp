@@ -36,32 +36,9 @@
 
 	<!-- 홈페이지 맨 앞 부분 상품 정렬 (productList 알고리즘 쓰기) -->
 	<section>
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- 베스트 상품 -->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">🏅</div>
-	                <!-- 상품 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-	                <!-- 상품 상세정보 -->
-	                <div class="card-body p-4">
-	                <div class="text-center">
-	                <!-- 상품 이름 -->
-	                <h5 class="fw-bolder">테스트 상품</h5>
-	                <!-- 상품 가격 -->
-	                💰59,000원💰
-	                </div>
-	                </div>
-	                <!-- Product actions-->
-	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-	            	<a class="btn btn-outline-dark mt-auto" href="">상세보기</a>
-	            	<a class="btn btn-outline-dark mt-auto" href="">장바구니</a>
-	      			</div>
-            	</div>
-			</div>
+		<div>
+		<img src=/upload/mang.png>
 		</div>
-	</div>
 	</section>
 
 

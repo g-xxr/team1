@@ -3,7 +3,6 @@ package dao;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
-
 import vo.Goods;
 
 /*
@@ -73,6 +72,7 @@ public class GoodsDao {
 	}
 	
 	// goodsOne 호출 controller
+	// hashmap 대신 get set
 	public Goods goodsOne(int goodsNo) throws Exception{
 		
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -84,7 +84,7 @@ public class GoodsDao {
 		/* SQL goodsOne 쿼리문
 		 * SELECT goods_no, goods_title, goods_price, soldout, goods_memo, createdate, updatedate FROM goods WHERE goods_no =?
 		 */
-		String sql = "SELECT goods_title goodsTitle, goods_price goodsPrice, soldout, goods_memo goodsMemo, createdate, updatedate FROM goods WHERE goods_no =?";
+		String sql = "SELECT goods_no goodsNo, goods_title goodsTitle, goods_price goodsPrice, soldout, goods_memo goodsMemo, createdate, updatedate FROM goods WHERE goods_no =?";
 		PreparedStatement stmt = conn.prepareStatement(sql);	
 		stmt.setInt(1, goodsNo);
 		System.out.println(stmt + "<-- goodsOne");

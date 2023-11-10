@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
 <%@ page import = "java.util.*" %>
-<%@ page import = "vo.*" %>
 <%@ page import = "dao.*" %>
 
 <%
@@ -68,7 +67,7 @@
   		</div>
   		
   		<div class="mb-4 mt-4">
-  			<mark>상품 사진 입력</mark>
+  			<mark>상품 사진 입력 (사진 필수로 등록해주세요)</mark>
   			<br>
     		<input type="file" name="goodsImg">
   		</div>
@@ -77,5 +76,16 @@
   		<button type="submit" class="btn btn-primary">상품 등록하기</button>
 	</form>
 	</div>
+	
+	<br>
+    <br>
+	<!-- 맨 아래 배너 -->
+	<footer class="py-3 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭</p></div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>

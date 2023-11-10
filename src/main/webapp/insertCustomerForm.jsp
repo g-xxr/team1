@@ -49,13 +49,13 @@
                                 <button type="submit" class="btn btn-primary btn-lg">가입하기</button>   
                                 <a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-secondary btn-lg">이전</a>
                     </div>
-                 </div>
-               </div>
-             </div>
-        
-       </form>
+                </div>
+            </div>
+         </form>
+    </div>
     
     <script>
     </script>
+    
 </body>
 </html>

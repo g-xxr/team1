@@ -46,39 +46,66 @@
 	</header>
 	
 	<!-- 상품 상세 정보 페이지 -->
-	<section>
-		<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
-			 <div class="col mb-5">
-				<h3>상품 상세정보</h3>
-				<div class="card" style="width:500px">
-			    <!-- 상품 이미지 -->
-			    <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=filename%>">
-			    <!-- 상품 상세정보 -->
-			    <div class="card-body p-4">
-			    
-			    <div class="text-center">
-			    <!-- 상품 이름 -->
-			    <h3 class="fw-bolder"><%=g.getGoodsTitle()%></h3>
-			    <br>
-			    <!-- 상품 가격 -->
-			    <h4><mark>💰<%=g.getGoodsPrice()%>원💰</mark></h4>
-			    <br>
-			    <!-- 상품 상세정보 -->
-			    <h4><%=g.getGoodsMemo()%></h4>
+	<div class="container mt-3">
+	<br>
+    <h1>상품 상세정보</h1>
+    <br>
+    <div class="card">
+        <!-- 카드 내부를 그리드 시스템으로 나누기 -->
+        <div class="row g-0">
+            <!-- 왼쪽에 이미지를 포함한 열 -->
+            <div class="col-md-6">
+                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/<%=filename%>" height= "640">
+            </div>
+            <!-- 오른쪽에 상세 정보를 포함한 열 -->
+            <div class="col-md-6">
+                <div class="card-body">
+                    <!-- 상품 이름 -->
+                    <div>
+			   		<h1 class="fw-bolder"><%=g.getGoodsTitle()%></h1>
+			   		</div>
+                    <br>
+                    
+			    	<!-- 상품 가격 -->
+			    	<div>
+			    	<h5><mark>💰<%=g.getGoodsPrice()%>원💰</mark></h5>
+			    	</div>
+			    	<br>
+			    	
+			    	<!-- 상품 상세정보 -->
+			    	<div style="height: 380px;">
+			    	<p><%=g.getGoodsMemo()%></p>
+			    	<p>지금 구매하시면 전 상품 무료배송!</p>
+			    	</div>
+			    	<br>
 			    </div>
-			    
-			    </div>
-			    <!-- 상품 관련 액션 -->
-			    <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-				<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=goodsNo%>">장바구니 추가</a>
-				<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/goodsList.jsp">다른상품 보기</a>
-				</div>
-		    	</div>
+			    	<!-- 상품 관련 액션 -->
+    				<div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
+        			<div class="row">
+            		<!-- 버튼을 포함한 6개의 그리드 -->
+            		<div class="col-md-6">
+                	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/goodsList.jsp">🔙다른상품 보기🔙</a>
+            		</div>
+            		<div class="col-md-6">
+                	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=goodsNo%>">🧺장바구니 추가🧺</a>
+            		</div>
+        			</div>
+    				</div>
 			</div>
-		</div>
-		</div>
-	</section>
-	
+		</div>	
+     </div>
+     </div>
+     
+    <br>
+    <br>
+    
+	<!-- 맨 아래 배너 -->
+	<footer class="py-3 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭</p></div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>

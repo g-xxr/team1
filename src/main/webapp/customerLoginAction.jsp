@@ -11,21 +11,28 @@
 	// controller layer
 	String customerId = request.getParameter("customerId");
 	String customerPw = request.getParameter("customerPw");
-	String msg = null;
+	String msg = null; 
+	
+	Customer customer = new Customer();
+	customer.setCustomerId(customerId);
+	customer.setCustomerPw(customerPw);
 	
 	// 클랙스 객체 생성
 	CustomerDao customerDao = new CustomerDao();
-	int login = customerDao.ckIdPw(customerId, customerPw);
+	ResultSet rs = customerDao.customerLogin(customer, request, response, session);
 	
-	if(login == 0){
-		msg = URLEncoder.encode("아이디 또는 비밀번호를 확인하세요 :( ","UTF-8");
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
+	
 
-	} else { 		
+	if(rs.next()) {	
 		session.setAttribute("loginId", customerId);
-		int customerNo = 0;
-		session.setAttribute("customerNo", customerNo);
-		response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
+		session.setAttribute("customerNo", rs.getInt("customerNo"));
+	response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
+		
+		return;
+	} else {
+		msg = URLEncoder.encode("아이디, 비밀번호 확인하세요","UTF-8");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?msg="+msg);
+		System.out.println("로그인 실패");
 		
 	}
 	

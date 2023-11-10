@@ -1,5 +1,6 @@
 package dao;
 
+import java.net.URLEncoder;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -7,17 +8,14 @@ import java.sql.DriverManager;
 import vo.*;
 import java.sql.ResultSet;
 import java.util.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CustomerDao {
 	
-	
-	
-	
 	// 로그인 (ID, PW) 일치하는지 확인
-	public int ckIdPw(String customerId, String customerPw) throws Exception{
+		public int ckIdPw(String customerId, String customerPw) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");  
 		String url = "jdbc:mariadb://localhost:3306/mall";  
@@ -29,8 +27,8 @@ public class CustomerDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, customerId);
 		stmt.setString(2, customerPw);
+	
 		ResultSet rs = stmt.executeQuery();
-		
 		if(rs.next()) {
 			row = rs.getInt(1);
 		if(row>0) {
@@ -43,9 +41,32 @@ public class CustomerDao {
 		stmt.close();
 		conn.close();
 		rs.close();
-		return row;
-		
+		return row;	
 	}
+	
+	// 로그인 (ID, PW) 일치하는지 확인
+	public ResultSet customerLogin(Customer customer, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+	
+		Class.forName("org.mariadb.jdbc.Driver");  
+		String url = "jdbc:mariadb://localhost:3306/mall";  
+		String dbuser = "root";                             
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		// DB에 기입된 아이디와 비밀번호 일치 여부
+		String sql = "SELECT customer_no customerNo, active FROM customer WHERE customer_id=? AND customer_pw= PASSWORD(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, customer.getCustomerId());
+		stmt.setString(2, customer.getCustomerPw());
+		ResultSet rs = stmt.executeQuery();
+		
+		stmt.close();
+		conn.close();
+		rs.close();
+		
+		return rs;
+	}
+
 	
 /*
 	// 회원 상세정보
@@ -121,7 +142,6 @@ public class CustomerDao {
 			return;
 		}
 		
-		
 		conn.commit();
 		stmt1.close();
 		rs1.close();
@@ -175,7 +195,7 @@ public class CustomerDao {
 	
 	
 	// 고객 상세정보 customerOne.jsp
-	public ArrayList<HashMap<String, Object>> customerList(String customerId) throws Exception{
+	public ArrayList<HashMap<String, Object>> customerOne(int customerNo) throws Exception{
 
 		Class.forName("org.mariadb.jdbc.Driver");  
 		System.out.println("드라이브 로딩성공");
@@ -190,20 +210,18 @@ public class CustomerDao {
 		ON c.customer_no = cd.customer_no inner join customer_addr ca on c.customer_no = ca.customer_no
 		*/
 		
-		String sql = "SELECT c.customer_no customerNo, c.customer_id customerId, c.customer_pw customerPw, c.createdate, c.updatedate, cd.customer_name customerName, cd.customer_phone customerPhone, ca.address customerAddress FROM customer c inner join customer_detail cd ON c.customer_no = cd.customer_no inner join customer_addr ca on c.customer_no = ca.customer_no WHERE c.customer_id = ?";
+		String sql = "SELECT c.customer_no customerNo, c.customer_id customerId, c.customer_pw customerPw, c.createdate, c.updatedate, cd.customer_name customerName, cd.customer_phone customerPhone, ca.address customerAddress FROM customer c inner join customer_detail cd ON c.customer_no = cd.customer_no inner join customer_addr ca on c.customer_no = ca.customer_no WHERE c.customer_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customerId);
+		stmt.setInt(1, customerNo);
 		System.out.print(stmt + "<--stmt");
 		ResultSet rs = stmt.executeQuery();
 			
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		while(rs.next()){
+		if(rs.next()){
 			
 			HashMap<String, Object> c = new HashMap<>();
 			
-			c.put("customerNo", rs.getInt("customerNo"));
 			c.put("customerId", rs.getString("customerId"));
-			c.put("customerPw", rs.getString("customerPw"));
 			c.put("customerName", rs.getString("customerName"));
 			c.put("customerPhone", rs.getString("customerPhone"));
 			c.put("customerAddress", rs.getString("customerAddress"));
@@ -220,8 +238,6 @@ public class CustomerDao {
 		return list;
 		
 	}
-	
-	
 
 	public void updateCustomerOne(int customerNo, String customerName, String customerPhone) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");  

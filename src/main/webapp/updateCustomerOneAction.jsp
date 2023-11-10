@@ -4,19 +4,10 @@
 <%@page import="vo.*"%>
 
 <%
-	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
-	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-	return;}
-
-	int customerNo = 0;
-	String customerId = (String)session.getAttribute("loginId");
 	
-	System.out.println(customerNo + "<--customerNo");
-	System.out.println(customerId + "<--customerId");
-
     String newName = request.getParameter("newName");
     String newPhone = request.getParameter("newPhone");
-    customerNo = Integer.parseInt((String)session.getAttribute("customerNo"));
+    int customerNo = (Integer)session.getAttribute("customerNo");
 	System.out.println(newName + "<--newName");
 	System.out.println(newPhone + "<--newPhone");
 	System.out.println(customerNo + "<--customerNo");

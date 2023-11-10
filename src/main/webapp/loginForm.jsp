@@ -3,7 +3,7 @@
 <%
 	// 로그인 전
 	String msg = request.getParameter("msg");
-	if(session.getAttribute("loginId") != null) { // 로그인 되어 있으면 프라이빗.jsp로 가라.
+	if(session.getAttribute("customerNo") != null) { // 로그인 되어 있으면 프라이빗.jsp로 가라.
 		response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
 		return;
 }

@@ -52,11 +52,11 @@
 			</tr>
 		</table>
 	</form>
+	<a href="<%=request.getContextPath()%>/updateManagerOne.jsp?" class="btn btn-outline-success">관리자정보 수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
+	&nbsp;
 	<a href="<%=request.getContextPath()%>/updateManagerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;
-	<a href="<%=request.getContextPath()%>/deleteManagerForm.jsp" class="btn btn-outline-success">회원탈퇴</a> <!-- 비밀번호 입력 -->
-	&nbsp;
-	<a href="<%=request.getContextPath()%>//managerLogoutAction.jsp" class="btn btn-outline-success">로그아웃</a>
+	<a href="<%=request.getContextPath()%>/deleteManagerForm.jsp" class="btn btn-outline-danger">관리자 탈퇴</a> <!-- 비밀번호 입력 -->
 </div>
 </body>
 </html>

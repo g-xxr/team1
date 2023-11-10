@@ -8,39 +8,32 @@ import vo.*;
 
 public class ManagerDao {
 
-	// 로그인 (ID, PW) 일치하는지 확인
-	public int ckIdPw(String managerId, String managerPw) throws Exception{
-		int row = 0;
+	
+	public ResultSet managerLogin(Manager manager) throws Exception{
+
 		Class.forName("org.mariadb.jdbc.Driver");  
 		String url = "jdbc:mariadb://localhost:3306/mall";  
 		String dbuser = "root";                             
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT COUNT(*) FROM manager WHERE manager_id=? AND manager_pw= PASSWORD(?)";
+		String sql = "SELECT manager_no managerNo FROM manager WHERE manager_id=? AND manager_pw= PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, managerId);
-		stmt.setString(2, managerPw);
-	
+		stmt.setString(1, manager.getManagerId());
+		stmt.setString(2, manager.getManagerPw());
 		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
-			row = rs.getInt(1);
-		if(row>0) {
-			System.out.println("로그인 성공");
-
-		} else {
-			System.out.println("로그인 실패");
-		}
-		}
-		stmt.close();
-		conn.close();
-		rs.close();
-		return row;
 		
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return rs;
 	}
 	
+
+	
 	// 관리자 상세정보  managerOne.jsp 호출 HashMap
-	public HashMap<String, Object> getManagerData(String managerId) throws Exception{
+	public ArrayList<Manager> managerOne(int managerNo) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");  
 		System.out.println("드라이브 로딩성공");
 		String url = "jdbc:mariadb://localhost:3306/mall";  
@@ -48,25 +41,26 @@ public class ManagerDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql =  "SELECT manager_id managerId, manager_pw managerPw, manager_name managerName, createdate, updatedate FROM manager WHERE manager_id =?";
+		String sql =  "SELECT manager_id managerId, manager_pw managerPw, manager_name managerName, createdate, updatedate FROM manager WHERE manager_no =?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, managerId);
+		stmt.setInt(1, managerNo);
 		ResultSet rs = stmt.executeQuery();
 			
-		HashMap<String, Object> m = new HashMap<>();
+		ArrayList<Manager> list = new ArrayList<>();
 		if (rs.next()) {
-		m.put("managerId", rs.getString("managerId"));
-        m.put("managerPw", rs.getString("managerPw"));
-        m.put("managerName", rs.getString("managerName"));
-        m.put("createdate", rs.getString("createdate"));
-        m.put("updatedate", rs.getString("updatedate"));
-		}
+			Manager m = new Manager();
+		m.setManagerId(rs.getString("managerId"));
+		m.setManagerName(rs.getString("managerName"));
+		m.setCreatedate(rs.getString("createdate"));
+		m.setUpdatedate(rs.getString("updatedate"));
 		
+		list.add(m);
+		}
 		rs.close();
 		stmt.close();
 		conn.close();
 		
-		return m;
+		return list;
 	}
 	
 	

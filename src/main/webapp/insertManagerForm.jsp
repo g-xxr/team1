@@ -46,7 +46,7 @@
                     -->
                     <div class="form-group d-flex justify-content-between">
                         <button type="submit" class="btn btn-primary btn-lg">가입하기</button>
-                        <a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-secondary btn-lg">이전</a>
+                        <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-secondary btn-lg">이전</a>
                     </div>
                 </div>
             </div>

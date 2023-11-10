@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-/*
-	// 관리자만 확인 가능
-	//세션관리자만 들어올수있게
-	if(session.getAttribute("loginEmpId1") == null && session.getAttribute("loginEmpId2") == null){
-		response.sendRedirect(request.getContextPath()+"/notice.jsp");
+	String managerId = (String)(session.getAttribute("loginId")); // managerId를 loginId로 형변환 필수
+	
+	if(session.getAttribute("loginId") == null){  	// 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-*/
+
+
 %>    
 <!DOCTYPE html>
 <html>
@@ -42,17 +42,19 @@
 	</header>
         <hr>
     <div class="container" >      
-				  
-		  <form action="./insertNoticeAction.jsp">
-			<h2>공지사항 추가</h2> 			
+			<form action="<%=request.getContextPath()%>/insertNoticeAction.jsp">
+			<h2>공지사항 추가</h2> 
+			
      		<div class="mb-3 mt-3">
      		<label for="comment">제목:</label>
       		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
       		<label for="comment">내용:</label>
-      		<textarea class="form-control" rows="5" name="noticeContent"></textarea>
-   		    </div>
-           <button class="btn btn-outline-dark mt-auto " type="submit">작성완료</button>    		 
-  		  </form>		  
+      		<textarea class="form-control" rows="5" name="noticeContent"></textarea>   		    
+   			</div>
+   			<button type="submit" class="btn btn-outline-dark mt-auto">공지하기</button>	
+   		   </form>
+   		
+           		 		  
 	</div>		     
 	<hr>	
 	 <!-- Footer-->

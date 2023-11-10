@@ -11,11 +11,24 @@
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 10;
-	int beginRow = (currentPage-1)*rowPerPage;
-	// model 호출 코드(cotroller code)
+	//페이지당 보여줄행
+	int rowPerPage = 8;
+	
+	//noticeDao 호출 코드
 	NoticeDao nd = new NoticeDao();
-	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);							
+	int totalRow =nd.noticePaging();
+	//마지막 페이지
+	int lastPage = totalRow / rowPerPage;
+	// 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
+    if(totalRow % rowPerPage != 0){
+			lastPage = lastPage +1;
+			}
+ 	// 시작 공지사항의 번호
+ 	int beginRow = (currentPage-1)*rowPerPage;
+ 	
+ 	
+	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);	
+	System.out.println("\n"+list.size());
 %>       
 <!DOCTYPE html>
 <html>
@@ -40,9 +53,19 @@
 </head>
 <body>
 	
-	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
+	<%
+		if(session.getAttribute("customerId") == null){
+	%>		
+		<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
+		<jsp:include page="/menu.jsp"></jsp:include>
+	<%		
+		} else {
+	%>
+		<!-- 회원으로 접근할 때 보이는 메뉴바-->
+		<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<%
+		}
+	%>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
@@ -62,25 +85,25 @@
         	  <form action="<%=request.getContextPath()%>/insertNoticeForm.jsp">
         		<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right">공지사항 추가</button>      	     	    
         	  <table class="table table-hover">
-        	  	<thead>
+        	
         		<tr>
         			<th class="col-sm-1">번호</th>    			
         			<th class="col-sm-7">제목</th>
         			<th class="col-sm-1">작성자</th>        			
         			<th class="col-sm-1">작성일</th>	
         		</tr>	
-        		<thead>        	
-        		<%
-        			for(HashMap<String, Object> n : list){
-        		%>
-        			  <tr>
-        			  	<td><%=n.get("noticeNo")%></td>
-        			  	<td><%=n.get("managerNo")%></td>
-        			  	<td><%=n.get("noticeTitle")%></td>
-        			    <td><%=n.get("noticeContent")%></td>
-        			    <td><%=n.get("createdate")%></td>
-        			    <td><%=n.get("noticeContent")%></td>			  
-        			  </tr>  
+        	       	
+        	<%
+        		for(HashMap<String, Object> n : list){
+        	%>
+        		 <tr>
+        		  <td><%=n.get("noticeNo")%></td>							
+        		  <td><%=n.get("managerNo")%></td>
+        		  <td><%=n.get("noticeTitle")%></td>
+        		  <td><%=n.get("noticeContent")%></td>
+        		  <td><%=n.get("createdate")%></td>
+        		  <td><%=n.get("noticeContent")%></td>			  
+        	     </tr>  
         		<%
         			}
         		%>        		

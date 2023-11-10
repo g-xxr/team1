@@ -34,13 +34,12 @@
 	    </div>
 	</header>
 
-	<!-- 홈페이지 맨 앞 부분 상품 정렬 (productList 알고리즘 쓰기) -->
+	<!-- 홈페이지 대문-->
 	<section>
-		<div>
-		<img src=/upload/mang.png>
-		</div>
+	<div class = "container">
+		<img src="/upload/snow.jpg" class="img-thumbnail">
+	</div>
 	</section>
-
 
 	<!-- 맨 아래 배너 -->
 	<footer class="py-5 bg-dark">

@@ -63,7 +63,8 @@
         	  <table class="table table-hover">
         	  	<thead>
         		<tr>
-        			<th class="col-sm-1">번호</th>    			
+        			<th class="col-sm-1">번호</th>
+        			<th class="col-sm-7">제목</th>
         			<th class="col-sm-7">제목</th>
         			<th class="col-sm-1">작성자</th>        			
         			<th class="col-sm-1">작성일</th>	
@@ -74,7 +75,6 @@
         		%>
         			  <tr>
         			  	<td><%=n.get("noticeNo")%></td>
-        			  	<td><%=n.get("managerNo")%></td>
         			  	<td><%=n.get("noticeTitle")%></td>
         			    <td><%=n.get("noticeContent")%></td>
         			    <td><%=n.get("createdate")%></td>

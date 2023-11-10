@@ -45,7 +45,7 @@
     </head>
 <body>
 
-	<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
+	<!-- 메뉴바 -->
 	<jsp:include page="/menu.jsp"></jsp:include>
 	
 	<!-- 헤드 배너 부분 -->

@@ -10,17 +10,16 @@ public class NoticeDao {
 	//notice.jsp (고객 관리자 둘다 접근 가능)
 	public ArrayList<HashMap<String, Object>> selectNotice(int beginRow, int rowPerPage) throws Exception {
 		
-		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT n.notice_no noticeNo, m.manager_no mangerNo, n.notice_title noticeTitle, n.notice_content noticeContent, n.createdate, n.updatedate FROM notice n INNER JOIN manager m ON n.notice_no = m.manager_no";
+		String sql = "SELECT n.notice_no noticeNo, m.manager_no managerNo, n.notice_title noticeTitle, n.notice_content noticeContent, n.createdate, n.updatedate FROM notice n INNER JOIN manager m ON n.manager_no = m.manager_no LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
-		stmt.setInt(2, rowPerPage);;
+		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery(); 
 		 
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>(); 

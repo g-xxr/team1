@@ -11,7 +11,7 @@
 <%
 
 	int customerNo = 0;
-	
+request.setCharacterEncoding("UTF-8");
 	if(session.getAttribute("loginId") == null) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;

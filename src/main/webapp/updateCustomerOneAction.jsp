@@ -4,7 +4,7 @@
 <%@page import="vo.*"%>
 
 <%
-	
+request.setCharacterEncoding("UTF-8");
     String newName = request.getParameter("newName");
     String newPhone = request.getParameter("newPhone");
     int customerNo = (Integer)session.getAttribute("customerNo");

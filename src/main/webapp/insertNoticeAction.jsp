@@ -6,13 +6,13 @@
 <%	
 	
 	
-	int managerNo = Integer.parseInt(request.getParameter("managerNo"));
-
+	int managerNo = (Integer)session.getAttribute("managerNo");
+System.out.println(managerNo + "<---managerNo");
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	
 	
-	System.out.println(request.getParameter("managerNo") + "<--noticeTitle");
+	
 	System.out.println(request.getParameter("noticeTitle") + "<--noticeTitle");
 	System.out.println(request.getParameter("noticeContent") + "<--noticeContent");
 		

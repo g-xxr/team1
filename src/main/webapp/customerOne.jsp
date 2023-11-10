@@ -9,6 +9,7 @@
 	<!-- 메뉴 끝 -->
 
 <%
+		request.setCharacterEncoding("UTF-8");
 		int customerNo = 0;
 		if(session.getAttribute("customerNo") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
@@ -21,6 +22,7 @@
 		CustomerDao customerDao = new CustomerDao();
 		ArrayList<HashMap<String, Object>> list = customerDao.customerOne(customerNo);
 		System.out.println("\n"+ list.size() + "<-- 값 확인");
+		
 %>
 <!DOCTYPE html>
 <html>

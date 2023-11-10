@@ -9,16 +9,17 @@
 	<!-- 메뉴 끝 -->
 
 <%
-		if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		int managerNo = 0;
+		if(session.getAttribute("managerNo") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 			return;
+		} else{
+			managerNo = (Integer)session.getAttribute("managerNo");
+			System.out.println("\n"+ managerNo + "<--managerNo");
 		}
 		
-		String managerId = (String)(session.getAttribute("loginId")); 
-		System.out.println(managerId + "<--managerId");
-		
 		ManagerDao managerDao = new ManagerDao();
-		HashMap<String,Object> manager = managerDao.getManagerData(managerId);
+		ArrayList<Manager> list = managerDao.managerOne(managerNo);
 		
 %>
 <!DOCTYPE html>
@@ -31,27 +32,34 @@
 </head>
 <body>
 <div class="container">
+	<%
+		for(Manager m : list)  {
+			
+	%>
 	<h1>회원 상세정보 &#128203;</h1>
 	<form action="">
 		<table class="table table-striped table-bordered table-hover">
 			<tr>
 				<th>매니저 ID</th>
-				<td><%=manager.get("managerId")%></td>
+				<td><%=m.getManagerId()%></td>
 			</tr>
 			<tr>
 				<th>매니저명</th>
-				<td><%=manager.get("managerName")%></td>
+				<td><%=m.getManagerName()%></td>
 			</tr>
 			<tr>
 				<th>생성일자</th>
-				<td><%=manager.get("createdate")%></td>
+				<td><%=m.getCreatedate()%></td>
 			</tr>
 			<tr>
 				<th>변경일자</th>
-				<td><%=manager.get("updatedate")%></td>
+				<td><%=m.getUpdatedate()%></td>
 			</tr>
 		</table>
 	</form>
+	<%
+		}
+	%>
 	<a href="<%=request.getContextPath()%>/updateManagerOne.jsp?" class="btn btn-outline-success">관리자정보 수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/updateManagerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->

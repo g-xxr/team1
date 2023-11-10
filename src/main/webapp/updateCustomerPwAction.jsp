@@ -13,28 +13,23 @@
 
 <%
 
-	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+	if(session.getAttribute("customerNo") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 	return;}
 	
-	CustomerDao customerDao = new CustomerDao();
-	Customer customer = new Customer();
-	customer.setNewPw(request.getParameter("newPw"));
-	customer.setCustomerPw(request.getParameter("oldPw"));
-	customer.setCustomerId((String)(session.getAttribute("loginId")));
-
-	int row = customerDao.updateCustomerPw(customer);
+	int customerNo = (Integer)session.getAttribute("customerNo");
+	String newPw = request.getParameter("newPw");
+	String oldPw = request.getParameter("oldPw");
 	
-	if (row==1){
-		System.out.println("입력성공");
-		response.sendRedirect(request.getContextPath()+"/customerOne.jsp");
-		System.out.println("비번 변경 완료"); 
-	}  else {
-		System.out.println("입력실패");
-		response.sendRedirect(request.getContextPath()+"/updateCustomerPwForm.jsp");
+	CustomerDao customerDao = new CustomerDao();
+	customerDao.updateCustomerPw(oldPw, newPw, customerNo, request, response);
 
-	}
-/*
+	
+	
+	
+	
+	
+	/*
 
 	String msg = null;
 	// 새 비밀번호와 확인 번호가 같은지 확인

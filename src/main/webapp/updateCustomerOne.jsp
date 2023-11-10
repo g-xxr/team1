@@ -9,9 +9,9 @@
 <!-- 메뉴 끝 -->
 
 <%
-
+	request.setCharacterEncoding("UTF-8");
 	int customerNo = 0;
-request.setCharacterEncoding("UTF-8");
+	
 	if(session.getAttribute("loginId") == null) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
@@ -28,10 +28,6 @@ request.setCharacterEncoding("UTF-8");
 
 
 %>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -66,8 +62,12 @@ request.setCharacterEncoding("UTF-8");
                             <input type="text" class="form-control" name="newName" required placeholder="변경할 이름" id="oldPw">
                         </div>
                         <div class="mb-3">
-                            <label for="oldPhone" class="form-label">기존 전화번호</label>
-                            <input type="tel" class="form-control" name="newPhone" required placeholder="새 전화번호" id="newPw">
+                            <label for="oldPhone" class="form-label">새로운 전화번호</label>
+                            <input type="tel" class="form-control" name="newPhone" required placeholder="새로운 전화번호" id="newPw">
+                        </div>
+                            <div class="mb-3">
+                            <label for="oldAddr" class="form-label">새로운 주소</label>
+                            <input type="text" class="form-control" name="newAddr" required placeholder="새로운 주소" id="newPw">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">정보 변경</button>

@@ -5,7 +5,9 @@
 <%
 	NoticeDao no = new NoticeDao();
 	
-	int managerNo = Integer.parseInt(request.getParameter("managerNo"));
+	int managerNo = 108;
+	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+	System.out.println("\n"+ noticeNo + "<--noticeNo");
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	
@@ -16,10 +18,10 @@
 	
 	int row = no.insertNotice(notice);
 		if(row == 1){
-			System.out.println("추가성공");
+			System.out.println("수정완료");
 			
 		}
 	
-		response.sendRedirect(request.getContextPath()+"/notice.jsp");
+		response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 
 %>

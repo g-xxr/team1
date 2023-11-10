@@ -45,6 +45,60 @@
 	<!-- 메뉴바 -->
 	<jsp:include page="/privateMenu.jsp"></jsp:include>
 	
+	<!-- 헤드 배너 부분 -->
+	<header class="bg-dark py-1">
+	    <div class="container px-4 px-lg-5 my-5">
+	        <div class="text-center text-white">
+	            <h1 class="display-4 fw-bolder">🧺장바구니🧺</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">지금 구매하시면 20% 할인을 적용해드려요🎫</p>
+	        </div>
+	    </div>
+	</header>
+	
+	<!-- 장바구니 부분 -->	
+	<div class="container mt-3">
+	<!-- 상품 추가 버튼 -->
+	<div style="text-align: right;">
+		<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/goodsList.jsp">새로운 상품 추가하기</a>
+	</div>
+	<br>
+	<!-- 상품 목록 -->
+	<table class="table table-bordered table-hover" style="text-align:center; vertical-align: middle;">
+		<thead>
+			<tr>
+			<th></th>
+			<th>상품 이름</th>
+	        <th>상품 가격</th>
+	        <th>수량</th>
+	        <th>합계</th>
+	        <th>장바구니에서 삭제</th>
+	      	</tr>
+		</thead>
+	<%
+		for(HashMap<String, Object> map : list){
+	%>
+		<tbody>
+     		<tr>
+        	<td><img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;"></td>
+        	<td><%=map.get("goodsTitle")%></td>
+        	<td><mark><%=map.get("goodsPrice")%>원</mark></td>
+        	<td><%=map.get("quantity")%></td>
+        	<td>원</td>
+        	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteCartAction.jsp?goodsNo=<%=map.get("goodsNo")%>">🗑️삭제🗑️</a></td>
+      		</tr>
+    	</tbody>
+	 <%
+       }
+	%>
+	
+	</table>
+	<div style="text-align: right;">
+		<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/orders.jsp">주문하기</a>
+	</div>
+	</div>
+	
+	
+	
 	<br>
     <br>
 	<!-- 맨 아래 배너 -->

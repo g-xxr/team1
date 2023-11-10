@@ -30,45 +30,21 @@
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
-	<header class="bg-dark py-5">
+	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">🎊가을맞이 빅세일🎊</h1>
-	            <p class="lead fw-normal text-white-50 mb-0">오늘도 즐거운 하루 되세요</p>
+	            <h1 class="display-4 fw-bolder">👻SHOP👽</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">방문해 주셔서 감사합니다🫡 오늘도 행복한 하루 되세요😉</p>
 	        </div>
 	    </div>
 	</header>
 
-	<!-- 홈페이지 맨 앞 부분 상품 정렬 (productList 알고리즘 쓰기) -->	
+	<!-- 홈페이지 대문-->
 	<section>
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<div class="col mb-5">
-				<div class="card h-100">
-					<!-- 베스트 상품 -->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">🏅</div>
-	                <!-- 상품 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
-	                <!-- 상품 상세정보 -->
-	                <div class="card-body p-4">
-	                <div class="text-center">
-	                <!-- 상품 이름 -->
-	                <h5 class="fw-bolder">테스트 상품</h5>
-	                <!-- 상품 가격 -->
-	                💰59,000원💰
-	                </div>
-	                </div>
-	                <!-- Product actions-->
-	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-	            	<a class="btn btn-outline-dark mt-auto" href="#">상세보기</a>
-	            	<a class="btn btn-outline-dark mt-auto" href="#">장바구니</a>
-	      			</div>
-            	</div>
-			</div>
-		</div>
+	<div class = "container">
+		<img src="<%=request.getContextPath()%>/upload/snow.jpg" style="width:100%">
 	</div>
 	</section>
-
 
 	<!-- 맨 아래 배너 -->
 	<footer class="py-5 bg-dark">

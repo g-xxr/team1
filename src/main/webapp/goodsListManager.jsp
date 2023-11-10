@@ -5,6 +5,16 @@
 
 <!-- 유정 -->
 	<%
+		// 로그인한 매니저만 접근 가능
+		int managerNo = 0;
+
+		if(session.getAttribute("managerNo") == null){  // 현재 세션에 customerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
+			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+			return;
+		}else{
+			managerNo = (Integer)session.getAttribute("managerNo");
+		}
+	
 		// 페이징 하기
 		// 현재 페이지
 		int currentPage = 1;

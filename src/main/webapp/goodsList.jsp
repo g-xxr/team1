@@ -84,7 +84,7 @@
 	            	<a class="btn btn-outline-dark mt-auto" 
 	            		href="<%=request.getContextPath()%>/goodsOne.jsp?goodsNo=<%=map.get("goodsNo")%>">상세보기</a>
 	            	<a class="btn btn-outline-dark mt-auto" 
-	            		href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=map.get("goodsNo")%>">장바구니</a>
+	            		href="<%=request.getContextPath()%>/cartAction.jsp?goodsNo=<%=map.get("goodsNo")%>">장바구니</a>
 	      			</div>
             		</div>
 				</div>

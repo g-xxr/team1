@@ -25,11 +25,11 @@
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
-	<header class="bg-dark py-5">
+	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">🎊가을맞이 빅세일🎊</h1>
-	            <p class="lead fw-normal text-white-50 mb-0">오늘도 즐거운 하루 되세요</p>
+	            <h1 class="display-4 fw-bolder">👻SHOP👽</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">방문해 주셔서 감사합니다🫡 오늘도 행복한 하루 되세요😉</p>
 	        </div>
 	    </div>
 	</header>
@@ -37,12 +37,12 @@
 	<!-- 홈페이지 대문-->
 	<section>
 	<div class = "container">
-		<img src="/upload/snow.jpg" class="img-thumbnail">
+		<img src="<%=request.getContextPath()%>/upload/snow.jpg" style="width:100%">
 	</div>
 	</section>
 
 	<!-- 맨 아래 배너 -->
-	<footer class="py-5 bg-dark">
+	<footer class="py-3 bg-dark">
 	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭 </p></div>
 	</footer>
 	   

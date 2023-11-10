@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- 메뉴 네비게이션 바 -->
@@ -17,9 +18,8 @@
            
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
-                    <i class="bi-cart-fill me-1"></i>
-                    장바구니
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">여기에 장바구니 수량 링크 들어감</span>
+                    <i class="bi-cart-fill me-2">&nbsp;&nbsp;장바구니</i>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill"><%=map.get("quantity")%></span>
                 </button>
             </form>
              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">

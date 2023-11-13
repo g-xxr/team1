@@ -8,7 +8,6 @@ public class Cart {
 	private int quantity;
 	private String createdate;
 	private String updatedate;
-	
 	public int getCartNo() {
 		return cartNo;
 	}
@@ -45,7 +44,6 @@ public class Cart {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-	
 }
-
-//	요구사항 정의서, erd, 클래스 압축파일 제출하기
+	
+	

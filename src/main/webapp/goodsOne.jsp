@@ -1,4 +1,4 @@
-<%@page import="java.util.Map"%>
+<%@ page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import ="dao.*"%>
 <%@ page import ="vo.*" %>
@@ -13,7 +13,6 @@
 	// goodsImg 호출 (사진 파일 가져와야 하기 때문에)
 	GoodsDao goodsDao = new GoodsDao();
 	String filename = goodsDao.getOldFilename(goodsNo);
-
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +86,7 @@
                 	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/goodsList.jsp">🔙다른상품 보기🔙</a>
             		</div>
             		<div class="col-md-6">
-                	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/cart.jsp?goodsNo=<%=goodsNo%>">🧺장바구니 추가🧺</a>
+                	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/cartAction.jsp?goodsNo=<%=goodsNo%>">🧺장바구니 추가🧺</a>
             		</div>
         			</div>
     				</div>

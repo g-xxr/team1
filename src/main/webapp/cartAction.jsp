@@ -13,5 +13,5 @@
 	CartDao cd = new CartDao();
 	cd.insertCart(c);
 	
-	response.sendRedirect(request.getContextPath()+"/cart.jsp");
+	response.sendRedirect(request.getContextPath()+"/goodsList.jsp");
 %>

@@ -3,7 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
-import vo.Cart;
+import vo.*;
 
 
 public class CartDao {
@@ -128,7 +128,7 @@ public class CartDao {
 		conn.close();
 		stmt.close();
 	}
-	
+		
 	
 	// 장바구니 update 수량 
 	public void updateCart(ArrayList<Integer> cartsNo, HttpServletRequest request) throws Exception {

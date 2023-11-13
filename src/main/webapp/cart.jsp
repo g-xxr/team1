@@ -21,9 +21,8 @@
 	CartDao cd = new CartDao();
 	ArrayList<HashMap<String,Object>>list = cd.cartList(customerNo);
 	
-	// 장바구니에 담긴 상품들을 총 합한 가격 선언
-	int totalSum = 0;
-
+	// 장바구니에 담긴 상품들을 총 합한 가격 (장바구니에 있는 총합이랑은 다름)
+	int totalPrice = 0;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,28 +75,42 @@
 		</thead>
 	<%
 		for(HashMap<String, Object> map : list){
+			
+			int goodsPrice = (Integer) map.get("goodsPrice");
+      		int quantity = (Integer) map.get("quantity");
+      		int goodsSum = goodsPrice * quantity;
+      		
+      		totalPrice += goodsSum;
 	%>
 		<tbody>
      		<tr>
         	<td><img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;"></td>
         	<td><%=map.get("goodsTitle")%></td>
         	<td><mark><%=map.get("goodsPrice")%>원</mark></td>
-        	<td><%=map.get("quantity")%></td>
-        	<td>원</td>
-        	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteCartAction.jsp?goodsNo=<%=map.get("goodsNo")%>">🗑️삭제🗑️</a></td>
+        	
+        	<td>
+			<%=map.get("quantity")%>
+	  		</td>
+        	
+        	<td><%=goodsSum%>원</td>
+        	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteCartAction.jsp?cartNo=<%=map.get("cartNo")%>">🗑️삭제🗑️</a></td>
       		</tr>
     	</tbody>
-	 <%
+	<%
        }
 	%>
-	
+	<!-- 담긴 장바구니 총 금액 표시 -->
+		<tr>
+			<td colspan="6">
+			<span style="font-size: 24px; font-weight: bold; text-align: right; display: block;">💰총 <%=totalPrice%> 원💰</span>
+			</td>
+		</tr>
 	</table>
-	<div style="text-align: right;">
-		<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/orders.jsp">주문하기</a>
+	<!-- 주문하기 버튼 -->
+		<div style="text-align: right;">
+			<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/orders.jsp">주문하기</a>
+		</div>
 	</div>
-	</div>
-	
-	
 	
 	<br>
     <br>
@@ -107,6 +120,7 @@
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	
 	<!-- Core theme JS-->
 	<script src="js/scripts.js"></script>
 </body>

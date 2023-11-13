@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "dao.*" %>
+<%@ page import = "vo.*" %>
+<%@ page import="java.util.*" %>
 <%
 /*
 	//세션관리자만 들어올수있게
@@ -8,6 +11,13 @@
 		return;
 	}
 */
+	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+	NoticeDao nd = new NoticeDao();
+	Notice notice = new Notice();
+	ArrayList<HashMap<String, Object>> list = nd.noticeOne(noticeNo);	
+
+
+
 %>    
    
 <!DOCTYPE html>
@@ -41,18 +51,22 @@
 	    </div>
 	</header>
         <hr>
-    <div class="container" >      
-				  
-		  <form action="<%=request.getContextPath() %>/updateNoticeAction.jsp">
+    <div class="container" >      				
+		   <form action="<%=request.getContextPath()%>/updateNoticeAction.jsp?noticeNo=<%=notice.getNoticeNo()%>">
 			<h2>공지사항 수정</h2> 			
      		<div class="mb-3 mt-3">
-     		
-     		<label for="comment">제목:</label>
-      		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
-      		<label for="comment">내용:</label>
-      		<textarea class="form-control" rows="5" name="noticeContent"></textarea>
-   		    </div>
-           <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
+     		  <div>
+     			<label for="comment">번호:</label>    		
+     			<input type="text" class="form-control w-50 p-1" name="noticeNo" value="<%=notice.getNoticeNo()%>" readonly="readonly">    		
+     		  </div>
+     		  <div>
+     			<label for="comment">제목:</label>      		
+      			<input type="text" class="form-control w-50 p-1" name="noticeTitle" value="<%=notice.getNoticeTitle()%>">
+      		  </div>
+      			<label for="comment">내용:</label>
+      			<textarea class="form-control" rows="5" name="noticeContent" value="<%=notice.getNoticeContent()%>"></textarea>     		
+   		      </div>
+           <button class="sbtn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
   		  </form>		  
 	</div>		     
 	<hr>	

@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.util.*" %>
+<%@ page import="vo.*" %>
+<%@ page import="dao.*" %>
 <%
-	String managerId = (String)(session.getAttribute("loginId")); // managerId를 loginId로 형변환 필수
-	
-	if(session.getAttribute("loginId") == null){  	// 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-		return;
-	}
-	
 %>    
 <!DOCTYPE html>
 <html>
@@ -42,15 +38,20 @@
         <hr>
     <div class="container" >      
 			<form action="<%=request.getContextPath()%>/insertNoticeAction.jsp">
+			
 			<h2>공지사항 추가</h2> 
 			
      		<div class="mb-3 mt-3">
-     		<label for="comment">제목:</label>
-      		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
-      		<label for="comment">내용:</label>
-      		<textarea class="form-control" rows="5" name="noticeContent"></textarea>   		    
+     		  <div>
+	     		<label for="comment">제목:</label>
+	      		<input type="text" class="form-control w-50 p-1" name="noticeTitle">
+      		  </div>
+      		  <div>
+	      		<label for="comment">내용:</label>     		
+	      		<textarea class="form-control" rows="5" name="noticeContent"></textarea>   		    
+   		      </div>
    			</div>
-   			<button type="submit" class="btn btn-outline-dark mt-auto">공지추가</button>	
+   			<button type="submit" class="btn btn-outline-dark mt-auto" value="">공지추가</button>	
    		   </form>
    		
            		 		  

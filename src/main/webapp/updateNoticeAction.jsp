@@ -3,25 +3,20 @@
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
 <%
-	NoticeDao no = new NoticeDao();
 	
-	int managerNo = 108;
+	
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-	System.out.println("\n"+ noticeNo + "<--noticeNo");
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	
-	Notice notice = new Notice();
-	notice.setManagerNo(managerNo);
+	Notice notice = new Notice();	
+	notice.setNoticeNo(noticeNo);
 	notice.setNoticeTitle(noticeTitle);
 	notice.setNoticeContent(noticeContent);
 	
-	int row = no.insertNotice(notice);
-		if(row == 1){
-			System.out.println("수정완료");
-			
-		}
-	
-		response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
+	NoticeDao no = new NoticeDao();
+	int row = no.updateNotice(notice);
+		
+	response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 
 %>

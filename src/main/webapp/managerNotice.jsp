@@ -6,17 +6,19 @@
 <%@ page import="dao.*" %>      
 <%
 	
-request.setCharacterEncoding("utf-8");
+	//페이징
+	//현재 페이지
 	int currentPage = 1;
+	//페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
+	}	
 	//페이지당 보여줄행
 	int rowPerPage = 8;
 	
 	//noticeDao 호출 코드
 	NoticeDao nd = new NoticeDao();
-	int totalRow =nd.noticePaging();
+	int totalRow = nd.noticePaging();
 	//마지막 페이지
 	int lastPage = totalRow / rowPerPage;
 	// 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
@@ -28,7 +30,7 @@ request.setCharacterEncoding("utf-8");
  	
  	
 	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);	
-	System.out.println("\n"+list.size());
+
 %>       
 <!DOCTYPE html>
 <html>
@@ -53,19 +55,8 @@ request.setCharacterEncoding("utf-8");
 </head>
 <body>
 	
-	<%
-		if(session.getAttribute("customerId") == null){
-	%>		
-		<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
-		<jsp:include page="/menu.jsp"></jsp:include>
-	<%		
-		} else {
-	%>
-		<!-- 회원으로 접근할 때 보이는 메뉴바-->
-		<jsp:include page="/privateMenu.jsp"></jsp:include>
-	<%
-		}
-	%>
+	<!-- 메뉴 시작 (절대주소 적으세요)-->
+	<jsp:include page="/managerMenu.jsp"></jsp:include>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
@@ -81,34 +72,52 @@ request.setCharacterEncoding("utf-8");
         <div class="container">
         	<h1>공지사항</h1>
         	<br>
-        	  <h2>목록</h2>
-        	  <form action="<%=request.getContextPath()%>/insertNoticeForm.jsp">
-        		<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right">공지사항 추가</button>      	     	    
+        	<a class="btn btn-outline-dark mt-auto" style="float:right" href="<%=request.getContextPath()%>/insertNoticeForm.jsp">공지사항 추가</a>      	     	    
         	  <table class="table table-hover">
-        	
+       		
         		<tr>
         			<th class="col-sm-1">번호</th>    			
         			<th class="col-sm-7">제목</th>
         			<th class="col-sm-1">작성자</th>        			
         			<th class="col-sm-1">작성일</th>	
-        		</tr>	
-        	       	
-        	<%
+        		</tr>		
+        	<%	
         		for(HashMap<String, Object> n : list){
         	%>
         		 <tr>
         		  <td><%=n.get("noticeNo")%></td>
         		  <td>
-        		  	<a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.get("noticeNo")%>"><%=n.get("noticeTitle")%></a></td>        							        		         	     							
+        		  	<a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.get("noticeNo")%>"><%=n.get("noticeTitle")%></a>
+        		  </td>        							        		         	     							
         		  <td><%=n.get("managerNo")%></td>
         		  <td><%=n.get("createdate")%></td>				  
         	     </tr>  
-        		<%
-        			}
-        		%>        		
+        	<%
+        		}
+        	%>        		
         	  </table>	
-        	  </form>
         </div>
+        <!-- 페이지네이션 -->
+	<div class="d-flex justify-content-center">
+		<div>
+		<%
+			if(currentPage > 1){
+		%>
+			<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/managerNotice.jsp?currentPage=<%=currentPage-1%>">이전</a>
+		<%
+			}
+		%>
+		
+		<%
+			if(currentPage < lastPage){
+		%>
+			<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/managerNotice.jsp?currentPage=<%=currentPage+1%>">다음</a>
+		<%
+			}
+		%>
+		</div>
+	</div>
+       
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

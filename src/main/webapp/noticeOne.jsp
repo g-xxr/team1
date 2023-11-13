@@ -12,7 +12,7 @@
 
 	//model 호출 코드(cotroller code)
 	NoticeDao nd = new NoticeDao();
-	ArrayList<HashMap<String, Object>> noticeOne = nd.noticeOne(noticeNo);
+	ArrayList<HashMap<String, Object>> list = nd.noticeOne(noticeNo);
 %>
 
 <!DOCTYPE html>
@@ -51,11 +51,11 @@
         	<h1>공지사항 상세보기</h1>   	     	    
         	  <table class="table table-hover">    	
         		<%
-        			for(HashMap<String, Object> o : noticeOne){
+        			for(HashMap<String, Object> o : list){
         		%>        			
         			  <tr>
         			  	<th>번호</th>
- 						<td><%=o.get("noticeNo")%></td> 						        			  				  
+ 						<td><%=o.get("noticeNo")%> </td> 						        			  				  
         			  </tr>
         			  <tr>
         			  	<th>제목</th>
@@ -74,8 +74,8 @@
  						<td><%=o.get("updatedate")%></td>       			  				  
         			  </tr>    
         			  <div style="float:right">			
-        			  	 <a href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=o.get("noticeNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
-			             <a href="<%=request.getContextPath()%>/deleteNoticeAction.jsp?noticeNo=<%=o.get("noticeNo")%>" class="btn btn-outline-dark mt-auto">삭제</a> 
+        			  	 <a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=o.get("noticeNo")%>">수정</a>
+			             <a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/deleteNoticeAction.jsp?noticeNo=<%=o.get("noticeNo")%>" >삭제</a> 
         			  </div>
         		<%
         			}

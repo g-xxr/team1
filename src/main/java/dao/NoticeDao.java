@@ -6,6 +6,29 @@ import vo.*;
 
 public class NoticeDao {
 
+	//notice 페이징 호출
+		public int noticePaging() throws Exception{
+			Class.forName("org.mariadb.jdbc.Driver");
+			String url = "jdbc:mariadb://localhost:3306/mall" ;
+			String dbuser = "root";
+			String dbpw = "java1234";
+			Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+			
+			// 페이징 sql
+			String sql = "SELECT COUNT(*) FROM notice";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			int totalRow = 0;
+			if(rs.next()) {
+				totalRow = rs.getInt("COUNT(*)"); // rs1.getInt(1)
+			}
+			// 자원 닫기
+			conn.close();
+			stmt.close();
+			rs.close();
+			
+			return totalRow;
+		}
 	
 	//notice.jsp (고객 관리자 둘다 접근 가능)
 	public ArrayList<HashMap<String, Object>> selectNotice(int beginRow, int rowPerPage) throws Exception {
@@ -38,29 +61,7 @@ public class NoticeDao {
 
 		return list;
 	}
-	//notice 페이징 호출
-	public int noticePaging() throws Exception{
-		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall" ;
-		String dbuser = "root";
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		// 페이징 sql
-		String sql = "SELECT COUNT(*) FROM notice";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		ResultSet rs = stmt.executeQuery();
-		int totalRow = 0;
-		if(rs.next()) {
-			totalRow = rs.getInt("COUNT(*)"); // rs1.getInt(1)
-		}
-		// 자원 닫기
-		conn.close();
-		stmt.close();
-		rs.close();
-		
-		return totalRow;
-	}
+	
 
 	//noticeOne 공지사항 상세보기
 	public ArrayList<HashMap<String, Object>> noticeOne(int noticeNo) throws Exception {					
@@ -137,8 +138,8 @@ public class NoticeDao {
 		return row;
 	}
 	//updateNoticeForm.jsp 문의사항 상세정보 수정
-		public int updateNotice(Notice notice) throws Exception{
-			int row = 0;
+		public int updateNotice(int noticeNo, String noticeTitle, String noticeContent, int managerNo) throws Exception{
+		
 			Class.forName("org.mariadb.jdbc.Driver");
 			String url = "jdbc:mariadb://localhost:3306/mall";
 			String dbuser = "root";
@@ -147,12 +148,12 @@ public class NoticeDao {
 			
 			String sql = "UPDATE notice SET manager_no = ?, notice_title = ?, notice_content = ?, updatedate = now() WHERE notice_no = ?";				
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, notice.getNoticeTitle());
-			stmt.setString(2, notice.getNoticeContent());
-			stmt.setInt(3, notice.getNoticeNo());
-			stmt.setInt(3, notice.getManagerNo());
+			stmt.setString(1, noticeTitle);
+			stmt.setString(2, noticeContent);
+			stmt.setInt(3, noticeNo);
+			stmt.setInt(4, managerNo);
 			System.out.println(stmt + " <-- stmt updateNotice()");
-			row = stmt.executeUpdate();
+			int row = stmt.executeUpdate();
 			
 			conn.close();
 			stmt.close();

@@ -20,7 +20,7 @@
 	
 	int row = noticeDao.insertNotice(notice);
 	if(row != 0) {
-		System.out.println("공지사항 추가성공");
+		System.out.println("공지사항 추가성공");		
 		response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 	}else{
 		System.out.println("공지사항 추가실패");

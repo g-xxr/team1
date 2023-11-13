@@ -3,7 +3,7 @@ package vo;
 public class ManagerPwHistory {
 	private int managerPwHistoryNo;
 	private int managerNo;
-	private String mangaerPw;
+	private String managerPw;
 	private String createdate;
 	
 	public int getManagerPwHistoryNo() {
@@ -18,11 +18,11 @@ public class ManagerPwHistory {
 	public void setManagerNo(int managerNo) {
 		this.managerNo = managerNo;
 	}
-	public String getMangaerPw() {
-		return mangaerPw;
+	public String getManagerPw() {
+		return managerPw;
 	}
-	public void setMangaerPw(String mangaerPw) {
-		this.mangaerPw = mangaerPw;
+	public void setManagerPw(String managerPw) {
+		this.managerPw = managerPw;
 	}
 	public String getCreatedate() {
 		return createdate;

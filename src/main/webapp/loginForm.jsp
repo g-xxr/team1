@@ -3,7 +3,7 @@
 <%
 	// 로그인 전
 	String msg = request.getParameter("msg");
-	if(session.getAttribute("customerNo") != null) { // 로그인 되어 있으면 프라이빗.jsp로 가라.
+	if(session.getAttribute("customerNo") != null) { // 로그인한 기록이 있으면 -> privateHome.jsp로 이동
 		response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
 		return;
 }
@@ -46,8 +46,9 @@
 </head>
 <body>
 	
-	<!-- 로그인 폼 만들기 (로그인 시 고객에게 보여지는 홈페이지 (productList)
-		 매니저는 바로 (managerHome : 여기에서는 상품 관리(상품 추가, 수정, 삭제), 공지사항, 문의(답변) 게시판으로 바로 갈 수 있는 폼 만들기)
+	<!-- 
+	로그인 폼 만들기 (로그인 시 고객에게 보여지는 홈페이지 (productList)
+	매니저는 바로 (managerHome : 여기에서는 상품 관리(상품 추가, 수정, 삭제), 공지사항, 문의(답변) 게시판으로 바로 갈 수 있는 폼 만들기)
 	-->
  <div class="container">
         <div class="form-container">

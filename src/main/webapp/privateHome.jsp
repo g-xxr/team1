@@ -34,6 +34,7 @@
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">👻SHOP👽</h1>
+	            <h2 class="display-8 fw-bolder">안녕하세요, <%=customerId%>님</h2>
 	            <p class="lead fw-normal text-white-50 mb-0">방문해 주셔서 감사합니다🫡 오늘도 행복한 하루 되세요😉</p>
 	        </div>
 	    </div>

@@ -33,10 +33,9 @@ public class CustomerDao {
 			row = rs.getInt(1);
 		if(row>0) {
 			System.out.println("로그인 성공");
-
 		} else {
 			System.out.println("로그인 실패");
-		}
+			}
 		}
 		stmt.close();
 		conn.close();
@@ -181,6 +180,7 @@ public class CustomerDao {
 			conn.rollback();
 			String msg = URLEncoder.encode("이전 비밀번호와 동일합니다. 비밀번호를 다르게 설정해주세요.", "UTF-8");
 			response.sendRedirect(request.getContextPath()+"/updateCustomerPwForm.jsp?msg="+msg);
+			
 			return;
 		}
 		
@@ -208,8 +208,14 @@ public class CustomerDao {
 			conn.rollback();
 			return;
 		}
-		conn.commit();
 		response.sendRedirect(request.getContextPath()+"/customerOne.jsp");
+	
+		conn.commit();
+		stmt1.close();
+		stmt2.close();
+		stmt3.close();
+		rs.close();
+		conn.close();
 	}
 	
 	
@@ -342,37 +348,3 @@ public class CustomerDao {
 		conn.close();
 	}
 }
-
-/*
-
-	
-	/*
-	// 본인 정보 조회
-	public Customer selectMyPage(String id) throws Exception {
-		// 반환할 Customer 객체
-	} Customer customer = null;	
-	
-	Class.forName("org.mariadb.jdbc.Driver");
-	String url = "jdbc:mariadb://localhost:3306/mall";
-	String dbuser = "root";
-	String dbpw = "java1234";
-	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-	System.out.println("DB접속 성공");
-	
-	// sql 전송 후 결과값 반환받어서 전환
-	String sql = "SELECT customer_no customerNo, customer_id customerId, customer_pw customerPw, createdate, updatedate FROM CUSTOMER where customer_id = ?";
-	PreparedStatement stmt = conn.prepareStatement(sql);
-	stmt.setString(1, id);
-	
-	ResultSet rs = stmt.executeQuery();
-	while(rs.next()) {
-		customer = new Customer();
-		customer.setCustomerNo(rs.getInt("customerNo"));
-		customer.setCustomerId(rs.getString("customerId"));
-		customer.setCustomerPw(rs.getString("customerPw"));
-		customer.setCreatedate(rs.getString("createdate"));
-		customer.setUpdatedate(rs.getString("updatedate"));
-	}
-	return customer;
-}
-		*/

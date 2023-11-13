@@ -9,18 +9,22 @@
 	<!-- 메뉴 끝 -->
 
 <%
+		// 한글 깨짐 방지
 		request.setCharacterEncoding("UTF-8");
 
 		int customerNo = 0;
-		if(session.getAttribute("customerNo") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		if(session.getAttribute("customerNo") == null){  // 로그인을 한 기록이 없으면 -> loginForm.jsp로 이동
 			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 			return;
-		} else{
+		} else{ 
 			customerNo = (Integer)session.getAttribute("customerNo");
-			System.out.println(customerNo + "<--customerNo");
+			System.out.println(customerNo + "<--customerNo"); // 디버깅을 통해 customerNo를 확인
 		}
-	
+		
+		// DAO 객체 생성
 		CustomerDao customerDao = new CustomerDao();
+		
+		// customerOne 메소드를 호출하여 customerNo에 대한 정보를 불러옴
 		ArrayList<HashMap<String, Object>> list = customerDao.customerOne(customerNo);
 		System.out.println("\n"+ list.size() + "<-- 값 확인");
 		
@@ -38,7 +42,7 @@
 	<h1>회원 상세정보 &#128203;</h1>
 	
 <% 
-	for(HashMap<String,Object> c : list) {
+	for(HashMap<String,Object> c : list) { // 받아온 회원정보 테이블에 출력
 %>
 	<form action="">
 		<table class="table table-bordered table-hover">

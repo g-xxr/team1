@@ -18,10 +18,13 @@
         height: 100vh;
         margin: 0;
     }
+    .custom-container{
+        width:25%
+        }
 </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container custom-container">
         <form method="post" action="<%=request.getContextPath()%>/insertManagerAction.jsp">
             <div class="card">
                 <div class="card-body">

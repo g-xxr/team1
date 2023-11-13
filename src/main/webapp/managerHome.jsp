@@ -114,7 +114,7 @@
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 리뷰게시판 관리 홈 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/qna.jpg">
 	                <!-- 리뷰게시판 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">리뷰게시판<br>관리</h3>

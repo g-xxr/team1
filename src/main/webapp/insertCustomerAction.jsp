@@ -17,6 +17,7 @@
 	Customer customer = new Customer();
 	CustomerDetail customerdetail = new CustomerDetail();
 	CustomerAddr customeraddr = new CustomerAddr();
+	CustomerPwHistory customerpwhistory = new CustomerPwHistory();
 	
 	customer.setCustomerId(customerId);
 	customer.setCustomerPw(customerPw);	
@@ -24,7 +25,7 @@
 	customerdetail.setCustomerPhone(customerPhone);
 	customeraddr.setAddress(customerAddress);
 	
-	customerDao.insertCustomer(customer, customerdetail, customeraddr);
+	customerDao.insertCustomer(customer, customerdetail, customeraddr, customerpwhistory);
 
 	response.sendRedirect(request.getContextPath()+"/privateHome.jsp");
 	/*

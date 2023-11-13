@@ -7,8 +7,7 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-
-
+	
 %>    
 <!DOCTYPE html>
 <html>
@@ -51,7 +50,7 @@
       		<label for="comment">내용:</label>
       		<textarea class="form-control" rows="5" name="noticeContent"></textarea>   		    
    			</div>
-   			<button type="submit" class="btn btn-outline-dark mt-auto">공지하기</button>	
+   			<button type="submit" class="btn btn-outline-dark mt-auto">공지추가</button>	
    		   </form>
    		
            		 		  

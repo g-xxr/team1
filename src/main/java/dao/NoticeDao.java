@@ -61,24 +61,16 @@ public class NoticeDao {
 		
 		return totalRow;
 	}
-	
-	
-	
-	
-	
-	
+
 	//noticeOne 공지사항 상세보기
-	public ArrayList<HashMap<String, Object>> noticeOne(int noticeNo) throws Exception {
-			
-		
+	public ArrayList<HashMap<String, Object>> noticeOne(int noticeNo) throws Exception {					
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 				
-		String sql = "SELECT notice_no noticeNo, manager_no, notice_title, notice_content, createdate updatedate FROM notice where notice_no = ? ";
-							
+		String sql = "SELECT notice_no noticeNo, manager_no managerNo, notice_title noticeTitle, notice_content noticeContent, createdate, updatedate FROM notice where notice_no = ? ";					
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, noticeNo);	
 		ResultSet rs = stmt.executeQuery(); // jdbc환경의 모델
@@ -89,8 +81,9 @@ public class NoticeDao {
 			no.put("managerNo", rs.getInt("managerNo"));
 			no.put("noticeTitle", rs.getString("noticeTitle"));
 			no.put("noticeContent", rs.getString("noticeContent"));
-			list.add(no);
-				
+			no.put("createdate", rs.getString("createdate"));
+			no.put("updatedate", rs.getString("updatedate"));		
+			list.add(no);			
 		}
 		conn.close();
 		rs.close();
@@ -120,10 +113,6 @@ public class NoticeDao {
 		conn.close();
 		stmt.close();
 		
-		
-		
-		
-		
 		return row;
 	}
 	
@@ -147,8 +136,8 @@ public class NoticeDao {
 		
 		return row;
 	}
-	//updateQuestionForm.jsp 문의사항 상세정보 수정
-		public int updateNotice(int notice_no) throws Exception{
+	//updateNoticeForm.jsp 문의사항 상세정보 수정
+		public int updateNotice(Notice notice) throws Exception{
 			int row = 0;
 			Class.forName("org.mariadb.jdbc.Driver");
 			String url = "jdbc:mariadb://localhost:3306/mall";
@@ -156,9 +145,12 @@ public class NoticeDao {
 			String dbpw = "java1234";		
 			Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 			
-			String sql = "UPDATE notice SET notice_title = ?, notice_content = ?, updatedate = now() WHERE notice_no = ?";				
+			String sql = "UPDATE notice SET manager_no = ?, notice_title = ?, notice_content = ?, updatedate = now() WHERE notice_no = ?";				
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, notice_no);
+			stmt.setString(1, notice.getNoticeTitle());
+			stmt.setString(2, notice.getNoticeContent());
+			stmt.setInt(3, notice.getNoticeNo());
+			stmt.setInt(3, notice.getManagerNo());
 			System.out.println(stmt + " <-- stmt updateNotice()");
 			row = stmt.executeUpdate();
 			

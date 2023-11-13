@@ -92,7 +92,7 @@ public class CustomerDao {
 */
 	
 	// 고객 추가 insertCustomerAction.jsp 호출
-	public void insertCustomer(Customer customer, CustomerDetail customerdetail, CustomerAddr customeraddr) throws Exception{
+	public void insertCustomer(Customer customer, CustomerDetail customerdetail, CustomerAddr customeraddr, CustomerPwHistory customerpwhistory) throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
@@ -142,13 +142,78 @@ public class CustomerDao {
 			return;
 		}
 		
+		String sql4 = "INSERT INTO customer_pw_history(customer_no, customer_pw, createdate) VALUES(?, PASSWORD(?), NOW())";
+		PreparedStatement stmt4 = conn.prepareStatement(sql4);
+		stmt4.setInt(1, customerNo);
+		stmt4.setString(2, customer.getCustomerPw());
+		System.out.println(stmt4 + "<-- stmt3 insert테스트");
+		
+		int row4 = stmt4.executeUpdate();
+		if (row4 != 1) {
+			conn.rollback();
+			return;
+		}
+		
 		conn.commit();
-		stmt1.close();
 		rs1.close();
+		stmt1.close();
 		stmt2.close();
 		stmt3.close();
+		stmt4.close();
 	}
 	
+	// 고객 비밀번호 수정 반영
+	public void updateCustomerPw(String oldPw, String newPw, int customerNo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		conn.setAutoCommit(false);
+		
+		String sql1 = "SELECT customer_pw customerPw FROM customer_pw_history WHERE customer_no=? AND customer_pw = PASSWORD(?)";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setInt(1, customerNo);
+		stmt1.setString(2, newPw);
+		ResultSet rs = stmt1.executeQuery();
+		if(rs.next()) {
+			conn.rollback();
+			String msg = URLEncoder.encode("이전 비밀번호와 동일합니다. 비밀번호를 다르게 설정해주세요.", "UTF-8");
+			response.sendRedirect(request.getContextPath()+"/updateCustomerPwForm.jsp?msg="+msg);
+			return;
+		}
+		
+		String sql2 = "UPDATE customer SET customer_pw = PASSWORD(?), updatedate = NOW() WHERE customer_no = ? AND customer_pw = PASSWORD(?)";
+		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		stmt2.setString(1, newPw);
+		stmt2.setInt(2, customerNo);
+		stmt2.setString(3, oldPw);
+	
+		int row2 = stmt2.executeUpdate();
+		
+		if(row2 != 1) {
+			conn.rollback();
+			String msg = URLEncoder.encode("비밀번호를 입력하세요", "UTF-8");
+			response.sendRedirect(request.getContextPath()+"/updateCustomerPwForm.jsp?msg"+msg);
+			return;
+		}
+		String sql3 = "INSERT INTO customer_pw_history(customer_no, customer_pw, createdate) VALUES (?, PASSWORD(?), NOW())";
+		PreparedStatement stmt3 = conn.prepareStatement(sql3);
+		stmt3.setInt(1, customerNo);
+		stmt3.setString(2, newPw);
+		
+		int row3 = stmt3.executeUpdate();
+		if(row3 != 1) {
+			conn.rollback();
+			return;
+		}
+		conn.commit();
+		response.sendRedirect(request.getContextPath()+"/customerOne.jsp");
+	}
+	
+	
+
 	// 고객 비밀번호 수정 updateCustomerPwAction.jsp 호출
 	public int updateCustomerPw(Customer customer) throws Exception {
 		int row = 0;
@@ -230,36 +295,16 @@ public class CustomerDao {
 			
 			list.add(c);
 		}
-		
 		rs.close();
 		stmt.close();
 		conn.close();
 		
 		return list;
-		
 	}
 
-	public void updateCustomerOne(int customerNo, String customerName, String customerPhone) throws Exception{
-		Class.forName("org.mariadb.jdbc.Driver");  
-		String url = "jdbc:mariadb://localhost:3306/mall";  
-		String dbuser = "root";                             
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		conn.setAutoCommit(false);
-		
-		// customer_detail 수정
-		String sql = "UPDATE customer_detail SET customer_name = ?, customer_phone = ?, updatedate=NOW() WHERE customer_no=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, customerName);
-		stmt.setString(2, customerPhone);
-		stmt.setInt(3, customerNo);
-		
-		int row1 = stmt.executeUpdate();
-	
-}
 
 	// 고객 상세정보 호출
-	public int updateCustomerOne2(String newName, String newPhone, int customerNo) throws Exception {
+	public void updateCustomerOne(String newName, String newPhone, String newAddr, int customerNo) throws Exception {
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
@@ -268,23 +313,35 @@ public class CustomerDao {
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		   
 	// 이름과 전화번호 업데이트 쿼리
-		String sql = "UPDATE customer_detail SET customer_name = ?, customer_phone = ?, updatedate=NOW() WHERE customer_no=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, newName); 
-		stmt.setString(2, newPhone);
-		stmt.setInt(3, customerNo);	
-		System.out.println(stmt + "<-- stmt");
+		String sql1 = "UPDATE customer_detail SET customer_name = ?, customer_phone = ?, updatedate=NOW() WHERE customer_no=?";
+		PreparedStatement stmt1 = conn.prepareStatement(sql1);
+		stmt1.setString(1, newName); 
+		stmt1.setString(2, newPhone);
+		stmt1.setInt(3, customerNo);	
+		System.out.println(stmt1 + "<-- stmt");
 			
-		row = stmt.executeUpdate();
-		stmt.close();
+		int row1 = stmt1.executeUpdate();
+		if (row1 !=1 ) {
+			conn.rollback();
+			return;
+		}
+		
+	// 주소 업데이트 쿼리
+		String sql2 = "UPDATE customer_addr SET address = ?, updatedate = NOW() WHERE customer_no = ?";
+		PreparedStatement stmt2 = conn.prepareStatement(sql2);
+		stmt2.setString(1, newAddr);
+		stmt2.setInt(2, customerNo);
+		
+		int row2 = stmt2.executeUpdate();
+		if(row2 != 1) {
+			conn.rollback();
+			return;
+		}
+		stmt1.close();
+		stmt2.close();
 		conn.close();
-
-		return row;
-
 	}
-
 }
-
 
 /*
 

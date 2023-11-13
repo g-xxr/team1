@@ -97,12 +97,11 @@ request.setCharacterEncoding("utf-8");
         		for(HashMap<String, Object> n : list){
         	%>
         		 <tr>
-        		  <td><%=n.get("noticeNo")%></td>							
+        		  <td><%=n.get("noticeNo")%></td>
+        		  <td>
+        		  	<a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.get("noticeNo")%>"><%=n.get("noticeTitle")%></a></td>        							        		         	     							
         		  <td><%=n.get("managerNo")%></td>
-        		  <td><%=n.get("noticeTitle")%></td>
-        		  <td><%=n.get("noticeContent")%></td>
-        		  <td><%=n.get("createdate")%></td>
-        		  <td><%=n.get("noticeContent")%></td>			  
+        		  <td><%=n.get("createdate")%></td>				  
         	     </tr>  
         		<%
         			}

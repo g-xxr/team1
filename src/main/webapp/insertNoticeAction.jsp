@@ -1,20 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "dao.*" %>
-<%@ page import = "java.util.*" %>
 <%@ page import = "vo.*" %> 
 <%	
 	
 	
-	int managerNo = (Integer)session.getAttribute("managerNo");
-System.out.println(managerNo + "<---managerNo");
+	int managerNo = 108;
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	
-	
-	
-	System.out.println(request.getParameter("noticeTitle") + "<--noticeTitle");
-	System.out.println(request.getParameter("noticeContent") + "<--noticeContent");
 		
 	NoticeDao noticeDao = new NoticeDao();
 		
@@ -25,7 +19,7 @@ System.out.println(managerNo + "<---managerNo");
 	
 	
 	int row = noticeDao.insertNotice(notice);
-	if(row == 1) {
+	if(row != 0) {
 		System.out.println("공지사항 추가성공");
 		response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 	}else{

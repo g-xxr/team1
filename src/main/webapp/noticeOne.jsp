@@ -5,16 +5,10 @@
 <%@ page import = "java.util.*" %>
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
-<%
-	// 공지사항 상세보기 (로그인전 확인 가능)
-	
-	if(request.getParameter("noticeNo") == null || request.getParameter("noticeNo").equals("")){
-		response.sendRedirect(request.getContextPath()+"/notice/notice.jsp");
-		return;
-	}
-	
+<%	
+
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-	System.out.println(noticeNo + "<-- noticeOne.jsp noticeNo");
+	System.out.println(noticeNo + "<--noticeNo");
 
 	//model 호출 코드(cotroller code)
 	NoticeDao nd = new NoticeDao();
@@ -53,18 +47,19 @@
 	</header>
         <!-- 공지사항 상세보기-->
         <div class="container">
+        	<br>
         	<h1>공지사항 상세보기</h1>   	     	    
         	  <table class="table table-hover">    	
         		<%
         			for(HashMap<String, Object> o : noticeOne){
         		%>        			
         			  <tr>
-        			  	<th>제목</th>
- 						<td><%=o.get("noticeTitle")%></td> 						        			  				  
+        			  	<th>번호</th>
+ 						<td><%=o.get("noticeNo")%></td> 						        			  				  
         			  </tr>
         			  <tr>
-        			  	<th>작성자</th>
- 						<td><%=o.get("managerNo") %></td>       			  				  
+        			  	<th>제목</th>
+ 						<td><%=o.get("noticeTitle") %></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>내용</th>
@@ -77,10 +72,11 @@
         			  <tr>
         			  	<th>수정일</th>
  						<td><%=o.get("updatedate")%></td>       			  				  
-        			  </tr>    			
+        			  </tr>    
+        			  <div style="float:right">			
         			  	 <a href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=o.get("noticeNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
 			             <a href="<%=request.getContextPath()%>/deleteNoticeAction.jsp?noticeNo=<%=o.get("noticeNo")%>" class="btn btn-outline-dark mt-auto">삭제</a> 
-        		
+        			  </div>
         		<%
         			}
         		%>  

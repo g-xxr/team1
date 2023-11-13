@@ -1,6 +1,7 @@
-<%@page import="dao.CustomerDao"%>
+<%@page import="dao.ManagerDao"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="vo.*"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 메뉴 네비게이션 바 -->
@@ -9,29 +10,18 @@
 <!-- 메뉴 끝 -->
 
 <%
-
-	int customerNo = 0;
+	int managerNo = 0;
 	
-	if(session.getAttribute("loginId") == null) {
+	if(session.getAttribute("managerNo") == null) {
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	} else {
-		customerNo = (Integer)session.getAttribute("customerNo");
+		managerNo = (Integer)session.getAttribute("managerNo");
 	}
-
-	CustomerDao customerDao = new CustomerDao();
-	ArrayList<HashMap<String,Object>> list = customerDao.customerOne(customerNo);
-	
-	String customerName = request.getParameter("customerName");
-	String customerPhone = request.getParameter("customerPhone");		
-	System.out.println(customerNo + "<--customerNo");
-
-
+	ManagerDao managerDao = new ManagerDao();
+	ArrayList<Manager> list = managerDao.managerOne(managerNo);
+			
 %>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -56,13 +46,12 @@
                     <h2 class="card-title text-center">관리자정보 변경</h2>
                     
                     <%
-                    	for(HashMap<String, Object> c : list){
-                    		
+                    	for(Manager m : list){
                     %>
                     
-                    <form action="<%=request.getContextPath()%>/updateCustomerOneAction.jsp" method="post">
+                    <form action="<%=request.getContextPath()%>/updateManagerOneAction.jsp" method="post">
                         <div class="mb-3">
-                            <label for="oldName" class="form-label">고객명</label>
+                            <label for="oldName" class="form-label">관리자명</label>
                             <input type="text" class="form-control" name="newName" required placeholder="변경할 이름" id="oldPw">
                         </div>
                         <div class="text-center">

@@ -27,6 +27,7 @@
 	    int beginRow = (currentPage-1)*rowPerPage;
 	    
 	    ArrayList<HashMap<String,Object>>list =gd.goodsList(beginRow, rowPerPage);
+	
 	%>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +97,7 @@
 	            	<a class="btn btn-outline-dark mt-auto" 
 	            		href="<%=request.getContextPath()%>/goodsOne.jsp?goodsNo=<%=map.get("goodsNo")%>">상세보기</a>
 	            	<a class="btn btn-outline-dark mt-auto" 
-	            		href="<%=request.getContextPath()%>/cartAction.jsp?goodsNo=<%=map.get("goodsNo")%>">장바구니</a>
+	            		href="<%=request.getContextPath()%>/insertCartAction.jsp?goodsNo=<%=map.get("goodsNo")%>">장바구니</a>
 	      			</div>
             		</div>
 				</div>

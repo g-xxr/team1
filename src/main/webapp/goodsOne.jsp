@@ -98,7 +98,7 @@
                 	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/goodsList.jsp">🔙다른상품 보기🔙</a>
             		</div>
             		<div class="col-md-6">
-                	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/cartAction.jsp?goodsNo=<%=goodsNo%>">🧺장바구니 추가🧺</a>
+                	<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/insertCartAction.jsp?goodsNo=<%=goodsNo%>">🧺장바구니 추가🧺</a>
             		</div>
         			</div>
     				</div>

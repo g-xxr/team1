@@ -39,22 +39,12 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet">
     </head>
+ 
 <body>
 	
 	<!---- 로그인 시 보여지는 메뉴와 로그아웃 시 보여지는 메뉴 ---->
-	<%
-			if(session.getAttribute("customerNo") != null) {
-			// 고객이 로그인한 상태라면
-	%>
-			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
-	<% 	
-			} else {
-			// 고객이 로그아웃한 상태라면
-	%>
-			<jsp:include page="/inc/menu.jsp"></jsp:include>
-	<% 	
-			}
-	%>
+	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-5">
@@ -98,11 +88,7 @@
         	<td><img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;"></td>
         	<td><%=map.get("goodsTitle")%></td>
         	<td><mark><%=map.get("goodsPrice")%>원</mark></td>
-        	
-        	<td>
-			<%=map.get("quantity")%>
-	  		</td>
-        	
+        	<td><%=map.get("quantity")%></td>
         	<td><%=goodsSum%>원</td>
         	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteCartAction.jsp?cartNo=<%=map.get("cartNo")%>">🗑️삭제🗑️</a></td>
       		</tr>
@@ -119,7 +105,7 @@
 	</table>
 	<!-- 주문하기 버튼 -->
 		<div style="text-align: right;">
-			<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/orders.jsp">주문하기</a>
+			<a class="btn btn-outline-dark btn-lg" href="<%=request.getContextPath()%>/orders.jsp">💜구매하기💜</a>
 		</div>
 	</div>
 	

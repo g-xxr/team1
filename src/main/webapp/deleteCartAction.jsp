@@ -2,6 +2,7 @@
 <%@ page import="dao.*"%>
 <%
 	int cartNo = Integer.parseInt(request.getParameter("cartNo"));
+	
 	CartDao cd = new CartDao();
 	cd.deleteCart(cartNo);
 	

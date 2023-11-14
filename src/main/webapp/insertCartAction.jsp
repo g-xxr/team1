@@ -6,12 +6,14 @@
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	int customerNo = (Integer)session.getAttribute("customerNo");
 	
+	
 	Cart c = new Cart();
 	c.setGoodsNo(goodsNo);
 	c.setCustomerNo(customerNo);
 	
 	CartDao cd = new CartDao();
 	cd.insertCart(c);
+	cd.cartQuantity(customerNo);
 	
-	response.sendRedirect(request.getContextPath()+"/goodsList.jsp");
+	response.sendRedirect(request.getContextPath()+"/cart.jsp");
 %>

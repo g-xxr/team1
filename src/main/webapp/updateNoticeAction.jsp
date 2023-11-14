@@ -3,10 +3,10 @@
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
 <%
-	
+	request.setCharacterEncoding("UTF-8");
 	
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-	
+	int managerNo = Integer.parseInt(request.getParameter("managerNo"));
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	
@@ -16,8 +16,8 @@
 	notice.setNoticeContent(noticeContent);
 	
 	NoticeDao no = new NoticeDao();
-	int row = no.updateNotice(notice);
+	no.updateNotice(noticeNo, noticeContent, managerNo);
 		
-	response.sendRedirect(request.getContextPath()+"/noticeOne.jsp");
+	response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 
 %>

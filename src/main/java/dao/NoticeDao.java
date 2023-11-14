@@ -142,7 +142,7 @@ public class NoticeDao {
 		return row;
 	}
 	//updateNotice 문의사항 상세정보 수정
-		public int updateNotice(Notice notice) throws Exception{
+		public void updateNotice(int noticeNo, String noticeContent, int managerNo) throws Exception{
 		
 			Class.forName("org.mariadb.jdbc.Driver");
 			String url = "jdbc:mariadb://localhost:3306/mall";
@@ -150,20 +150,23 @@ public class NoticeDao {
 			String dbpw = "java1234";		
 			Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 			
-			String sql = "UPDATE notice SET notice_title = ?, notice_content = ?, updatedate = NOW() WHERE notice_no = ?";				
+			String sql = "UPDATE notice SET notice_content = ?, manager_no = ?, updatedate = NOW() WHERE notice_no = ?";				
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, notice.getNoticeNo());
-			stmt.setString(2,notice.getNoticeTitle());
-			stmt.setString(3,notice.getNoticeContent());
+			stmt.setString(1, noticeContent);
+			stmt.setInt(2, managerNo);
+			stmt.setInt(3, noticeNo);
 			
-		
 			System.out.println(stmt + " <-- stmt updateNotice()");
 			int row = stmt.executeUpdate();
-			
+			if(row ==1) {
+				System.out.println("수정 완료");
+			} else {
+				System.out.println("수정 실패");
+			}
 			conn.close();
 			stmt.close();
 			
-			return row;
+			
 		}
 	
 	

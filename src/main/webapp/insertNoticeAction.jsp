@@ -3,9 +3,11 @@
 <%@ page import = "dao.*" %>
 <%@ page import = "vo.*" %> 
 <%	
-	
-	
-	int managerNo = 108;
+	request.setCharacterEncoding("UTF-8");
+
+	int managerNo = 0;
+	managerNo = (Integer)session.getAttribute("managerNo");
+	System.out.println(managerNo + "<--managerNo"); // 디버깅을 통해 managerNo를 확인
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	

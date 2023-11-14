@@ -13,7 +13,7 @@
 	int beginRow = (currentPage-1)*rowPerPage;
 	// model 호출 코드(cotroller code)
 	NoticeDao nd = new NoticeDao();	
-	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);							
+	ArrayList<String, Object> list = nd.selectNotice(beginRow, rowPerPage);							
 
 	
 
@@ -42,7 +42,7 @@
 <body>
 	
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/menu.jsp"></jsp:include>
+	<jsp:include page="/inc/menu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 	
 	<!-- 헤드 배너 부분 -->

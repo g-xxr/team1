@@ -7,6 +7,7 @@
 
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 	NoticeDao nd = new NoticeDao();
+	System.out.println(noticeNo + "<--noticeNo");
 	Notice n = nd.noticeOne(noticeNo);
 
 %>    
@@ -29,7 +30,7 @@
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
@@ -43,13 +44,15 @@
 	</header>
         <hr>
     <div class="container" >      				
-		   <form action="<%=request.getContextPath()%>/updateNoticeAction.jsp?noticeNo=<%=n.getNoticeNo()%>">		  
+		   <form action="<%=request.getContextPath()%>/updateNoticeAction.jsp" method = "post">
+		   	<input type="hidden" name ="managerNo" value="<%=session.getAttribute("managerNo")%>">
+		   		<input type="hidden" name ="noticeNo" value="<%=noticeNo%>">	  
 			<h2>공지사항 수정</h2> 			
      		<div class="mb-3 mt-3">
   
      		  <div>
      			<label for="comment">번호:</label>      		
-      			<input class="form-control w-50 p-1" name="noticeNo" value="<%=n.getNoticeNo()%>">
+      			<input class="form-control w-50 p-1" type = "text" name="noticeNo" value="<%=noticeNo%>" disabled>
       		  </div>
      		  
      		  <div>

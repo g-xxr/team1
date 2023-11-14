@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<% 
+	String customerId = (String)(session.getAttribute("loginId")); // customerId를 loginId로 형변환 필수
+	
+	if(session.getAttribute("loginId") == null){  // 현재 세션에 loginId를 만든적이 없다 -> 로그인 없다
+		response.sendRedirect(request.getContextPath()+"/publicHome.jsp");
+		return;
+	}
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -36,7 +43,7 @@
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">👻SHOP👽</h1>
-	            <h2 class="display-8 fw-bolder">안녕하세요, 님</h2>
+	            <h2 class="display-8 fw-bolder">안녕하세요, <%=customerId%>님</h2>
 	            <p class="lead fw-normal text-white-50 mb-0">방문해 주셔서 감사합니다🫡 오늘도 행복한 하루 되세요😉</p>
 	        </div>
 	    </div>

@@ -5,7 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- 메뉴 네비게이션 바 -->
 <!-- 메뉴 시작 (절대주소 적으세요)-->
-<jsp:include page="/privateMenu.jsp"></jsp:include>
+<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 <!-- 메뉴 끝 -->
 
 <%

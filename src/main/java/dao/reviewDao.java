@@ -6,26 +6,26 @@ import vo.*;
 
 	// review
 		public class reviewDao {
+	// selectReview 메소드를 통해 리뷰 목록을 가져오기
 		public ArrayList<HashMap<String, Object>> selectReview(int beginRow, int rowPerPage) throws Exception{
 		
-		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT r.review_no reviewNo, o.order_no orderNo, r.review_content reviewContent, r.createdate createdate, r.updatedate updatedate FROM review r INNER JOIN orders o ON r.review_no = o.order_no ORDER BY createdate desc";
+		String sql = "SELECT r.review_no reviewNo, o.orders_no ordersNo, r.review_content reviewContent, r.createdate createdate, r.updatedate updatedate FROM review r INNER JOIN orders o ON r.review_no = o.orders_no ORDER BY createdate desc";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,beginRow);
 		stmt.setInt(2,rowPerPage);
 		ResultSet rs = stmt.executeQuery();
-		
+		// 결과값을 담을 ArrayList 생성
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		if(rs.next()) {
+		if(rs.next()) { // 결과가 있다면 HashMap에 결과를 담아 ArrayList에 추가
 			HashMap<String, Object> r = new HashMap<String, Object>();
 			r.put("reviewNo", rs.getInt("reviewNo"));
-			r.put("orderNo", rs.getInt("orderNo"));
+			r.put("ordersNo", rs.getInt("ordersNo"));
 			r.put("reviewTitle", rs.getString("reviewTitle"));
 			r.put("reviewContent", rs.getString("reviewContent"));
 			r.put("createdate", rs.getString("createdate"));
@@ -37,7 +37,46 @@ import vo.*;
 		
 		return list;
 	}
-	// reviewOne 리뷰상세내역
+		
+	// 주문내역이 있는지 고객 확인
+	public void reviewOk(int ordersNo, String reviewContent, String loginId) throws Exception{
+	Class.forName("org.mariadb.jdbc.Driver");
+	String url = "jdbc:mariadb://localhost:3306/mall";
+	String dbuser = "root";
+	String dbpw = "java1234";
+	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+	
+	String sql = "SELECT orders_state ordersState FROM orders WHERE orders_no =?";
+	PreparedStatement stmt = conn.prepareStatement(sql);
+	stmt.setInt(1, ordersNo);
+	
+	ResultSet rs = stmt.executeQuery();
+	if(rs.next()) {
+		System.out.println("주문번호 확인완료");
+		String state = rs.getString("ordersState");
+		if (state.equals("배송도착")) {
+			System.out.println("배송이 완료된 제품입니다");
+			}
+		}
+	
+	//insertReview 리뷰를 추가하는 메소드
+	String sql2 = "INSERT INTO review(orders_no, review_content, createdate, updatedate) VALUES(?,?,NOW(),NOW())";
+	PreparedStatement stmt2 = conn.prepareStatement(sql2);
+	stmt2.setInt(1, ordersNo);
+	stmt2.setString(2, reviewContent);
+	System.out.println(stmt + " <-- stmt insertReview()");
+	int row = stmt.executeUpdate();
+	if(row == 1) {
+		System.out.println("리뷰입력 완료");
+		} else {
+		System.out.println("리뷰입력 실패");
+		}
+		conn.close();
+		stmt.close();
+	}
+	
+	
+	// selectReviewOne 특정 리뷰 상세 내역을 호출하는 메소드
 	public Review selectReviewOne(int reviewNo) throws Exception {
 		Review review = null;		
 
@@ -47,7 +86,7 @@ import vo.*;
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT review_no reviewNo, orders_no ordersNo, review_content reviewContent, createdate, updatedate FROM review WHERE review_no = ?";
+		String sql = "SELECT r.review_no reviewNo, o.orders_no ordersNo, r.review_content reviewContent, r.createdate, r.updatedate FROM review r inner join orders o on r.orders_no = o.orders_no WHERE review_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,reviewNo);
 		ResultSet rs = stmt.executeQuery();
@@ -65,30 +104,9 @@ import vo.*;
 		return review;
 			
 	}
-	//insertReview
-	// 관리자 추가 insertManagerAction.jsp 호출
-		public int insertreview(Review review) throws Exception{
-			int row =0;
-			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://localhost:3306/mall";
-			String dbuser = "root";
-			String dbpw = "java1234";
-			
-			Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-			String sql = "INSERT INTO review(orders_no, review_content, createdate, updatedate) VALUES(?,?,NOW(),NOW())";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, review.getOrdersNo());
-			stmt.setString(2, review.getReviewContent());
-			System.out.println(stmt + " <-- stmt insertReview()");
-			row = stmt.executeUpdate();
-			
-			conn.close();
-			stmt.close();
-			
-			return row;
-		}
-	// deleteReview.jsp 리뷰 삭제
-	public int deleteReview(int review_no) throws Exception{
+
+	// deleteReview.jsp 리뷰를 삭제하는 메소드
+	public int deleteReview(int reviewNo) throws Exception{
 		int row = 0;
 	    Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
@@ -98,8 +116,7 @@ import vo.*;
 			
 		String sql = "DELETE FROM review WHERE review_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, review_no);
-		System.out.println(stmt + " <-- stmt deleteReview()");
+		stmt.setInt(1, reviewNo);
 		row = stmt.executeUpdate();
 			
 		conn.close();
@@ -108,7 +125,7 @@ import vo.*;
 		return row;
 	}
 	
-	//updateReviewForm.jsp 문의사항 상세정보 수정
+	//updateReviewForm.jsp 리뷰의 내용을 수정하는 메소드
 		public int updateReview(Review review) throws Exception{
 			int row = 0;
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -130,20 +147,5 @@ import vo.*;
 			
 			return row;
 		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			
 }

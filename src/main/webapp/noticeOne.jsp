@@ -8,11 +8,10 @@
 <%	
 
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
-	System.out.println(noticeNo + "<--noticeNo");
 
-	//model 호출 코드(cotroller code)
+
 	NoticeDao nd = new NoticeDao();
-	ArrayList<HashMap<String, Object>> list = nd.noticeOne(noticeNo);
+	Notice n = nd.noticeOne(noticeNo);
 %>
 
 <!DOCTYPE html>
@@ -49,37 +48,24 @@
         <div class="container">
         	<br>
         	<h1>공지사항 상세보기</h1>   	     	    
-        	  <table class="table table-hover">    	
-        		<%
-        			for(HashMap<String, Object> o : list){
-        		%>        			
-        			  <tr>
-        			  	<th>번호</th>
- 						<td><%=o.get("noticeNo")%> </td> 						        			  				  
-        			  </tr>
+        	  <table class="table table-hover">    	       		       		        			  
+        			 
         			  <tr>
         			  	<th>제목</th>
- 						<td><%=o.get("noticeTitle") %></td>       			  				  
+ 						<td><%=n.getNoticeTitle()%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>내용</th>
- 						<td><%=o.get("noticeContent")%></td>       			  				  
+ 						<td><%=n.getNoticeContent()%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>작성일</th>
- 						<td><%=o.get("createdate")%></td>       			  				  
+ 						<td><%=n.getCreatedate()%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>수정일</th>
- 						<td><%=o.get("updatedate")%></td>       			  				  
-        			  </tr>    
-        			  <div style="float:right">			
-        			  	 <a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=o.get("noticeNo")%>">수정</a>
-			             <a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/deleteNoticeAction.jsp?noticeNo=<%=o.get("noticeNo")%>" >삭제</a> 
-        			  </div>
-        		<%
-        			}
-        		%>  
+ 						<td><%=n.getUpdatedate()%></td>        			  				  
+        			  </tr>    	
         		      		
         	  </table>	
     	  

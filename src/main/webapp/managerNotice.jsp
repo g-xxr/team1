@@ -5,45 +5,33 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>      
 <%
-	
-	//페이징
-	//현재 페이지
+
+
 	int currentPage = 1;
-	//페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
-	if(request.getParameter("currentPage") != null) {
+	// 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
+	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}	
-	//페이지당 보여줄행
+	}
 	int rowPerPage = 8;
 	
-	//noticeDao 호출 코드
 	NoticeDao nd = new NoticeDao();
-	int totalRow = nd.noticePaging();
-	//마지막 페이지
+	int totalRow =nd.noticePaging();
+	
 	int lastPage = totalRow / rowPerPage;
-	// 딱 나누어 떨어지지 않으면 마지막 페이지 추가하기
-    if(totalRow % rowPerPage != 0){
-			lastPage = lastPage +1;
-			}
- 	// 시작 공지사항의 번호
- 	int beginRow = (currentPage-1)*rowPerPage;
- 	
- 	
-	ArrayList<HashMap<String, Object>> list = nd.selectNotice(beginRow, rowPerPage);	
-
-%>       
+	if(totalRow % rowPerPage != 0){
+		lastPage = lastPage +1;
+		}
+	
+	int beginRow = (currentPage-1)*rowPerPage;
+		
+	ArrayList<Notice> list = nd.selectNotice(beginRow, rowPerPage);
+%>     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
-<title>홈페이지 팀플</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	
+<title>홈페이지 팀플</title>	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 	
@@ -79,27 +67,38 @@
         			<th class="col-sm-1">번호</th>    			
         			<th class="col-sm-7">제목</th>
         			<th class="col-sm-1">작성자</th>        			
-        			<th class="col-sm-1">작성일</th>	
+        			<th class="col-sm-1">작성일</th>
+        			<th class="col-sm-1">수정</th>	
+        			<th class="col-sm-1">삭제</th>		
         		</tr>		
         	<%	
-        		for(HashMap<String, Object> n : list){
+        		for(Notice n : list){
         	%>
         		 <tr>
-        		  <td><%=n.get("noticeNo")%></td>
+        		  <td><%=n.getNoticeNo()%></td>
         		  <td>
-        		  	<a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.get("noticeNo")%>"><%=n.get("noticeTitle")%></a>
+        		  	<a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a>
         		  </td>        							        		         	     							
-        		  <td><%=n.get("managerNo")%></td>
-        		  <td><%=n.get("createdate")%></td>				  
-        	     </tr>  
+        		  <td><%=n.getManagerNo()%></td>
+        		  <td><%=n.getCreatedate()%></td>	
+        		  <td>          		    
+        		    <a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=n.getNoticeNo()%>">수정</a>
+        	 	  </td>
+        	 	  <td>
+        	   		<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/deleteNoticeAction.jsp?noticeNo=<%=n.getNoticeNo()%>">삭제</a>	 	  
+        	      </td>
+        	     </tr> 
+        	      
         	<%
         		}
         	%>        		
-        	  </table>	
+        		
+        	  </table>
+        	 
+        	  
         </div>
-        <!-- 페이지네이션 -->
-	<div class="d-flex justify-content-center">
-		<div>
+       <div class="d-flex justify-content-center">
+		 <div>
 		<%
 			if(currentPage > 1){
 		%>
@@ -115,9 +114,9 @@
 		<%
 			}
 		%>
-		</div>
-	</div>
-       
+		 </div>
+	  </div>
+       <br>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

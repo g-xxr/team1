@@ -7,7 +7,7 @@ import vo.*;
 public class QuestionDao {	
 
 	// question.jsp	문의사항 리스트 
-	public ArrayList<HashMap<String, Object>> selectQuestion(int beginRow, int rowPerPage) throws Exception {
+	public ArrayList<Question> selectQuestion(int beginRow, int rowPerPage) throws Exception {
 				
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -22,17 +22,9 @@ public class QuestionDao {
 		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery(); // jdbc환경의 모델
 		
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>(); 
-		if(rs.next()) {
-			HashMap<String, Object> q = new HashMap<String, Object>();
-			q.put("questionNo", rs.getInt("questionNo"));
-			q.put("goodsNo", rs.getInt("goodsNo"));
-			q.put("customerNo", rs.getInt("customerNo"));
-			q.put("questionTitle", rs.getString("questionTitle"));
-			q.put("questionContent", rs.getString("questionContent"));
-			q.put("createdate", rs.getString("createdate"));
-			q.put("updatedate", rs.getString("updatedate"));
-			list.add(q);
+		ArrayList<Question> list = new ArrayList<>();
+		while(rs.next()) {
+			
 		}
 		conn.close();
 		stmt.close();

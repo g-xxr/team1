@@ -12,10 +12,10 @@
 	
 	if(row != 0){
 		System.out.println("삭제성공");
-		response.sendRedirect(request.getContextPath()+"/notice.jsp");
+		response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 	}else{
 		System.out.println("삭제실패");
-		response.sendRedirect(request.getContextPath()+"/notice.jsp");
+		response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
 	}
 
 %>

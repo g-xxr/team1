@@ -6,6 +6,7 @@
 	
 	
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
+	
 	String noticeTitle = request.getParameter("noticeTitle");
 	String noticeContent = request.getParameter("noticeContent");
 	
@@ -17,6 +18,6 @@
 	NoticeDao no = new NoticeDao();
 	int row = no.updateNotice(notice);
 		
-	response.sendRedirect(request.getContextPath()+"/managerNotice.jsp");
+	response.sendRedirect(request.getContextPath()+"/noticeOne.jsp");
 
 %>

@@ -4,19 +4,10 @@
 <%@ page import = "vo.*" %>
 <%@ page import="java.util.*" %>
 <%
-/*
-	//세션관리자만 들어올수있게
-	if(session.getAttribute("loginEmpId1") == null && session.getAttribute("loginEmpId2") == null){
-		response.sendRedirect(request.getContextPath()+"/notice.jsp");
-		return;
-	}
-*/
+
 	int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 	NoticeDao nd = new NoticeDao();
-	Notice notice = new Notice();
-	ArrayList<HashMap<String, Object>> list = nd.noticeOne(noticeNo);	
-
-
+	Notice n = nd.noticeOne(noticeNo);
 
 %>    
    
@@ -52,24 +43,28 @@
 	</header>
         <hr>
     <div class="container" >      				
-		   <form action="<%=request.getContextPath()%>/updateNoticeAction.jsp?noticeNo=<%=notice.getNoticeNo()%>">
+		   <form action="<%=request.getContextPath()%>/updateNoticeAction.jsp?noticeNo=<%=n.getNoticeNo()%>">		  
 			<h2>공지사항 수정</h2> 			
      		<div class="mb-3 mt-3">
+  
      		  <div>
-     			<label for="comment">번호:</label>    		
-     			<input type="text" class="form-control w-50 p-1" name="noticeNo" value="<%=notice.getNoticeNo()%>" readonly="readonly">    		
-     		  </div>
+     			<label for="comment">번호:</label>      		
+      			<input class="form-control w-50 p-1" name="noticeNo" value="<%=n.getNoticeNo()%>">
+      		  </div>
+     		  
      		  <div>
      			<label for="comment">제목:</label>      		
-      			<input type="text" class="form-control w-50 p-1" name="noticeTitle" value="<%=notice.getNoticeTitle()%>">
+      			<input class="form-control w-50 p-1" type="text" name="noticeTitle" value="<%=n.getNoticeTitle()%>">
       		  </div>
+      		  
+      		  <div>
       			<label for="comment">내용:</label>
-      			<textarea class="form-control" rows="5" name="noticeContent" value="<%=notice.getNoticeContent()%>"></textarea>     		
+      			<textarea class="form-control" rows="5" name="noticeContent" value="<%=n.getNoticeContent()%>"></textarea>     		
    		      </div>
-           <button class="sbtn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
+   		      <br>
+           <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
   		  </form>		  
 	</div>		     
-	<hr>	
 	 <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

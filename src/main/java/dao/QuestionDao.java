@@ -24,6 +24,15 @@ public class QuestionDao {
 		
 		ArrayList<Question> list = new ArrayList<>();
 		while(rs.next()) {
+			Question q = new Question();
+			q.setQuestionNo(rs.getInt("questionNo"));
+			q.setGoodsNo(rs.getInt("goodsNo"));
+			q.setCustomerNo(rs.getInt("customerNo"));
+			q.setQuestionTitle(rs.getString("questionTitle"));
+			q.setQuestionContent(rs.getString("questionContent"));
+			q.setCreatedate(rs.getString("createdate"));
+			q.setUpdatedate(rs.getString("updatedate"));
+			
 			
 		}
 		conn.close();
@@ -31,6 +40,30 @@ public class QuestionDao {
 		
 		return list;
 	}
+	
+	//notice 페이징 호출
+			public int questionPaging() throws Exception{
+				Class.forName("org.mariadb.jdbc.Driver");
+				String url = "jdbc:mariadb://localhost:3306/mall" ;
+				String dbuser = "root";
+				String dbpw = "java1234";
+				Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+					
+				// 페이징 sql
+				String sql = "SELECT COUNT(*) FROM question";
+				PreparedStatement stmt = conn.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery();
+				int totalRow = 0;
+				if(rs.next()) {
+				totalRow = rs.getInt("COUNT(*)"); // rs1.getInt(1)
+				}
+				// 자원 닫기
+				conn.close();
+				stmt.close();
+				rs.close();
+	
+				return totalRow;
+			}
 
 	
 		

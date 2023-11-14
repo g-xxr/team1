@@ -6,14 +6,23 @@
 <%@ page import="dao.*" %>      
 <%
 	int currentPage = 1;
-	if(request.getParameter("currentPage") != null) {
+	// 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
+	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 10;
+	int rowPerPage = 8;
+	
+	QuestionDao qd = new QuestionDao();
+	int totalRow =qd.questionPaging();
+	
+	int lastPage = totalRow / rowPerPage;
+	if(totalRow % rowPerPage != 0){
+		lastPage = lastPage +1;
+		}
 	int beginRow = (currentPage-1)*rowPerPage;
 	// model 호출 코드(cotroller code)
-	QuestionDao qd = new QuestionDao();
-	ArrayList<HashMap<String, Object>> list = qd.selectQuestion(beginRow, rowPerPage);				
+	
+	ArrayList<Question> list = qd.selectQuestion(beginRow, rowPerPage);				
 %>       
 <!DOCTYPE html>
 <html>
@@ -38,7 +47,7 @@
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/menu.jsp"></jsp:include>
+	<jsp:include page="/inc/menu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
@@ -68,16 +77,16 @@
         		</tr>	
         		<thead>        	
         		<%
-        			for(HashMap<String, Object> q : list){
+        			for(Question q : list){
         		%>
         			  <tr>
-        			  	<td><%=q.get("questionNo")%></td>
-        			  	<td><%=q.get("goodsNo")%></td>
-        			  	<td><%=q.get("customerNo")%></td>
-        			  	<td><%=q.get("questTitle")%></td>
-        			  	<td><%=q.get("questContent")%></td>
-        			  	<td><%=q.get("createdate")%></td>
-        			  	<td><%=q.get("updatedate")%></td>
+        			  	<td><%=q.getQuestionNo()%></td>
+        			  	<td><%=q.getGoodsNo()%></td>
+        			  	<td><%=q.getCustomerNo()%></td>
+        			  	<td><%=q.getQuestionTitle()%></td>
+        			  	<td><%=q.getQuestionContent()%></td>
+        			  	<td><%=q.getCreatedate()%></td>
+        			  	<td><%=q.getUpdatedate()%></td>
         			  			  
         			  </tr>  
         		<%

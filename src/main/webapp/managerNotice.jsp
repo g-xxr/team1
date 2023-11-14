@@ -44,7 +44,7 @@
 <body>
 	
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/managerMenu.jsp"></jsp:include>
+	<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">

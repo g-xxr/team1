@@ -4,9 +4,7 @@
 
 <!-- 유정 -->
     <%
-    
-    
-	    // 페이징 하기
+    	// 페이징 하기
 	    // 현재 페이지
 		int currentPage = 1;
 	    // 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
@@ -47,8 +45,20 @@
     </head>
 <body>
 
-	<!-- 메뉴바 -->
-	<jsp:include page="/menu.jsp"></jsp:include>
+	<!---- 로그인 시 보여지는 메뉴와 로그아웃 시 보여지는 메뉴 ---->
+	<%
+			if(session.getAttribute("customerNo") != null) {
+			// 고객이 로그인한 상태라면
+	%>
+			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+	<% 	
+			} else {
+			// 고객이 로그아웃한 상태라면
+	%>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+	<% 	
+			}
+	%>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-1">

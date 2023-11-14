@@ -8,10 +8,10 @@
 		// 로그인한 매니저만 접근 가능
 		int managerNo = 0;
 
-		if(session.getAttribute("managerNo") == null){  // 현재 세션에 customerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
+		if(session.getAttribute("managerNo") == null){  // 현재 세션에 managerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
 			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 			return;
-		}else{
+		} else {
 			managerNo = (Integer)session.getAttribute("managerNo");
 		}
 	
@@ -56,7 +56,7 @@
     </head>
 <body>
 	<!-- 매니저로 접근할 때 보이는 메뉴바-->
-	<jsp:include page="/managerMenu.jsp"></jsp:include>
+	<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-1">

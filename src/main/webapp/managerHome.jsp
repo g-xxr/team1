@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%/*
-	String managerId = (String)(session.getAttribute("loginId")); // managerId를 loginId로 형변환 필수
-	
-	if(session.getAttribute("loginId") == null){  	// 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-		return;
-	}
-	*/
-%>
+	<%
+		// 로그인한 매니저만 접근 가능
+		int managerNo = 0;
+		
+		if(session.getAttribute("managerNo") == null){  // 현재 세션에 managerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
+			response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+			return;
+		} else {
+			managerNo = (Integer)session.getAttribute("managerNo");
+		}
+	%>
 
 <!-- 유정 작업 -->
 <!DOCTYPE html>
@@ -29,7 +31,7 @@
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/managerMenu.jsp"></jsp:include>
+	<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->

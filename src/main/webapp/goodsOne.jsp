@@ -31,8 +31,20 @@
     </head>
 <body>
 	
-	<!-- 비회원으로 접근할 때 보이는 메뉴바 -->
-	<jsp:include page="/menu.jsp"></jsp:include>
+	<!---- 로그인 시 보여지는 메뉴와 로그아웃 시 보여지는 메뉴 ---->
+	<%
+			if(session.getAttribute("customerNo") != null) {
+			// 고객이 로그인한 상태라면
+	%>
+			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+	<% 	
+			} else {
+			// 고객이 로그아웃한 상태라면
+	%>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+	<% 	
+			}
+	%>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-1">

@@ -16,7 +16,7 @@ public class QuestionDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNO, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q INNER JOIN customer c ON q.question_no = c.customer_no INNER JOIN goods g ON g.goods_no = q.customer_no ORDER BY createdate desc";
+		String sql = "SELECT  q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNo, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q  INNER JOIN customer c ON q.customer_no = c.customer_no INNER JOIN goods g ON q.goods_no = g.goods_no ORDER BY q.createdate DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
@@ -101,7 +101,7 @@ public class QuestionDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNO, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q INNER JOIN customer c ON q.question_no = c.customer_no INNER JOIN goods g ON g.goods_no = q.customer_no ORDER BY createdate desc";
+		String sql = "SELECT  q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNo, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q  INNER JOIN customer c ON q.customer_no = c.customer_no INNER JOIN goods g ON q.goods_no = g.goods_no ORDER BY q.createdate DESC";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, questionNo);		
 		ResultSet rs = stmt.executeQuery(); // jdbc환경의 모델

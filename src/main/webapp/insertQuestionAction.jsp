@@ -30,10 +30,10 @@
 	
 	int row = questionDao.insertQuestion(question);
 	if(row != 0) {
-		System.out.println("공지사항 추가성공");		
+		System.out.println("문의사항 추가성공");		
 		response.sendRedirect(request.getContextPath()+"/question.jsp");
 	}else{
-		System.out.println("공지사항 추가실패");
+		System.out.println("문의 추가실패");
 	}
 
 	

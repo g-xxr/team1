@@ -5,7 +5,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>      
 <%
-
 	int currentPage = 1;
 	// 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
 	if(request.getParameter("currentPage") != null){
@@ -20,22 +19,17 @@
 	if(totalRow % rowPerPage != 0){
 		lastPage = lastPage +1;
 		}
-	int beginRow = (currentPage-1)*rowPerPage;
-	// model 호출 코드(cotroller code)
 	
-	ArrayList<Question> list = qd.selectQuestion(beginRow, rowPerPage);				
-%>       
+	int beginRow = (currentPage-1)*rowPerPage;
+		
+	ArrayList<Question> list = qd.selectQuestion(beginRow, rowPerPage);
+%>     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>홈페이지 팀플</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	
+<title>홈페이지 팀플</title>	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 	
@@ -45,8 +39,8 @@
 <!-- 코어 테마 css -->
 <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
+	
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
 	<%
 			if(session.getAttribute("customerNo") != null) {
@@ -61,7 +55,7 @@
 	<% 	
 			}
 	%>
-		
+	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
 	    <div class="container px-4 px-lg-5 my-5">
@@ -71,39 +65,59 @@
 	        </div>
 	    </div>
 	</header>
-	<br>
+		
         <!-- 공지사항 -->
         <div class="container">
-        	<h2>문의사항</h2>
-        	<br>
-        	<a class="btn btn-outline-dark mt-auto" style="float:right;" href="<%=request.getContextPath()%>/insertQuestionForm.jsp">
-        	글 작성</a> 	    
+        	<h1>문의사항</h1>
+        	<br>     	     	    
         	  <table class="table table-hover">
-        	  	<thead>
+       		
         		<tr>
-        			<th style="text-align:center;" class="col-sm-1">번호</th>
-        			<th style="text-align:center;" class="col-sm-1">상품</th>	        			  			
-        			<th class="col-sm-7">제목</th>    			
-        			<th style="text-align:center;" class="col-sm-1">작성일</th>
-        			<th style="text-align:center;" class="col-sm-1">수정일</th>		
-        		</tr>	
-        		<thead>        	
-        		<%
-        			for(Question q : list){
-        		%>
-        			  <tr>
-        			  	<td><%=q.getQuestionNo()%></td>
-        			  	<td><%=q.getGoodsNo()%></td>
-        			  	<td><%=q.getQuestionTitle()%></td>
-        			  	<td><%=q.getCreatedate()%></td>
-        			  	<td><%=q.getUpdatedate()%></td>		  
-        			  </tr>  
-        		<%
-        			}
-        		%>        		
-        	  </table>	         
-        	
+        			<th class="col-sm-1">번호</th> 
+        			<th class="col-sm-1">상품</th>    			
+        			<th class="col-sm-7">제목</th>     
+        			<th class="col-sm-1">작성자</th>   			
+        			<th class="col-sm-1">작성일</th>	
+        		</tr>		
+        	<%	
+        		for(Question q : list){
+        	%>
+        		 <tr>
+        		  <td><%=q.getQuestionNo()%></td>
+        		  <td><%=q.getGoodsNo()%></td>
+        		  <td>
+        		  	 <a href="<%=request.getContextPath()%>/questionOne.jsp?questionNo=<%=q.getQuestionNo()%>"><%=q.getQuestionTitle()%></a>        		  	
+        		  </td>        							        		         	     							
+        		  <td><%=q.getCustomerNo()%></td>
+        		  <td><%=q.getCreatedate()%></td>	        		  
+        	     </tr> 
+        	      
+        	<%
+        		}
+        	%>        		       		
+        	  </table>
+         	  
         </div>
+       	  <div class="d-flex justify-content-center">
+			 <div>
+			<%
+			  if(currentPage > 1){
+			%>
+			  <a class="btn btn-outline-success" href="<%=request.getContextPath()%>/managerNotice.jsp?currentPage=<%=currentPage-1%>">이전</a>
+			<%
+			}
+			%>
+			
+			<%
+			  if(currentPage < lastPage){
+			%>
+			  <a class="btn btn-outline-success" href="<%=request.getContextPath()%>/managerNotice.jsp?currentPage=<%=currentPage+1%>">다음</a>
+			<%
+			}
+			%>
+		 </div>
+	  </div>
+       <br>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

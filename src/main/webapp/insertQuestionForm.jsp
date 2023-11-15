@@ -11,6 +11,16 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
+	String goodsNoParam = request.getParameter("goodsNo");
+    int goodsNo;
+
+    if (goodsNoParam != null && !goodsNoParam.isEmpty()) {
+        goodsNo = Integer.parseInt(goodsNoParam);
+    } else {
+        // 기본값 설정 또는 에러 처리
+        goodsNo = 0;     // 다른 기본값 설정
+    }
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -45,10 +55,10 @@
         	
     <div class="container mb-3 mt-3 " > 
       <h2>문의사항 작성</h2>
-        <form  action="<%=request.getContextPath()%>/insertQuestionAction.jsp">	
+        <form  action="<%=request.getContextPath()%>/insertQuestionAction.jsp" method="post">	
           <div>                             	
-			  <!-- 상품 번호를 hidden으로 전달 -->
-             <input type="hidden" name="goodsNo" value="<%=getgoodsNo%>">
+            <!-- 상품 번호를 hidden으로 전달 -->
+          	 <input type="hidden" name="goodsNo" value="<%=goodsNo%>">
 		     <label for="comment">제목:</label>
 			 <input type="text" style="width:400px" class="form-control" name="questionTitle">
 		  	
@@ -56,7 +66,7 @@
       		<textarea class="form-control" rows="5" name="questionContent"></textarea>
           </div>
           <br>
-          <button type="submit" class="btn btn-outline-dark mt-auto" value="">공지추가</button>                 
+          <button type="submit" class="btn btn-outline-dark mt-auto" value="">문의추가</button>                 
         </form>			  
 	</div>      
 	  

@@ -21,7 +21,7 @@
 	if(totalRow % rowPerPage != 0){
 		lastPage = lastPage +1;
 		}
-	
+
 	int beginRow = (currentPage-1)*rowPerPage;
 		
 	ArrayList<Notice> list = nd.selectNotice(beginRow, rowPerPage);

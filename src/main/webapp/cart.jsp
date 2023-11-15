@@ -10,7 +10,7 @@
 	if(session.getAttribute("customerNo") == null){  // 현재 세션에 customerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
-	}else{
+	} else {
 		customerNo = (Integer)session.getAttribute("customerNo");
 	}
 	
@@ -19,7 +19,7 @@
 	
 	// CartDao 불러오기
 	CartDao cd = new CartDao();
-	ArrayList<HashMap<String,Object>>list = cd.cartList(customerNo);
+	ArrayList<HashMap<String,Object>> cartlist = cd.cartList(customerNo);
 	
 	// 장바구니에 담긴 상품들을 총 합한 가격 (장바구니에 있는 총합이랑은 다름)
 	int totalPrice = 0;
@@ -75,7 +75,7 @@
 	      	</tr>
 		</thead>
 	<%
-		for(HashMap<String, Object> map : list){
+		for(HashMap<String, Object> map : cartlist){
 			
 			int goodsPrice = (Integer) map.get("goodsPrice");
       		int quantity = (Integer) map.get("quantity");

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
-<%@ page import = "dao.*" %>
+<%@ page import = "dao.CustomerDao" %>
+<%@ page import = "dao.CartDao" %>
+<%@ page import = "vo.*" %>
 <!-- 유정 -->
 
 <%
@@ -10,16 +12,20 @@
 	if(session.getAttribute("customerNo") == null){  // 현재 세션에 customerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
-	}else{
+	} else {
 		customerNo = (Integer)session.getAttribute("customerNo");
 	}
-	
-	// 카트에 사진 불러오기
-	String uploadPath = request.getServletContext().getRealPath("/upload");
+		
+	// 필요 Dao 불러오기
+	CustomerDao ctd = new CustomerDao();
+	ArrayList<HashMap<String,Object>> list = ctd.customerOne(customerNo);
 	
 	// CartDao 불러오기
 	CartDao cd = new CartDao();
-	ArrayList<HashMap<String,Object>>list = cd.cartList(customerNo);
+	ArrayList<HashMap<String,Object>> cartlist = cd.cartList(customerNo);
+	
+	int totalSum = 0;
+	int cartQuantity = 0;
 	
 	// 장바구니에 담긴 상품들을 총 합한 가격 (장바구니에 있는 총합이랑은 다름)
 	int totalPrice = 0;
@@ -40,6 +46,7 @@
         <link href="css/styles.css" rel="stylesheet">
     </head>
 <body>
+
 	<!---- 로그인 시 보여지는 메뉴와 로그아웃 시 보여지는 메뉴 ---->
 	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	
@@ -54,7 +61,70 @@
 	</header>
 	
 	<!-- 회원 배송지 부분 -->
-	
+	<div class="container mt-3">
+ 	<h2>주문 정보</h2>
+        <%    
+        for(HashMap<String, Object> c : list) {
+        %>
+        <div class="card">
+		<div class="card-header"><%=c.get("customerName")%>&nbsp;&nbsp;<span class="badge bg-info">기본 배송지</span></div>
+    	<div class="card-body">
+    	<div><%=c.get("customerName")%> · <%=c.get("customerPhone")%></div>
+    	<div class="text-secondary"><%=c.get("customerAddress")%></div>
+  		</div>
+  		</div>
+        <% 
+        }   
+        %>
+		</div>
+		
+	<!-- 주문상품 목록 부분 -->
+	<div class="container mt-3">
+	  <h2>주문 상품</h2>
+	  <div id="accordion">
+	    <div class="card">
+	    
+	      <div class="card-header">
+	        <a class="btn" data-bs-toggle="collapse" href="#collapseOne">주문상품</a>
+	      </div>
+	<%
+		for(HashMap<String, Object> map : cartlist){
+			int goodsPrice = (Integer) map.get("goodsPrice");
+      		int quantity = (Integer) map.get("quantity");
+      		int goodsSum = goodsPrice * quantity;
+      		
+      		totalPrice += goodsSum;
+	%>
+	    <div id="collapseOne" class="collapse " data-bs-parent="#accordion">
+        <div class="card-body">
+        
+        <div class="card">
+          <div class="row">
+            <!-- 왼쪽에 사진 -->
+            <div class="col-md-2">
+              <img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 100%;">
+            </div>
+            <!-- 오른쪽에 상품 정보 -->
+            <div class="col-md-10">
+              <div><%=map.get("goodsTitle")%></div>
+              <div><mark><%=map.get("goodsPrice")%>원</mark></div>
+              <div><%=map.get("quantity")%></div>
+              <div><%=goodsSum%>원</div>
+            </div>
+          </div>
+         </div>
+          
+          
+        </div>
+      </div>
+	<%
+	}
+	%>
+		<div class="card-footer">💰총 <%=totalPrice%> 원💰</div>
+	      </div> 
+	    </div>
+	  </div>
+		
 	<br>
     <br>
 	<!-- 맨 아래 배너 -->

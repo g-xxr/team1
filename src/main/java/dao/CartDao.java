@@ -33,7 +33,7 @@ public class CartDao {
 		stmt.setInt(1, customerNo);
 		ResultSet rs = stmt.executeQuery();
 		
-		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		ArrayList<HashMap<String, Object>> cartlist = new ArrayList<>();
 		while(rs.next()) {	// hashmap 사용해보기
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("goodsTitle", rs.getString("goodsTitle"));
@@ -41,14 +41,14 @@ public class CartDao {
 			map.put("cartNo", rs.getInt("cartNo"));
 			map.put("quantity", rs.getInt("quantity"));
 			map.put("filename", rs.getString("filename"));
-			list.add(map);
+			cartlist.add(map);
 		}
 		// 자원닫기
 		rs.close();
 		conn.close();
 		stmt.close();
 		
-		return list;
+		return cartlist;
 	}
 	
 	// 카트 번호 받아오기

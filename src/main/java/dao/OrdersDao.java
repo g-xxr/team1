@@ -10,7 +10,7 @@ import java.util.*;
 	 */
 
 public class OrdersDao {
-	// 매니저가 모든 주문 목록을 조회 orderslist
+	
 	public ArrayList<HashMap<String, Object>> ordersList(int customerNo) throws Exception {
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
@@ -18,7 +18,7 @@ public class OrdersDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT g.goods_title goodsTitle, o.orders_no ordersNo, o.quantity quantity, o.total_price totalPrice FROM goods g INNER JOIN orders o ON g.goods_no = o.goods_no WHERE o.customer_no = ?";
+		String sql = "SELECT g.goods_title goodsTitle, o.orders_no ordersNo, o.quantity quantity, o.total_price totalPrice, o.orders_state ordersState FROM goods g INNER JOIN orders o ON g.goods_no = o.goods_no WHERE o.customer_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, customerNo);
 		
@@ -33,6 +33,7 @@ public class OrdersDao {
 			map.put("ordersNo",rs.getInt("ordersNo"));
 			map.put("quantity",rs.getInt("quantity"));
 			map.put("totalPrice",rs.getInt("totalPrice"));
+			map.put("ordersState", rs.getInt("ordersState"));
 			list.add(map);
 		}
 		// 자원 닫기
@@ -43,7 +44,7 @@ public class OrdersDao {
 		return list;
 	}
 	
-	// ordersList 페이징 호출 controller (매니저 권한)
+	// ordersListManager 페이징 호출 controller
 	public int ordersListPaging() throws Exception{
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall" ;
@@ -68,7 +69,7 @@ public class OrdersDao {
 	}
 		
 	
-	// 고객 주문정보 상세 조회
+	// 고객 주문정보 상세 조회 (ordersList)
 	public void orders(int customerNo) throws Exception {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -77,13 +78,13 @@ public class OrdersDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 				
-		/*
-		 * SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_price goodsPrice, cad.address address
-		 * FROM cart c INNER JOIN goods g 
-		 * ON c.goods_no = g.goods_no INNER JOIN customer_addr cad 
-		 * ON cad.customer_no = c.customer_no WHERE c.customer_no = ? 
-		 * */
-		String sql1 = "SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_price goodsPrice, cad.customer_addr_no customerAddrNo FROM cart c INNER JOIN goods g ON c.goods_no = g.goods_no INNER JOIN customer_addr cad ON cad.customer_no = c.customer_no WHERE c.customer_no = ?";
+		/*	SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_title goodsTitle, g.goods_price goodsPrice, o.orders_state ordersState
+			FROM cart c 
+			INNER JOIN goods g ON c.goods_no = g.goods_no 
+			INNER JOIN orders o ON o.goods_no = c.goods_no
+			WHERE c.customer_no = ? ;
+		 */
+		String sql1 = "SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_price goodsPrice, cad.address address, o.orders_state ordersState FROM cart c INNER JOIN goods g ON c.goods_no = g.goods_no INNER JOIN orders o ON o.goods_no = c.goods_no WHERE c.customer_no = ?";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		stmt1.setInt(1,customerNo);
 		ResultSet rs = stmt1.executeQuery();
@@ -94,7 +95,8 @@ public class OrdersDao {
 			map.put("goodsNo", rs.getInt("goodsNo"));
 			map.put("quantity", rs.getInt("quantity"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
-			map.put("customerAddrNo", rs.getString("customerAddrNo"));
+			map.put("address", rs.getString("address"));
+			map.put("ordersState", rs.getString("ordersState"));
 			
 			list.add(map);
 		}
@@ -125,6 +127,36 @@ public class OrdersDao {
 		stmt1.close();
 		rs.close();
 	}
+	
+	// 배송 상태 수정 controller : updateOrders
+	public void updateOrders(int ordersNo, String ordersState) throws Exception {
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall" ;
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw); // 기본값 자동 커밋
+		conn.setAutoCommit(false); // 수동 커밋(conn.commit()메서드를 코드에 호출 필요)
+		
+		String sql = "UPDATE orders SET orders_state = ? WHERE orders_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, ordersState);
+		stmt.setInt(2, ordersNo); // WHERE 절에 해당하는 값 설정
+		
+		int row = stmt.executeUpdate();
+		if(row != 1) { // 잘못된 수정 or 실패
+			conn.rollback();
+			return;
+		}
+		
+		// db 자원 close
+		conn.commit(); 
+		conn.close();
+		stmt.close();
+	}
+	
+	
+	
 	
 	// 주문 내역 삭제하기
 	public void deleteOrders(int ordersNo) throws Exception {

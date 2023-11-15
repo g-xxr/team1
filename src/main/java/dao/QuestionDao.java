@@ -41,7 +41,7 @@ public class QuestionDao {
 		return list;
 	}
 	
-	//notice 페이징 호출
+	//question 페이징 호출
 			public int questionPaging() throws Exception{
 				Class.forName("org.mariadb.jdbc.Driver");
 				String url = "jdbc:mariadb://localhost:3306/mall" ;
@@ -69,6 +69,8 @@ public class QuestionDao {
 		
 	//insertQuestionForm.jsp 문의사항 추가
 	public int insertQuestion(Question question) throws Exception{
+		
+		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
@@ -82,7 +84,7 @@ public class QuestionDao {
 		stmt.setString(3, question.getQuestionTitle());
 		stmt.setString(4, question.getQuestionContent());
 		
-		int row = stmt.executeUpdate();
+	    row = stmt.executeUpdate();
 			
 		conn.close();
 		stmt.close();

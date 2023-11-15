@@ -14,9 +14,7 @@ public class NoticeDao {
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		/*
-		 * "SELECT n.notice_no noticeNo, m.manager_no managerNo, n.notice_title noticeTitle, n.notice_content noticeContent, n.createdate, n.updatedate FROM notice n INNER JOIN manager m ON n.manager_no = m.manager_no LIMIT ?,?";
-		 */
+		
 		
 		
 		String sql = "SELECT notice_no noticeNo, manager_no managerNo, notice_title noticeTitle, notice_content noticeContent, createdate, updatedate FROM notice ORDER BY notice_no DESC LIMIT ?,?";

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="vo.*" %>
+<%@ page import="dao.*" %> 
+<%@ page import="java.util.*" %>   
 <%
 	String customerId = (String)(session.getAttribute("loginId")); 
 	System.out.println(customerId + "<--customerId");
@@ -8,18 +11,12 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>홈페이지 팀플</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	
 <!-- 파비콘 코드 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -33,8 +30,8 @@
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
+	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+
 		
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
@@ -45,16 +42,13 @@
 	        </div>
 	    </div>
 	</header>
-        
+        	
     <div class="container mb-3 mt-3 " > 
       <h2>문의사항 작성</h2>
         <form  action="<%=request.getContextPath()%>/insertQuestionAction.jsp">	
           <div>                             	
-	         <select style="width:100px "class="form-select">
-	              <option>구분</option>
-				  <option>상품문의</option>
-				  <option>계정관련</option>
-			 </select>  				
+			  <!-- 상품 번호를 hidden으로 전달 -->
+             <input type="hidden" name="goodsNo" value="<%=getgoodsNo%>">
 		     <label for="comment">제목:</label>
 			 <input type="text" style="width:400px" class="form-control" name="questionTitle">
 		  	
@@ -62,9 +56,7 @@
       		<textarea class="form-control" rows="5" name="questionContent"></textarea>
           </div>
           <br>
-          <div style="float:right">
-          <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>         
-          </div>         
+          <button type="submit" class="btn btn-outline-dark mt-auto" value="">공지추가</button>                 
         </form>			  
 	</div>      
 	  

@@ -5,6 +5,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>      
 <%
+
 	int currentPage = 1;
 	// 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
 	if(request.getParameter("currentPage") != null){
@@ -47,8 +48,19 @@
 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/inc/menu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
+	<%
+			if(session.getAttribute("customerNo") != null) {
+			// 고객이 로그인한 상태라면
+	%>
+			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+	<% 	
+			} else {
+			// 고객이 로그아웃한 상태라면
+	%>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+	<% 	
+			}
+	%>
 		
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
@@ -64,16 +76,16 @@
         <div class="container">
         	<h2>문의사항</h2>
         	<br>
-        	<form action="./insertQuestionForm.jsp">
-        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right;">글 작성</button> 	    
-        	  <table class="table table-hover" style="text-align:center;">
+        	<a class="btn btn-outline-dark mt-auto" style="float:right;" href="<%=request.getContextPath()%>/insertQuestionForm.jsp">
+        	글 작성</a> 	    
+        	  <table class="table table-hover">
         	  	<thead>
         		<tr>
-        			<th class="col-sm-1">번호</th> 
-        			<th class="col-sm-2">카테고리</th>      		        			  			
-        			<th class="col-sm-7">제목</th>
-        			<th class="col-sm-1">작성자</th>        			
-        			<th class="col-sm-1">작성일</th>	
+        			<th style="text-align:center;" class="col-sm-1">번호</th>
+        			<th style="text-align:center;" class="col-sm-1">상품</th>	        			  			
+        			<th class="col-sm-7">제목</th>    			
+        			<th style="text-align:center;" class="col-sm-1">작성일</th>
+        			<th style="text-align:center;" class="col-sm-1">수정일</th>		
         		</tr>	
         		<thead>        	
         		<%
@@ -82,18 +94,14 @@
         			  <tr>
         			  	<td><%=q.getQuestionNo()%></td>
         			  	<td><%=q.getGoodsNo()%></td>
-        			  	<td><%=q.getCustomerNo()%></td>
         			  	<td><%=q.getQuestionTitle()%></td>
-        			  	<td><%=q.getQuestionContent()%></td>
         			  	<td><%=q.getCreatedate()%></td>
-        			  	<td><%=q.getUpdatedate()%></td>
-        			  			  
+        			  	<td><%=q.getUpdatedate()%></td>		  
         			  </tr>  
         		<%
         			}
         		%>        		
         	  </table>	         
-        	</form>
         	
         </div>
         <!-- Footer-->

@@ -65,8 +65,7 @@
        		
         		<tr>
         			<th class="col-sm-1">번호</th>    			
-        			<th class="col-sm-7">제목</th>
-        			<th class="col-sm-1">작성자</th>        			
+        			<th class="col-sm-7">제목</th>        			
         			<th class="col-sm-1">작성일</th>
         			<th class="col-sm-1">수정</th>	
         			<th class="col-sm-1">삭제</th>		
@@ -79,7 +78,6 @@
         		  <td>
         		  	<a href="<%=request.getContextPath()%>/noticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a>
         		  </td>        							        		         	     							
-        		  <td><%=n.getManagerNo()%></td>
         		  <td><%=n.getCreatedate()%></td>	
         		  <td>          		    
         		    <a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/updateNoticeForm.jsp?noticeNo=<%=n.getNoticeNo()%>">수정</a>

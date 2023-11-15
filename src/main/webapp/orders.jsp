@@ -102,7 +102,7 @@
           <div class="row">
             <!-- 왼쪽에 사진 -->
             <div class="col-md-2">
-              <img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 100%;">
+              <img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;">
             </div>
             <!-- 오른쪽에 상품 정보 -->
             <div class="col-md-10">

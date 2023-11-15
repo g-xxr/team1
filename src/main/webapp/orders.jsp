@@ -85,7 +85,7 @@
 	    <div class="card">
 	    
 	      <div class="card-header">
-	        <a class="btn" data-bs-toggle="collapse" href="#collapseOne">주문상품</a>
+	        <a class="btn" data-bs-toggle="collapse" href="#collapseOne">상품 확인하기</a>
 	      </div>
 	<%
 		for(HashMap<String, Object> map : cartlist){
@@ -95,36 +95,52 @@
       		
       		totalPrice += goodsSum;
 	%>
-	    <div id="collapseOne" class="collapse " data-bs-parent="#accordion">
-        <div class="card-body">
+	<div id="collapseOne" class="collapse " data-bs-parent="#accordion">
+    <div class="card-body">
         
-        <div class="card">
-          <div class="row">
-            <!-- 왼쪽에 사진 -->
-            <div class="col-md-2">
-              <img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;">
-            </div>
-            <!-- 오른쪽에 상품 정보 -->
-            <div class="col-md-10">
-              <div><%=map.get("goodsTitle")%></div>
-              <div><mark><%=map.get("goodsPrice")%>원</mark></div>
-              <div><%=map.get("quantity")%></div>
-              <div><%=goodsSum%>원</div>
-            </div>
+        <div class="card" style="display: flex; flex-direction: row;">
+          <!-- 왼쪽에 사진 -->
+          <img class="" src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 10%;">
+          <!-- 오른쪽에 상품 정보 -->
+          <div class="card-body" style="flex: 1;">
+          <div><%=map.get("goodsTitle")%></div>
+          <div><%=map.get("quantity")%>개</div>
+          <div><mark><%=goodsSum%>원</mark></div>
           </div>
-         </div>
-          
-          
         </div>
-      </div>
+    </div>
+    </div>
 	<%
 	}
 	%>
-		<div class="card-footer">💰총 <%=totalPrice%> 원💰</div>
+		
 	      </div> 
 	    </div>
 	  </div>
-		
+	  
+	<!-- 결제확인 창 -->
+	<div class="container mt-3">
+  	<h2>결제금액</h2>
+  	<div class="card">
+	    <div class="card-body" style="display: flex; justify-content: space-between;">
+	    <div>상품금액 <br> 배송비 <br> 할인금액 </div>
+	    <div style="text-align: right;"><%=totalPrice%> 원 <br> 0원 <br> (-)0원</div>
+	    </div>
+	    
+	 	<div class="card-footer" style="display: flex; justify-content: space-between;">
+	  	<div>총 결제금액</div>
+	  	<div style="font-size: larger; font-weight: bold;">💰<%=totalPrice%> 원💰</div>
+		</div>
+	</div>
+	</div>
+	
+	<!-- 결제 클릭 버튼 누르면 결제 완료 alert 창 뜸 자바스크립트 이용 -->
+	<div class="container mt-3">
+	<div class="d-grid">
+  	<button type="button" class="btn btn-outline-primary btn-lg">💜결제하기💜</button>
+	</div>
+	
+	</div>
 	<br>
     <br>
 	<!-- 맨 아래 배너 -->

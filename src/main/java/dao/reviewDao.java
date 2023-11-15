@@ -15,7 +15,7 @@ import vo.*;
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT r.review_no reviewNo, o.orders_no ordersNo, r.review_content reviewContent, r.createdate createdate, r.updatedate updatedate FROM review r INNER JOIN orders o ON r.review_no = o.orders_no ORDER BY createdate desc";
+		String sql = "SELECT r.review_no reviewNo, o.orders_no ordersNo, g.goods_title goodsTitle, r.review_content reviewContent, r.createdate createdate, r.updatedate updatedate FROM review r INNER JOIN orders o ON r.orders_no = o.orders_no JOIN goods g ON o.goods_no = g.goods_no ORDER BY createdate DESC LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,beginRow);
 		stmt.setInt(2,rowPerPage);
@@ -23,20 +23,47 @@ import vo.*;
 		// 결과값을 담을 ArrayList 생성
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		if(rs.next()) { // 결과가 있다면 HashMap에 결과를 담아 ArrayList에 추가
-			HashMap<String, Object> r = new HashMap<String, Object>();
+			HashMap<String, Object> r = new HashMap<>();
 			r.put("reviewNo", rs.getInt("reviewNo"));
 			r.put("ordersNo", rs.getInt("ordersNo"));
+			r.put("goodsTitle", rs.getString("goodsTitle"));
 			r.put("reviewTitle", rs.getString("reviewTitle"));
 			r.put("reviewContent", rs.getString("reviewContent"));
 			r.put("createdate", rs.getString("createdate"));
 			r.put("updatedate", rs.getString("updatedate"));
 			list.add(r);
 		}
+		stmt.close();
 		conn.close();
 		rs.close();
 		
 		return list;
 	}
+		
+	// reviewList 페이징 호출 controller
+	public int reviewListPaging() throws Exception{
+	Class.forName("org.mariadb.jdbc.Driver");
+	String url = "jdbc:mariadb://localhost:3306/mall";
+	String dbuser = "root";
+	String dbpw = "java1234";
+	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+	
+	// 페이징 sql
+	String sql = "SELECT COUNT(*) FROM review";
+	PreparedStatement stmt = conn.prepareStatement(sql);
+	ResultSet rs = stmt.executeQuery();
+	int totalRow = 0;
+	if(rs.next()) {
+		totalRow = rs.getInt("COUNT(*)"); // rs.getInt(1)
+	}
+	// 자원 닫기
+	conn.close();
+	stmt.close();
+	rs.close();
+	
+	return totalRow;
+	}
+	
 		
 	// 주문내역이 있는지 고객 확인
 	public void reviewOk(int ordersNo, String reviewContent, String loginId) throws Exception{

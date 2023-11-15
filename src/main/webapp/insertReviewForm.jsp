@@ -32,8 +32,8 @@
 	<header class="bg-dark py-5">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">🎊가을맞이 빅세일🎊</h1>
-	            <p class="lead fw-normal text-white-50 mb-0">오늘도 즐거운 하루 되세요</p>
+	            <h1 class="display-4 fw-bolder">📑리뷰작성 페이지📑</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">리뷰 작성 시, 쿠폰이 지급됩니다.</p>
 	        </div>
 	    </div>
 	</header>

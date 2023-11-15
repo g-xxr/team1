@@ -5,15 +5,36 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>
 <%
+	// 로그인한 고객만 접근 가능
+	
+	int customerNo = 0;
+	if(session.getAttribute("customerNo") == null){  // 현재 세션에 managerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	} else {
+		customerNo = (Integer)session.getAttribute("customerNo");
+	}
+	
+	// 페이징 하기
+	// 현재 페이지
 	int currentPage = 1;
+	// 피이지네이션을 구현하고 사용자가 원하는 페이지로 이동
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));		
 	}
+	// 페이지 당 몇개의 항목을 나타내는지 -> 10개 항목 출력
 	int rowPerPage = 10;
+	
+	reviewDao reviewdao = new reviewDao();
+	int totalRow = reviewdao.reviewListPaging();
+	
+	int lastPage = totalRow/rowPerPage;
+	if(totalRow % rowPerPage !=0) {
+		lastPage = lastPage + 1;
+	}
+	// 시작 상품의 번호
 	int beginRow = (currentPage-1)*rowPerPage;
 	
-	// model 호출 코드(controller mode)
-	reviewDao reviewdao = new reviewDao();
 	ArrayList<HashMap<String, Object>> list = reviewdao.selectReview(beginRow, rowPerPage);
 %>
 
@@ -51,54 +72,78 @@
 	<header class="bg-dark py-5">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">🎊가을맞이 빅세일🎊</h1>
+	            <h1 class="display-4 fw-bolder">🎊리뷰 리스트🎊</h1>
 	            <p class="lead fw-normal text-white-50 mb-0">오늘도 즐거운 하루 되세요</p>
 	        </div>
 	    </div>
 	</header>
 	
-	        <!-- 리뷰사항 -->
-        <div class="container">
-        	<h2>리뷰 목록</h2>
-        	<br>
-        	<form action="./insertReviewForm.jsp">
-        	<button class="btn btn-outline-dark mt-auto" type="submit" style="float:right;">글 작성</button> 	    
-        	  <table class="table table-hover" style="text-align:center;">
-        	  	<thead>
-        		<tr>
-        			<th class="col-sm-1">번호</th> 
-        			<th class="col-sm-2">제품명</th>      		        			  			
-        			<th class="col-sm-7">리뷰 내용</th>
-        			<th class="col-sm-1">작성자ID</th>        			
-        			<th class="col-sm-1">작성일</th>	
-        		</tr>	
-        		<thead>        	
-        		<%
-        			for(HashMap<String, Object> r : list){
-        		%>
-        			  <tr>
-        			  	<td><%=r.get("reviewNo")%></td>
-        			  	<td><%=r.get("ordersNo")%></td>
-        			  	<td><%=r.get("reviewContent")%></td>
-        			  	<td><%=r.get("createdate")%></td>
-        			  	<td><%=r.get("updatedate")%></td>
-        			  			  
-        			  </tr>  
-        		<%
-        			}
-        		%>        		
-        	  </table>	         
-        	</form>
-        	
-        </div>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+	<!-- 상품 리스트 테이블 -->
+	<div class="container mt-3">
+	<br>
+	<!-- 리뷰 목록 -->
+	<table class="table table-bordered table-hover" style="text-align:center; vertical-align: middle;">
+		<thead>
+			<tr>
+	        <th>상품 사진</th>
+	        <th>상품 이름</th>
+	        <th>리뷰 내역</th>
+	        <th>수정</th>
+	        <th>삭제</th>
+	      	</tr>
+		</thead>
+	<%
+		for(HashMap<String, Object> map : list){
+	%>
+    	<tbody>
+     		<tr>
+        	<td><img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;"></td>
+        	<td><%=map.get("ordersNo")%></td>
+        	<td><%=map.get("goodsTitle")%></td>
+        	<td><%=map.get("reviewContent")%></td>
+        	<td><a class="btn btn-outline-info" href="<%=request.getContextPath()%>/updateReviewForm.jsp?ordersNo=<%=map.get("ordersNo")%>">💡수정💡</a></td>
+        	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteReviewAction.jsp?ordersNo=<%=map.get("ordersNo")%>">🗑️삭제🗑️</a></td>
+      		</tr>
+    	</tbody>
+    <%
+       }
+	%>
+	</table>
+	</div>
+
+	<br>	
+	<!-- 페이지네이션 -->
+	<div class="d-flex justify-content-center">
+		<div>
+		<%
+			if(currentPage > 1){
+		%>
+			<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/review.jsp?currentPage=<%=currentPage-1%>">이전</a>
+		<%
+			}
+		%>
+		
+		<%
+			if(currentPage < lastPage){
+		%>
+			<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/review.jsp?currentPage=<%=currentPage+1%>">다음</a>
+		<%
+			}
+		%>
+		</div>
+	</div>
 	
+	<br>
+	<br>
+	<!-- 맨 아래 배너 -->
+	<footer class="py-3 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭</p></div>
+	</footer>
+	   
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	   
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>

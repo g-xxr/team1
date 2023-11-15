@@ -4,9 +4,7 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.CustomerDao" %>
 
-	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
+
 
 <%
 		// 한글 깨짐 방지
@@ -36,8 +34,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+		<!-- 파비콘 코드 -->
+		<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+		<!-- 부트스트랩 아이콘 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+		<!-- 코어 테마 css -->
+		<link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
+	<!-- 메뉴 시작 (절대주소 적으세요)-->
+	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+	<!-- 메뉴 끝 -->
 <div class="container">
 	<h1>회원 상세정보 &#128203;</h1>
 	
@@ -81,5 +88,6 @@
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-danger">회원탈퇴</a> <!-- 비밀번호 입력 -->
 </div>
+
 </body>
 </html>

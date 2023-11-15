@@ -75,6 +75,32 @@ import vo.*;
 		stmt.close();
 	}
 	
+	// 주문번호 확인을 위한 조인문
+	public ArrayList<ReviewOrdersGoods> reviewOrdersNoCheck(String loginId)throws Exception{
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall" ;
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		ArrayList<ReviewOrdersGoods> reviewList = new ArrayList<>();
+		String sql = "SELECT o.orders_no ordersNo, g.goods_title goodsTitle FROM customer c JOIN orders o on c.customer_no= o.customers_no JOIN goods g ON o.goods_no = g.goods_no WHERE customer_id=? AND o.orders_state = '배송완료'";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, loginId);
+		ResultSet rs = stmt.executeQuery();
+		System.out.println(stmt+"<-- OrdersNo");
+			while(rs.next()) {
+				ReviewOrdersGoods rog = new ReviewOrdersGoods();
+				rog.setOrdersNo(rs.getInt("ordersNo"));
+				rog.setGoodsTitle(rs.getString("goodsTitle"));
+				
+				reviewList.add(rog);
+			}
+			System.out.println(reviewList);
+			return reviewList;
+}
+
+	
 	
 	// selectReviewOne 특정 리뷰 상세 내역을 호출하는 메소드
 	public Review selectReviewOne(int reviewNo) throws Exception {

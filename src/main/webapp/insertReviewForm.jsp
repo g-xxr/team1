@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	int customerNo = (Integer)session.getAttribute("customerNo");
-	System.out.println(customerNo + "<--customerNo");
+	String customerId = (String)(session.getAttribute("loginId")); 
+	System.out.println(customerId + "<--customerId");
 	
-	if(session.getAttribute("customerNo") == null) {
+	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
+	
 %>
 
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
 	</head>
 	<body>
 		<!-- 회원으로 접근할 때 보이는 메뉴바-->
-		<jsp:include page="/privateMenu.jsp"></jsp:include>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
 	    <div class="container px-4 px-lg-5 my-5">
@@ -40,13 +41,9 @@
       <h2>상품리뷰 작성</h2>
         <form  action="<%=request.getContextPath()%>/insertReviewAction.jsp">	
           <div>                             	
-	         <select style="width:100px "class="form-select">
-	              <option>구분</option>
-				  <option>상품문의</option>
-				  <option>계정관련</option>
-			 </select>  				
 		     <label for="comment">상품명:</label>
-			 <input type="text" style="width:400px" class="form-control" name="questionTitle">
+			 <input type="text" style="width:400px" class="form-control" name="questionTitle" readonly> 
+			 <!-- value= 구매한 제품의 이름이 출력되도록 설정 필요 -->
 		  	
 		  	<label for="comment">리뷰내용:</label>
       		<textarea class="form-control" rows="5" name="questionContent"></textarea>

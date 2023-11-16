@@ -8,7 +8,7 @@
 	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
 	
 	QuestionDao qd = new QuestionDao();
-	int row = qd.deleteQuestion(questionNo);
+	 = qd.deleteQuestion(questionNo);
 	
 	if(row != 0){
 		System.out.println("삭제성공");

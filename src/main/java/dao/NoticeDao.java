@@ -6,7 +6,7 @@ import vo.*;
 
 public class NoticeDao {
 	
-	//notice
+	//notice 공지사항 리스트 불러오기
 	public ArrayList<Notice> selectNotice(int beginRow, int rowPerPage) throws Exception {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -115,7 +115,7 @@ public class NoticeDao {
 		return row;
 	}
 	
-	//noticeDelete
+	//noticeDelete 공지사항 삭제
 	public int deleteNotice(int notice_no) throws Exception{
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -135,7 +135,7 @@ public class NoticeDao {
 		
 		return row;
 	}
-	//updateNotice 문의사항 상세정보 수정
+	//updateNotice 공지사항 수정
 		public void updateNotice(int noticeNo, String noticeContent, int managerNo) throws Exception{
 		
 			Class.forName("org.mariadb.jdbc.Driver");

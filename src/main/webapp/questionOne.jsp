@@ -15,14 +15,28 @@
 	
 	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
 	QuestionDao qd = new QuestionDao();
-	ArrayList<HashMap<String, Object>> list = qd.selectQuestionOne(questionNo);
+	ArrayList<HashMap<String, Object>> list = qd.QuestionOne(questionNo);
 	
 
 %> 
-    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>홈페이지 팀플</title>	
+<!-- 파비콘 코드 -->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+	
+<!-- 부트스트랩 아이콘 -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+	
+<!-- 코어 테마 css -->
+<link href="css/styles.css" rel="stylesheet">
+</head> 
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
@@ -51,11 +65,11 @@
         			  </tr> 
         			  <tr>
         			  	<th>제목</th>
- 						<td><%=o.get("noticeTitle")%></td>       			  				  
+ 						<td><%=o.get("questionTitle")%></td>       			  				  
         			  </tr> 
         			  <tr>
         			  	<th>내용</th>
- 						<td><%=o.get("noticeContent")%></td>       			  				  
+ 						<td><%=o.get("questionContent")%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>작성일</th>
@@ -64,9 +78,10 @@
         			  <tr>
         			  	<th>수정일</th>
  						<td><%=o.get("updatedate")%></td>       			  				  
-        			  </tr>    			
-        			  	 <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
-			             <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?QuestionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto">삭제</a> 
+        			  </tr> 
+        			  	   			
+        			  	 <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto" style="float:right">수정</a>
+			             <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?QuestionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto" style="float:right">삭제</a> 
         		
         		<%
         			}

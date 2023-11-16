@@ -24,6 +24,7 @@
 	CartDao cd = new CartDao();
 	ArrayList<HashMap<String,Object>> cartlist = cd.cartList(customerNo);
 	
+	
 	int totalSum = 0;
 	int cartQuantity = 0;
 	
@@ -102,7 +103,7 @@
         
         <div class="card" style="display: flex; flex-direction: row;">
           <!-- 왼쪽에 사진 -->
-          <img class="" src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 8%;">
+          <img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 8%;">
           <!-- 오른쪽에 상품 정보 -->
           <div class="card-body" style="flex: 1;">
           <div><%=map.get("goodsTitle")%></div>

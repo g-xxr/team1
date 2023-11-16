@@ -23,6 +23,7 @@
 	// CartDao 불러오기
 	CartDao cd = new CartDao();
 	ArrayList<HashMap<String,Object>> cartlist = cd.cartList(customerNo);
+	cd.deleteCartAll(customerNo);
 	
 	int totalSum = 0;
 	int cartQuantity = 0;

@@ -291,7 +291,7 @@ public class CustomerDao {
 		if(rs.next()){
 			
 			HashMap<String, Object> c = new HashMap<>();
-			
+			c.put("customerNo", rs.getString("customerNo"));
 			c.put("customerId", rs.getString("customerId"));
 			c.put("customerName", rs.getString("customerName"));
 			c.put("customerPhone", rs.getString("customerPhone"));

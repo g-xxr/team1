@@ -109,7 +109,7 @@
      </div>  
      <div class="container mt-3">
       <!-- 문의하기 폼으로 이동하는 링크 -->
-    <a class="btn btn-outline-dark mt-auto" style="float:right" href="<%=request.getContextPath()%>/insertQuestionForm.jsp?goodsNo=${goodsNo}">문의하기</a>
+     <a class="btn btn-outline-dark mt-auto" style="float:right" href="<%=request.getContextPath()%>/insertQuestionForm.jsp?goodsNo=<%=goodsNo%>">문의하기</a>
      </div>
     <br>
     <br>

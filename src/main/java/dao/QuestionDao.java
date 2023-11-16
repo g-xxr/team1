@@ -16,7 +16,7 @@ public class QuestionDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		String sql = "SELECT  q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNo, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q  INNER JOIN customer c ON q.customer_no = c.customer_no INNER JOIN goods g ON q.goods_no = g.goods_no ORDER BY q.createdate DESC";
+		String sql = "SELECT q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNo, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q INNER JOIN customer c ON q.customer_no = c.customer_no INNER JOIN goods g ON q.goods_no = g.goods_no ORDER BY q.createdate DESC LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, rowPerPage);
@@ -25,21 +25,20 @@ public class QuestionDao {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		while(rs.next()) {
 			HashMap<String, Object> q = new HashMap<>();
-			q.put("questionNO", rs.getInt("questionNo"));
-			q.put("goodsNO", rs.getInt("goodsNo"));
+			q.put("questionNo", rs.getInt("questionNo"));
+			q.put("goodsNo", rs.getInt("goodsNo"));
 			q.put("customerNo", rs.getInt("customerNO"));
 			q.put("questionTitle", rs.getString("questionTitle"));
 			q.put("questionContent", rs.getString("questionContent"));
 			q.put("createdate", rs.getString("createdate"));;
 			q.put("updatedate", rs.getString("updatedate"));
-			
-			
-			
+			list.add(q);
+	
+			conn.close();
+			stmt.close();
 			
 		}
-		conn.close();
-		stmt.close();
-		
+
 		return list;
 	}
 	

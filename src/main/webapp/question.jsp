@@ -6,9 +6,8 @@
 <%@ page import="dao.*" %>      
 <%
 	int currentPage = 1;
-	// 페이지네이션을 구현하고 사용자가 원하는 페이지로 이동
-	if(request.getParameter("currentPage") != null){
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	if (request.getParameter("currentPage") != null) {
+	    currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	int rowPerPage = 8;
 	
@@ -16,12 +15,12 @@
 	int totalRow = qd.questionPaging();
 	
 	int lastPage = totalRow / rowPerPage;
-	if(totalRow % rowPerPage != 0){
-		lastPage = lastPage +1;
-		}
+	if (totalRow % rowPerPage != 0) {
+	    lastPage = lastPage + 1;
+	}
 	
-	int beginRow = (currentPage-1)*rowPerPage;
-		
+	int beginRow = (currentPage - 1) * rowPerPage;
+	
 	ArrayList<HashMap<String, Object>> list = qd.selectQuestion(beginRow, rowPerPage);
 %>     
 <!DOCTYPE html>
@@ -77,7 +76,8 @@
         			<th class="col-sm-1">상품</th>    			
         			<th class="col-sm-7">제목</th>     
         			<th class="col-sm-1">작성자</th>   			
-        			<th class="col-sm-1">작성일</th>	
+        			<th class="col-sm-1">작성일</th>
+        			<th class="col-sm-1">수정일</th>	
         		</tr>		
         	<%	
         		for(HashMap<String, Object> q : list){
@@ -89,7 +89,8 @@
         		  	 <a href="<%=request.getContextPath()%>/questionOne.jsp?questionNo=<%=q.get("questionNo")%>"><%=q.get("questionTitle")%></a>        		  	
         		  </td>        							        		         	     							
         		  <td><%=q.get("customerNo")%></td>
-        		  <td><%=q.get("createdate")%></td>	        		  
+        		  <td><%=q.get("createdate")%></td>	 
+        		  <td><%=q.get("updatedate")%></td>	       		  
         	     </tr> 
         	      
         	<%
@@ -99,23 +100,22 @@
          	  
         </div>
        	  <div class="d-flex justify-content-center">
-			 <div>
-				<%
-					if(currentPage > 1){
-				%>
-					<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/question.jsp?currentPage=<%=currentPage-1%>">이전</a>
-				<%
-					}
-				%>
-				
-				<%
-					if(currentPage < lastPage){
-				%>
-					<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/question.jsp?currentPage=<%=currentPage+1%>">다음</a>
-				<%
-					}
-				%>
-		 </div>
+	        <div>
+	            <%
+	                if (currentPage > 1) {
+	            %>
+	            	<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/question.jsp?currentPage=<%=currentPage-1%>">이전</a>
+	            <%
+	                }
+	            %>
+	            <%
+	                if (currentPage < lastPage) {
+	            %>
+	            	<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/question.jsp?currentPage=<%=currentPage+1%>">다음</a>
+	            <%
+	                }
+	            %>
+	        </div>
 	  </div>
        <br>
        <br>

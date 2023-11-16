@@ -11,16 +11,7 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-	String goodsNoParam = request.getParameter("goodsNo");
-    int goodsNo;
-
-    if (goodsNoParam != null && !goodsNoParam.isEmpty()) {
-        goodsNo = Integer.parseInt(goodsNoParam);
-    } else {
-        // 기본값 설정 또는 에러 처리
-        goodsNo = 0;     // 다른 기본값 설정
-    }
-	
+	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 %>
 <!DOCTYPE html>
 <html>

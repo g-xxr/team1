@@ -14,9 +14,7 @@ public class NoticeDao {
 		String dbuser = "root";
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		
-		
+					
 		String sql = "SELECT notice_no noticeNo, manager_no managerNo, notice_title noticeTitle, notice_content noticeContent, createdate, updatedate FROM notice ORDER BY notice_no DESC LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);

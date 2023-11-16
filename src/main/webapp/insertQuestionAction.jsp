@@ -10,9 +10,8 @@
 	
 	int customerNo = 0;
 	customerNo = (Integer)session.getAttribute("customerNo");
-	System.out.println(customerNo + "<--customerNo"); // 디버깅을 통해 managerNo를 확인
-	int goodsNo = 0;
-	goodsNo = 1;
+	System.out.println(customerNo + "<--customerNo"); // 디버깅을 통해 customerNo를 확인	
+	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 	System.out.println(goodsNo + "<--goodsNo");// 디버깅을 통해 goodsNo를 확인
 	String questionTitle = request.getParameter("questionTitle");
 	String questionContent = request.getParameter("questionContent");

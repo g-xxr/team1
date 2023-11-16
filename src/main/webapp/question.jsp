@@ -13,7 +13,7 @@
 	int rowPerPage = 8;
 	
 	QuestionDao qd = new QuestionDao();
-	int totalRow =qd.questionPaging();
+	int totalRow = qd.questionPaging();
 	
 	int lastPage = totalRow / rowPerPage;
 	if(totalRow % rowPerPage != 0){
@@ -22,7 +22,7 @@
 	
 	int beginRow = (currentPage-1)*rowPerPage;
 		
-	ArrayList<Question> list = qd.selectQuestion(beginRow, rowPerPage);
+	ArrayList<HashMap<String, Object>> list = qd.selectQuestion(beginRow, rowPerPage);
 %>     
 <!DOCTYPE html>
 <html>
@@ -80,16 +80,16 @@
         			<th class="col-sm-1">작성일</th>	
         		</tr>		
         	<%	
-        		for(Question q : list){
+        		for(HashMap<String, Object> q : list){
         	%>
         		 <tr>
-        		  <td><%=q.getQuestionNo()%></td>
-        		  <td><%=q.getGoodsNo()%></td>
+        		  <td><%=q.get("questionNo")%></td>
+        		  <td><%=q.get("goodsNo")%></td>
         		  <td>
-        		  	 <a href="<%=request.getContextPath()%>/questionOne.jsp?questionNo=<%=q.getQuestionNo()%>"><%=q.getQuestionTitle()%></a>        		  	
+        		  	 <a href="<%=request.getContextPath()%>/questionOne.jsp?questionNo=<%=q.get("questionNo")%>"><%=q.get("questionTitle")%></a>        		  	
         		  </td>        							        		         	     							
-        		  <td><%=q.getCustomerNo()%></td>
-        		  <td><%=q.getCreatedate()%></td>	        		  
+        		  <td><%=q.get("customerNo")%></td>
+        		  <td><%=q.get("createdate")%></td>	        		  
         	     </tr> 
         	      
         	<%
@@ -100,23 +100,25 @@
         </div>
        	  <div class="d-flex justify-content-center">
 			 <div>
-			<%
-			  if(currentPage > 1){
-			%>
-			  <a class="btn btn-outline-success" href="<%=request.getContextPath()%>/managerNotice.jsp?currentPage=<%=currentPage-1%>">이전</a>
-			<%
-			}
-			%>
-			
-			<%
-			  if(currentPage < lastPage){
-			%>
-			  <a class="btn btn-outline-success" href="<%=request.getContextPath()%>/managerNotice.jsp?currentPage=<%=currentPage+1%>">다음</a>
-			<%
-			}
-			%>
+				<%
+					if(currentPage > 1){
+				%>
+					<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/question.jsp?currentPage=<%=currentPage-1%>">이전</a>
+				<%
+					}
+				%>
+				
+				<%
+					if(currentPage < lastPage){
+				%>
+					<a class="btn btn-outline-success" href="<%=request.getContextPath()%>/question.jsp?currentPage=<%=currentPage+1%>">다음</a>
+				<%
+					}
+				%>
 		 </div>
 	  </div>
+       <br>
+       <br>
        <br>
         <!-- Footer-->
         <footer class="py-5 bg-dark">

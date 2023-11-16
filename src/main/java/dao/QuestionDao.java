@@ -7,7 +7,7 @@ import vo.*;
 public class QuestionDao {	
 
 	// question.jsp	문의사항 리스트 
-	public ArrayList<Question> selectQuestion(int beginRow, int rowPerPage) throws Exception {
+	public ArrayList<HashMap<String,Object>> selectQuestion(int beginRow, int rowPerPage) throws Exception {
 				
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -22,16 +22,18 @@ public class QuestionDao {
 		stmt.setInt(2, rowPerPage);
 		ResultSet rs = stmt.executeQuery(); // jdbc환경의 모델
 		
-		ArrayList<Question> list = new ArrayList<>();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
 		while(rs.next()) {
-			Question q = new Question();
-			q.setQuestionNo(rs.getInt("questionNo"));
-			q.setGoodsNo(rs.getInt("goodsNo"));
-			q.setCustomerNo(rs.getInt("customerNo"));
-			q.setQuestionTitle(rs.getString("questionTitle"));
-			q.setQuestionContent(rs.getString("questionContent"));
-			q.setCreatedate(rs.getString("createdate"));
-			q.setUpdatedate(rs.getString("updatedate"));
+			HashMap<String, Object> q = new HashMap<>();
+			q.put("questionNO", rs.getInt("questionNo"));
+			q.put("goodsNO", rs.getInt("goodsNo"));
+			q.put("customerNo", rs.getInt("customerNO"));
+			q.put("questionTitle", rs.getString("questionTitle"));
+			q.put("questionContent", rs.getString("questionContent"));
+			q.put("createdate", rs.getString("createdate"));;
+			q.put("updatedate", rs.getString("updatedate"));
+			
+			
 			
 			
 		}

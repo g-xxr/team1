@@ -60,8 +60,6 @@ public class NoticeDao {
 			conn.close();
 			stmt.close();
 			rs.close();
-			
-			
 				
 			return totalRow;
 		}

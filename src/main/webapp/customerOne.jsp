@@ -87,6 +87,8 @@
 	<a href="<%=request.getContextPath()%>/updateCustomerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-danger">회원탈퇴</a> <!-- 비밀번호 입력 -->
+	&nbsp;
+	<a href="<%=request.getContextPath()%>/ordersList.jsp" class="btn btn-outline-info">주문내역</a>
 </div>
 
 </body>

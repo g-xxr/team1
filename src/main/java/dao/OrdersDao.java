@@ -11,65 +11,7 @@ import java.util.*;
 
 public class OrdersDao {
 	
-	public ArrayList<HashMap<String, Object>> ordersList(int customerNo) throws Exception {
-		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall";
-		String dbuser = "root";
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		String sql = "SELECT g.goods_title goodsTitle, o.orders_no ordersNo, o.quantity quantity, o.total_price totalPrice, o.orders_state ordersState FROM goods g INNER JOIN orders o ON g.goods_no = o.goods_no WHERE o.customer_no = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, customerNo);
-		
-		System.out.println(stmt + "<-- ordersList");
-		ResultSet rs = stmt.executeQuery();
-		
-		// 더 일반화 된 모델 코드로 만들기
-		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		while(rs.next()){
-			HashMap<String, Object> map = new HashMap<>();
-			map.put("goodsTitle", rs.getString("goodsTitle"));
-			map.put("ordersNo",rs.getInt("ordersNo"));
-			map.put("quantity",rs.getInt("quantity"));
-			map.put("totalPrice",rs.getInt("totalPrice"));
-			map.put("ordersState", rs.getInt("ordersState"));
-			list.add(map);
-		}
-		// 자원 닫기
-		rs.close();
-		conn.close();
-		stmt.close();
-		
-		return list;
-	}
-	
-	// ordersListManager 페이징 호출 controller
-	public int ordersListPaging() throws Exception{
-		Class.forName("org.mariadb.jdbc.Driver");
-		String url = "jdbc:mariadb://localhost:3306/mall" ;
-		String dbuser = "root";
-		String dbpw = "java1234";
-		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
-		
-		// 페이징 sql
-		String sql = "SELECT COUNT(*) FROM orders";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		ResultSet rs = stmt.executeQuery();
-		int totalRow = 0;
-		if(rs.next()) {
-			totalRow = rs.getInt("COUNT(*)"); // rs1.getInt(1)
-		}
-		// 자원 닫기
-		conn.close();
-		stmt.close();
-		rs.close();
-		
-		return totalRow;
-	}
-		
-	
-	// 고객 주문정보 상세 조회 (ordersList)
+	// order 추가하기
 	public void orders(int customerNo) throws Exception {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -78,13 +20,13 @@ public class OrdersDao {
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 				
-		/*	SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_title goodsTitle, g.goods_price goodsPrice, o.orders_state ordersState
-			FROM cart c 
-			INNER JOIN goods g ON c.goods_no = g.goods_no 
-			INNER JOIN orders o ON o.goods_no = c.goods_no
-			WHERE c.customer_no = ? ;
-		 */
-		String sql1 = "SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_price goodsPrice, cad.address address, o.orders_state ordersState FROM cart c INNER JOIN goods g ON c.goods_no = g.goods_no INNER JOIN orders o ON o.goods_no = c.goods_no WHERE c.customer_no = ?";
+		/*
+		 * SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_price goodsPrice, ca.address address
+		 * FROM cart c INNER JOIN goods g 
+		 * ON c.goods_no = g.goods_no INNER JOIN customer_addr ca 
+		 * ON ca.customer_no = c.customer_no WHERE c.customer_no = ? 
+		 * */
+		String sql1 = "SELECT c.goods_no goodsNo, c.quantity quantity, g.goods_price goodsPrice, ca.customer_addr_no customerAddrNo FROM cart c INNER JOIN goods g ON c.goods_no = g.goods_no INNER JOIN customer_addr ca ON ca.customer_no = c.customer_no WHERE c.customer_no = ?";
 		PreparedStatement stmt1 = conn.prepareStatement(sql1);
 		stmt1.setInt(1,customerNo);
 		ResultSet rs = stmt1.executeQuery();
@@ -95,15 +37,16 @@ public class OrdersDao {
 			map.put("goodsNo", rs.getInt("goodsNo"));
 			map.put("quantity", rs.getInt("quantity"));
 			map.put("goodsPrice", rs.getInt("goodsPrice"));
-			map.put("address", rs.getString("address"));
-			map.put("ordersState", rs.getString("ordersState"));
+			map.put("customerAddrNo", rs.getString("customerAddrNo"));
 			
 			list.add(map);
 		}
 			
 		for(HashMap<String,Object> map : list) {
 			
-			int totalPrice = (Integer)map.get("goodsPrice") * (Integer)map.get("quantity");
+			
+			int totalPrice = (Integer) map.get("goodsPrice") * (Integer) map.get("quantity");
+						
 			/*
 			 * INSERT INTO orders(goods_no, customer_no, customer_addr_no, quantity, total_price, orders_state, createdate, updatedate) 
 			 * VALUES(?, ?, ?, ?, ?, '주문완료', NOW(), NOW())
@@ -126,11 +69,50 @@ public class OrdersDao {
 		conn.close();
 		stmt1.close();
 		rs.close();
+		
+	
+	}
+	
+	// ordersList 호출
+	public ArrayList<HashMap<String, Object>> ordersList(int customerNo) throws Exception {
+		
+		Class.forName("org.mariadb.jdbc.Driver");
+		String url = "jdbc:mariadb://localhost:3306/mall";
+		String dbuser = "root";
+		String dbpw = "java1234";
+		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
+		
+		/*
+		 * SELECT g.goods_title goodsTitle, o.quantity quantity, o.total_price totalPrice 
+		 * FROM goods g INNER JOIN orders o 
+		 * ON g.goods_no = o.goods_no WHERE o.customer_no = ?
+		 * */
+		String sql = "SELECT g.goods_title goodsTitle, o.orders_no ordersNo, o.quantity quantity, o.total_price totalPrice FROM goods g INNER JOIN orders o ON g.goods_no = o.goods_no WHERE o.customer_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, customerNo);
+		
+		ResultSet rs = stmt.executeQuery();
+		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+		while(rs.next()) {
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("goodsTitle", rs.getString("goodsTitle"));
+			map.put("ordersNo", rs.getInt("ordersNo"));
+			map.put("quantity", rs.getInt("quantity"));
+			map.put("totalPrice", rs.getInt("totalPrice"));
+
+			list.add(map);
+		}
+		
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
 	}
 	
 	// 배송 상태 수정 controller : updateOrders
 	public void updateOrders(int ordersNo, String ordersState) throws Exception {
-		
+			
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall" ;
 		String dbuser = "root";
@@ -155,11 +137,8 @@ public class OrdersDao {
 		stmt.close();
 	}
 	
-	
-	
-	
-	// 주문 내역 삭제하기
-	public void deleteOrders(int ordersNo) throws Exception {
+	public void deleteOrder(int ordersNo) throws Exception {
+		
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";
 		String dbuser = "root";
@@ -177,5 +156,6 @@ public class OrdersDao {
 		
 		conn.close();
 		stmt.close();
+
 	}
 }

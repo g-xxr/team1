@@ -1,3 +1,4 @@
+<%@page import="dao.OrdersDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.CustomerDao" %>
@@ -16,15 +17,14 @@
 		customerNo = (Integer)session.getAttribute("customerNo");
 	}
 		
-	// 필요 Dao 불러오기
+	// CustomerDao 불러오기
 	CustomerDao ctd = new CustomerDao();
 	ArrayList<HashMap<String,Object>> list = ctd.customerOne(customerNo);
 	
 	// CartDao 불러오기
 	CartDao cd = new CartDao();
 	ArrayList<HashMap<String,Object>> cartlist = cd.cartList(customerNo);
-	
-	
+		
 	int totalSum = 0;
 	int cartQuantity = 0;
 	
@@ -140,7 +140,7 @@
 	<!-- 결제버튼 클릭하면 결제 완료 alert 창 뜸 자바스크립트 이용 -->
 	<div class="container mt-3">
 	<div class="d-grid">
-  	<a href="<%=request.getContextPath()%>/ordersComplete.jsp" class="btn btn-outline-primary btn-lg" id="pay" >💜결제하기💜</a>
+  	<a href="<%=request.getContextPath()%>/ordersAction.jsp?customerNo=<%=customerNo%>" class="btn btn-outline-primary btn-lg" id="pay" >💜결제하기💜</a>
 	</div>
 	<script>
 		$('#pay').click(function(){

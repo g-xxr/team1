@@ -4,17 +4,7 @@
 <%@ page import="vo.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>
-<%
-	// 로그인한 고객만 접근 가능
-	
-	int customerNo = 0;
-	if(session.getAttribute("customerNo") == null){  // 현재 세션에 managerNo을 찾을 수 없다 -> 로그인 못함 -> 로그인 폼으로 가세요
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
-		return;
-	} else {
-		customerNo = (Integer)session.getAttribute("customerNo");
-	}
-	
+<%	
 	// 페이징 하기
 	// 현재 페이지
 	int currentPage = 1;

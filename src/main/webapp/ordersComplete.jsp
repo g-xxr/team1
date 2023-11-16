@@ -56,17 +56,26 @@
 	    <div class="container px-4 px-lg-5 my-4">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">주문 완료!</h1>
-	            <p class="lead fw-normal text-white-50 mb-0">💖감사합니다. 빠른 시일 내에 배송이 시작될 예정입니다.💖</p>
+	            <p class="lead fw-normal text-white-50 mb-0">💖주문이 완료되었습니다💖</p>
 	        </div>
 	    </div>
 	</header>
+	
+	<!-- 주문완료 대문-->
+	<section>
+	<div class="container mt-3">
+	<div>
+		<img src="<%=request.getContextPath()%>/upload/complete.png" class= "mx-auto d-block img-thumbnail" style="width:50%">
+	</div>
+	<br>
+	<!-- 홈/마이페이지 버튼 선택 -->
+	<div style="text-align: center;">
+	<a class="btn btn-success" href="<%=request.getContextPath()%>/customerOne.jsp">마이페이지</a>
+	<a class="btn btn-success" href="<%=request.getContextPath()%>/privateHome.jsp">홈으로</a>
+	</div>
 
-감 사 티 비
-사진 추가
-<br>
-홈으로 / 마이페이지(주문목록 버튼 추가 -> 고객 주문리스트-> 매니저 주문확인ㄹㅣ스트 에서는 배송상태 변경할 수 있도록)
-
-
+	</div>
+	</section>
 	<br>
     <br>
 	<!-- 맨 아래 배너 -->

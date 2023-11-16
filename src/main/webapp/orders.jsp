@@ -37,6 +37,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <title>주문 · 결제</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
@@ -45,6 +46,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet">
     </head>
+
 <body>
 
 	<!---- 로그인 시 보여지는 메뉴와 로그아웃 시 보여지는 메뉴 ---->
@@ -100,7 +102,7 @@
         
         <div class="card" style="display: flex; flex-direction: row;">
           <!-- 왼쪽에 사진 -->
-          <img class="" src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 10%;">
+          <img class="" src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 8%;">
           <!-- 오른쪽에 상품 정보 -->
           <div class="card-body" style="flex: 1;">
           <div><%=map.get("goodsTitle")%></div>
@@ -134,12 +136,16 @@
 	</div>
 	</div>
 	
-	<!-- 결제 클릭 버튼 누르면 결제 완료 alert 창 뜸 자바스크립트 이용 -->
+	<!-- 결제버튼 클릭하면 결제 완료 alert 창 뜸 자바스크립트 이용 -->
 	<div class="container mt-3">
 	<div class="d-grid">
-  	<button type="button" class="btn btn-outline-primary btn-lg">💜결제하기💜</button>
+  	<a href="<%=request.getContextPath()%>/ordersComplete.jsp" class="btn btn-outline-primary btn-lg" id="pay" >💜결제하기💜</a>
 	</div>
-	
+	<script>
+		$('#pay').click(function(){
+		alert('결제 완료!');
+		});
+	</script>
 	</div>
 	<br>
     <br>

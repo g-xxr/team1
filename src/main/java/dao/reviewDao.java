@@ -85,12 +85,20 @@ import vo.*;
 			System.out.println("배송이 완료된 제품입니다");
 			}
 		}
+	}
 	
 	//insertReview 리뷰를 추가하는 메소드
-	String sql2 = "INSERT INTO review(orders_no, review_content, createdate, updatedate) VALUES(?,?,NOW(),NOW())";
-	PreparedStatement stmt2 = conn.prepareStatement(sql2);
-	stmt2.setInt(1, ordersNo);
-	stmt2.setString(2, reviewContent);
+	public int insertReview(Review review) throws Exception{
+	Class.forName("org.mariadb.jdbc.Driver");
+	String url = "jdbc:mariadb://localhost:3306/mall";
+	String dbuser = "root";
+	String dbpw = "java1234";
+	Connection conn = DriverManager.getConnection(url, dbuser, dbpw);	
+		
+	String sql = "INSERT INTO review(orders_no, review_content, createdate, updatedate) VALUES(?,?,NOW(),NOW())";
+	PreparedStatement stmt = conn.prepareStatement(sql);
+	stmt.setInt(1, review.getOrdersNo());
+	stmt.setString(2, review.getReviewContent());
 	System.out.println(stmt + " <-- stmt insertReview()");
 	int row = stmt.executeUpdate();
 	if(row == 1) {
@@ -100,7 +108,12 @@ import vo.*;
 		}
 		conn.close();
 		stmt.close();
+		
+		return row;
 	}
+	
+	
+	
 	
 	// 주문번호 확인을 위한 조인문
 	public ArrayList<ReviewOrdersGoods> reviewOrdersNoCheck(String loginId)throws Exception{
@@ -110,7 +123,7 @@ import vo.*;
 		String dbpw = "java1234";
 		Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 		
-		ArrayList<ReviewOrdersGoods> reviewList = new ArrayList<>();
+		ArrayList<ReviewOrdersGoods> list = new ArrayList<>();
 		String sql = "SELECT o.orders_no ordersNo, g.goods_title goodsTitle FROM customer c JOIN orders o on c.customer_no= o.customers_no JOIN goods g ON o.goods_no = g.goods_no WHERE customer_id=? AND o.orders_state = '배송완료'";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, loginId);
@@ -121,10 +134,10 @@ import vo.*;
 				rog.setOrdersNo(rs.getInt("ordersNo"));
 				rog.setGoodsTitle(rs.getString("goodsTitle"));
 				
-				reviewList.add(rog);
+				list.add(rog);
 			}
-			System.out.println(reviewList);
-			return reviewList;
+			System.out.println(list);
+			return list;
 }
 
 	

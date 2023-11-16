@@ -82,14 +82,15 @@
 	<div class="container mt-3">
 	<br>
 	<!-- 리뷰 목록 -->
-	<table class="table table-bordered table-hover" style="text-align:center; vertical-align: middle;">
+	<table class="table table-hover" style="text-align:center; vertical-align: middle;">
 		<thead>
 			<tr>
-	        <th>상품 사진</th>
-	        <th>상품 이름</th>
+	        <th class="col-sm-1">리뷰 번호</th>
+	        <th class="col-sm-2">상품 이름</th>
 	        <th>리뷰 내역</th>
-	        <th>수정</th>
-	        <th>삭제</th>
+	        <th class="col-sm-1">작성자 ID</th>
+	        <th class="col-sm-1">수정</th>
+	        <th class="col-sm-1">삭제</th>
 	      	</tr>
 		</thead>
 	<%
@@ -97,10 +98,10 @@
 	%>
     	<tbody>
      		<tr>
-        	<td><img src="<%=request.getContextPath()%>/upload/<%=map.get("filename")%>" style="width: 60px; height: 60px;"></td>
-        	<td><%=map.get("ordersNo")%></td>
+			<td><%=map.get("reviewNo")%></td>
         	<td><%=map.get("goodsTitle")%></td>
         	<td><%=map.get("reviewContent")%></td>
+        	<td><%=map.get("customerId")%></td>
         	<td><a class="btn btn-outline-info" href="<%=request.getContextPath()%>/updateReviewForm.jsp?ordersNo=<%=map.get("ordersNo")%>">💡수정💡</a></td>
         	<td><a class="btn btn-outline-danger" href="<%=request.getContextPath()%>/deleteReviewAction.jsp?ordersNo=<%=map.get("ordersNo")%>">🗑️삭제🗑️</a></td>
       		</tr>

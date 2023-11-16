@@ -7,7 +7,6 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-	
 %>
 
 <!DOCTYPE html>
@@ -42,11 +41,11 @@
         <form  action="<%=request.getContextPath()%>/insertReviewAction.jsp">	
           <div>                             	
 		     <label for="comment">상품명:</label>
-			 <input type="text" style="width:400px" class="form-control" name="questionTitle" readonly> 
+			 <input type="text" style="width:400px" class="form-control" name="reviewTitle" readonly> 
 			 <!-- value= 구매한 제품의 이름이 출력되도록 설정 필요 -->
 		  	
 		  	<label for="comment">리뷰내용:</label>
-      		<textarea class="form-control" rows="5" name="questionContent"></textarea>
+      		<textarea class="form-control" rows="5" name="reviewContent"></textarea>
           </div>
           <br>
           <div style="float:right">

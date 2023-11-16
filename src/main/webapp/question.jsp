@@ -86,7 +86,7 @@
         		  <td><%=q.get("questionNo")%></td>
         		  <td><%=q.get("goodsNo")%></td>
         		  <td>
-        		  	 <a href="<%=request.getContextPath()%>/questionOne.jsp?questionNo=<%=q.get("questionNo")%>"><%=q.get("questionTitle")%></a>        		  	
+        		  	 <a href="<%=request.getContextPath()%>/qCommentOne.jsp?questionNo=<%=q.get("questionNo")%>"><%=q.get("questionTitle")%></a>        		  	
         		  </td>        							        		         	     							
         		  <td><%=q.get("customerNo")%></td>
         		  <td><%=q.get("createdate")%></td>	 

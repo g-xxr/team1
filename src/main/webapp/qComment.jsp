@@ -5,17 +5,16 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>     
 <%
-	String managerId = (String)(session.getAttribute("loginId")); 
-	System.out.println(managerId + "<--managerId");
+
 	
-	if(session.getAttribute("loginId") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
+	if(session.getAttribute("managerNo") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	
-	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+	
 	QuestionDao qd = new QuestionDao();
-	ArrayList<HashMap<String, Object>> qNo = qd.selectQuestionOne(questionNo);
+//	ArrayList<HashMap<String, Object>> qNo = qd.selectQuestionOne(questionNo);
 	
 	
 
@@ -29,7 +28,7 @@
 </head>
 <body>
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/privateMenu.jsp"></jsp:include>
+	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
@@ -47,7 +46,7 @@
         	  <form  action="<%=request.getContextPath()%>/qCommentAction.jsp">  	     	    
         	  <table class="table table-hover">    	
         		<%
-        			for(HashMap<String, Object> o : qNo){
+        //			for(HashMap<String, Object> o : qNo){
         		%>        			
         			  <tr>
         			  	<th>상품번호</th>
@@ -68,11 +67,7 @@
         			  <tr>
         			  	<th>작성일</th>
  						<td><%=o.get("createdate")%></td>       			  				  
-        			  </tr>  
-        			  <tr>
-        			  	<th>수정일</th>
- 						<td><%=o.get("updatedate")%></td>       			  				  
-        			  </tr>    			
+        			  </tr>  		
       		  	 	  <tr>
         			  	<label for="comment">답변:</label>
       					<textarea class="form-control" rows="5" name="qComment"></textarea>       			 

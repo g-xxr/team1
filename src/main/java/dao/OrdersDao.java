@@ -137,7 +137,7 @@ public class OrdersDao {
 		stmt.close();
 	}
 	
-	public void deleteOrder(int ordersNo) throws Exception {
+	public void deleteOrders(int ordersNo) throws Exception {
 		
 		Class.forName("org.mariadb.jdbc.Driver");
 		String url = "jdbc:mariadb://localhost:3306/mall";

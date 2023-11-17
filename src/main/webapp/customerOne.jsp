@@ -3,8 +3,8 @@
 <%@ page import = "vo.*" %>
 <%@ page import = "java.util.*" %>
 <%@ page import = "dao.CustomerDao" %>
-
-
+<!-- 유섭(코드 작성) -->
+<!-- 유정(부트스트랩 적용) -->
 
 <%
 		// 한글 깨짐 방지
@@ -45,8 +45,20 @@
 	<!-- 메뉴 시작 (절대주소 적으세요)-->
 	<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	<!-- 메뉴 끝 -->
+	
+	<!-- 헤드 배너 부분 -->
+	<header class="bg-dark py-1">
+	    <div class="container px-4 px-lg-5 my-5">
+	        <div class="text-center text-white">
+	            <h1 class="display-4 fw-bolder">👩🏻‍💻마이페이지👨🏻‍💻</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">내 정보 수정, 주문내역을 확인할 수 있습니다</p>
+	        </div>
+	    </div>
+	</header>
+	
 <div class="container">
-	<h1>회원 상세정보 &#128203;</h1>
+<br>
+	<div><h1>회원 상세정보&#128203;</h1></div>
 	
 <% 
 	for(HashMap<String,Object> c : list) { // 받아온 회원정보 테이블에 출력
@@ -54,11 +66,11 @@
 	<form action="">
 		<table class="table table-bordered table-hover">
 			<tr>
-				<th>사용자 ID</th>
+				<th>아이디</th>
 				<td><%=c.get("customerId")%></td>
 			</tr>
 			<tr>
-				<th>고객명</th>
+				<th>이름</th>
 				<td><%=c.get("customerName")%></td>
 			</tr>
 			<tr>
@@ -69,14 +81,6 @@
 				<th>주소</th>
 				<td><%=c.get("customerAddress")%></td>
 			</tr>
-			<tr>
-				<th>생성일</th>
-				<td><%=c.get("createdate")%></td>
-			</tr>
-			<tr>
-				<th>변경일</th>
-				<td><%=c.get("updatedate")%></td>
-			</tr>
 		</table>
 	</form>
 			<% 
@@ -86,10 +90,22 @@
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/updateCustomerPwForm.jsp?" class="btn btn-outline-success">비밀번호수정</a> <!-- 이전 비밀번호와 바꿀 비밀번호 입력 -->
 	&nbsp;
-	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-danger">회원탈퇴</a> <!-- 비밀번호 입력 -->
-	&nbsp;
 	<a href="<%=request.getContextPath()%>/ordersList.jsp" class="btn btn-outline-info">주문내역</a>
+	&nbsp;
+	<a href="<%=request.getContextPath()%>/deleteCustomerForm.jsp" class="btn btn-outline-danger">회원탈퇴</a> <!-- 비밀번호 입력 -->
 </div>
 
+	<br>
+	<br>
+	<!-- 맨 아래 배너 -->
+	<footer class="py-3 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭</p></div>
+	</footer>
+	   
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	   
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>

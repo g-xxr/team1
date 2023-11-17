@@ -7,6 +7,8 @@
 		return;
 	}
 %>    
+<!-- 유정(부트스트랩 적용) -->
+<!-- 유섭(코드 작성) -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,7 @@
 	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">환영합니다</h1>
+	            <h1 class="display-4 fw-bolder">😊환영합니다😊</h1>
 	            <p class="lead fw-normal text-white-50 mb-0">로그인하고 더 큰 혜택을 누리세요</p>
 	        </div>
 	    </div>

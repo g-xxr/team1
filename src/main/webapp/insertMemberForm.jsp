@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- 유정 -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,11 +23,11 @@
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
-	<header class="bg-dark py-5">
+	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">📝회원가입 페이지📝</h1>
-	            <p class="lead fw-normal text-white-50 mb-0">😃우리 샵의 가족이 되어주세요😃<br>❤️‍🔥완전 환영해요❤️‍🔥</p>
+	            <p class="lead fw-normal text-white-50 mb-0">😃우리 샵의 가족이 되어주세요😃</p>
 	        </div>
 	    </div>
 	</header>
@@ -40,28 +41,24 @@
 	<div class="container px-4 px-lg-5 mt-5">
 		<div class="row justify-content-center row-cols-1 row-cols-md-5 g-3">
 		
-			<!-- 매니저 상품관리 게시판 링크 -->
+			<!-- 고객 회원가입 -->
 			<div class="col mb-3">
 				<div class="card h-100">
-	                <!-- 상품 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">고객<br>회원가입</h3>
 	                </div>
-	                <!-- 상품 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
 	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/insertCustomerForm.jsp">클릭!</a>
 	      			</div>
             	</div>
 			</div>
 			
-			<!-- 매니저 회원정보관리 게시판 링크 -->
+			<!-- 매니저 회원가입 -->
 			<div class="col mb-3">
 				<div class="card h-100">
-					<!-- 상품 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">매니저<br>회원가입</h3>
 	                </div>
-	                <!-- 상품 관리 페이지 링크 -->
 	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
 	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/insertManagerForm.jsp">클릭!</a>
 	      			</div>
@@ -76,7 +73,7 @@
 	<br>
 	
 	<!-- 맨 아래 배너 -->
-	<footer class="py-5 bg-dark">
+	<footer class="py-3 bg-dark">
 	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭 </p></div>
 	</footer>
 	   

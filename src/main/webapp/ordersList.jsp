@@ -72,6 +72,7 @@
 	        <th>합계</th>
 	        <th>배송정보</th>
 	        <th>리뷰 작성하기</th>
+	        <th>주문 내역 삭제</th>
 	      	</tr>
 		</thead>
 	<%
@@ -86,6 +87,7 @@
         	<td><mark><%=map.get("totalPrice")%>원</mark></td>
         	<td>배송완료</td>
         	<td><a class="btn btn-outline-info" href="<%=request.getContextPath()%>/insertReviewForm.jsp?ordersNo=<%=map.get("ordersNo")%>">리뷰 작성</a></td>
+      		<td><a class="btn btn-danger" href="<%=request.getContextPath()%>/deleteOrdersAction.jsp?ordersNo=<%=map.get("ordersNo")%>">삭제</a></td>
       		</tr>
     	</tbody>
 	<%

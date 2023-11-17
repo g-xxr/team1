@@ -44,53 +44,58 @@
 	-->
 	<br>
 <section>
-	<!-- 고객 로그인 부분 -->
-	<div class="container mt-3">
-	<h2>고객 로그인</h2>
-	  <div class="card" style="width:30%;">
-	<form method="post" action="<%=request.getContextPath()%>/customerLoginAction.jsp">
-	
-	    <div class="card-body">
-	    
-	    <div class="mb-3 mt-3">
-	    <label for="customerId" class="form-label">아이디</label>
-	    <input type="text" class="form-control" id="customerId" placeholder="아이디를 입력하세요" name="customerId">
-	  	</div>
-	    
-	    <div class="mb-3">
-	    <label for="customerPw" class="form-label">비밀번호</label>
-	    <input type="password" class="form-control" id="customerPw" placeholder="비밀번호를 입력하세요" name="customerPw">
-	  	</div>
-		<button type="submit" class="btn btn-primary">로그인</button>
-	    <div>회원이 아니시라면?🚹<a href="<%=request.getContextPath()%>/insertCustomerForm.jsp" class="text-primary">회원가입</a>🚹</div>
-	    </div>
-	   </form>
-	  </div>
-	</div>
 
-	<!-- 매니저 로그인 부분 -->
-	<div class="container mt-3">
-	<h2>매니저 로그인</h2>
-	  <div class="card" style="width:30%;">
-	<form method="post" action="<%=request.getContextPath()%>/managerLoginAction.jsp">
-	
-	    <div class="card-body">
-	    
-	    <div class="mb-3 mt-3">
-	    <label for="managerId" class="form-label">아이디</label>
-	    <input type="text" class="form-control" id="managerId" placeholder="아이디를 입력하세요" name="managerId">
-	  	</div>
-	    
-	    <div class="mb-3">
-	    <label for="managerPw" class="form-label">비밀번호</label>
-	    <input type="password" class="form-control" id="managerPw" placeholder="비밀번호를 입력하세요" name="managerPw">
-	  	</div>
-		<button type="submit" class="btn btn-primary">로그인</button>
-	    <div>회원이 아니시라면?🚹<a href="<%=request.getContextPath()%>/insertManagerForm.jsp" class="text-primary">회원가입</a>🚹</div>
-	    </div>
-	   </form>
-	  </div>
+<div class="container">
+    <div class="row">
+	    <!-- 고객 로그인 부분 -->
+	    <div class="col-md-6 mt-3 mx-auto">
+		<h2>고객 로그인</h2>
+		  <div class="card" style="width:80%;">
+		<form method="post" action="<%=request.getContextPath()%>/customerLoginAction.jsp">
+		
+		    <div class="card-body">
+		    
+		    <div class="mb-3 mt-3">
+		    <label for="customerId" class="form-label">아이디</label>
+		    <input type="text" class="form-control" id="customerId" placeholder="아이디를 입력하세요" name="customerId">
+		  	</div>
+		    
+		    <div class="mb-3">
+		    <label for="customerPw" class="form-label">비밀번호</label>
+		    <input type="password" class="form-control" id="customerPw" placeholder="비밀번호를 입력하세요" name="customerPw">
+		  	</div>
+			<button type="submit" class="btn btn-primary">로그인</button>
+		    <div>회원이 아니시라면?🚹<a href="<%=request.getContextPath()%>/insertCustomerForm.jsp" class="text-primary">회원가입</a>🚹</div>
+		    </div>
+		   </form>
+		  </div>
+		</div>
+
+		<!-- 매니저 로그인 부분 -->
+	    <div class="col-md-6 mt-3 mx-auto">
+		<h2>매니저 로그인</h2>
+		  <div class="card" style="width:80%;">
+		<form method="post" action="<%=request.getContextPath()%>/managerLoginAction.jsp">
+		
+		    <div class="card-body">
+		    
+		    <div class="mb-3 mt-3">
+		    <label for="managerId" class="form-label">아이디</label>
+		    <input type="text" class="form-control" id="managerId" placeholder="아이디를 입력하세요" name="managerId">
+		  	</div>
+		    
+		    <div class="mb-3">
+		    <label for="managerPw" class="form-label">비밀번호</label>
+		    <input type="password" class="form-control" id="managerPw" placeholder="비밀번호를 입력하세요" name="managerPw">
+		  	</div>
+			<button type="submit" class="btn btn-primary">로그인</button>
+		    <div>회원이 아니시라면?🚹<a href="<%=request.getContextPath()%>/insertManagerForm.jsp" class="text-primary">회원가입</a>🚹</div>
+		    </div>
+		   </form>
+		  </div>
+		</div>
 	</div>
+</div>
 	
 </section>
 

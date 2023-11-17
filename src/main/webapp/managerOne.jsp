@@ -4,9 +4,6 @@
 <%@ page import = "dao.*" %>
 <%@ page import = "java.util.*" %>
 
-	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
 
 <%
 		// 한글 깨짐 방지
@@ -29,14 +26,36 @@
 		
 %>
 <!DOCTYPE html>
-<html>
-<head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>매니저 관리 페이지</title>
+		<!-- 파비콘 코드 -->
+		<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+		<!-- 부트스트랩 아이콘 -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+		<!-- 코어 테마 css -->
+		<link href="css/styles.css" rel="stylesheet">
+	</head>
+
 <body>
+	<!-- 메뉴 시작 (절대주소 적으세요)-->
+	<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
+	<!-- 메뉴 끝 -->
+		
+	<!-- 헤드 배너 부분 -->
+	<header class="bg-dark py-1">
+	    <div class="container px-4 px-lg-5 my-5">
+	        <div class="text-center text-white">
+	            <h1 class="display-4 fw-bolder">마이페이지</h1>
+	        </div>
+	    </div>
+	</header>
+<body>
+<br>
 <div class="container">
 	<%
 		for(Manager m : list)  { // 받아온 관리자정보 테이블에 출력
@@ -72,5 +91,17 @@
 	&nbsp;
 	<a href="<%=request.getContextPath()%>/deleteManagerForm.jsp" class="btn btn-outline-danger">관리자 탈퇴</a> <!-- 비밀번호 입력 -->
 </div>
+
+
+	<!-- 맨 아래 배너 -->
+	<br>
+	<br>
+	<footer class="py-3 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭 </p></div>
+	</footer>
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="js/scripts.js"></script>
 </body>
 </html>

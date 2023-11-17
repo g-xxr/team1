@@ -78,9 +78,21 @@
         			<th class="col-sm-1">작성자</th>   			
         			<th class="col-sm-1">작성일</th>
         			<th class="col-sm-1">수정일</th>
-        			<th class="col-sm-1">수정</th>
-        			<th class="col-sm-1">삭제</th>	
-        		</tr>		
+        		 
+       	<!-- 고객아이디로 로그인일때만 수정, 삭제표시  --> 
+        		  <div>
+        	<%
+        			if(session.getAttribute("customerNo") != null){
+        	%>
+        		   <th class="col-sm-1">수정</th>
+        		   <th class="col-sm-1">삭제</th>				
+        	<% 			
+        			}     			
+        	%>	       			
+        		  </div>		
+        		</tr>
+        		
+        				
         	<%	
         		for(HashMap<String, Object> q : list){
         	%>
@@ -93,13 +105,23 @@
         		  <td><%=q.get("customerNo")%></td>
         		  <td><%=q.get("createdate")%></td>	 
         		  <td><%=q.get("updatedate")%></td>	
-        		  <td>
+        		  
+        		<!-- 고객아이디로 로그인일때만 수정, 삭제표시  -->   
+        		  <div>
+        	<%
+        			if(session.getAttribute("customerNo") != null){
+        	%>
+        		   <td>
         		   <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=q.get("questionNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
-        		  </td>
-        		  <td>
+        		   </td>
+        		   <td>
         		   <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?questionNo=<%=q.get("questionNo")%>" class="btn btn-outline-dark mt-auto">삭제</a>         		   
-        		  </td>
-        		         		  
+        		   </td>
+        	<% 			
+        			}     			
+        	%>	
+     	
+        		  </div>       		  
         	     </tr> 
         	      
         	<%

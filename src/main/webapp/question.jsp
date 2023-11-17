@@ -65,7 +65,7 @@
 	    </div>
 	</header>
 		
-        <!-- 공지사항 -->
+        <!-- 문의사항 -->
         <div class="container">
         	<h1>문의사항</h1>
         	<br>     	     	    
@@ -74,10 +74,12 @@
         		<tr>
         			<th class="col-sm-1">번호</th> 
         			<th class="col-sm-1">상품</th>    			
-        			<th class="col-sm-7">제목</th>     
+        			<th class="col-sm-5">제목</th>     
         			<th class="col-sm-1">작성자</th>   			
         			<th class="col-sm-1">작성일</th>
-        			<th class="col-sm-1">수정일</th>	
+        			<th class="col-sm-1">수정일</th>
+        			<th class="col-sm-1">수정</th>
+        			<th class="col-sm-1">삭제</th>	
         		</tr>		
         	<%	
         		for(HashMap<String, Object> q : list){
@@ -86,11 +88,18 @@
         		  <td><%=q.get("questionNo")%></td>
         		  <td><%=q.get("goodsNo")%></td>
         		  <td>
-        		  	 <a href="<%=request.getContextPath()%>/qCommentOne.jsp?questionNo=<%=q.get("questionNo")%>"><%=q.get("questionTitle")%></a>        		  	
+        		  	 <a href="<%=request.getContextPath()%>/questionOne.jsp?questionNo=<%=q.get("questionNo")%>"><%=q.get("questionTitle")%></a>        		  	
         		  </td>        							        		         	     							
         		  <td><%=q.get("customerNo")%></td>
         		  <td><%=q.get("createdate")%></td>	 
-        		  <td><%=q.get("updatedate")%></td>	       		  
+        		  <td><%=q.get("updatedate")%></td>	
+        		  <td>
+        		   <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=q.get("questionNo")%>" class="btn btn-outline-dark mt-auto">수정</a>
+        		  </td>
+        		  <td>
+        		   <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?questionNo=<%=q.get("questionNo")%>" class="btn btn-outline-dark mt-auto">삭제</a>         		   
+        		  </td>
+        		         		  
         	     </tr> 
         	      
         	<%

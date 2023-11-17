@@ -5,7 +5,7 @@
 <%@ page import="java.util.*" %>   
 <%
 
-
+	boolean isManagerLoggedIn = (session.getAttribute("managerNo") != null);
 	
 	if(session.getAttribute("managerNo") == null){  // 본인 세션에 loginId를 만든적이 없다 -> 로그인 없다
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
@@ -94,7 +94,11 @@
       		<textarea class="form-control" rows="3" name="questionAnswer" placeholder="문의사항에 대한 답변을 입력하세요."></textarea>
           </div>
           <br>
-          <button type="submit" class="btn btn-outline-dark mt-auto" value="">댓글 추가</button>                 
+          <% if(isManagerLoggedIn) { %>
+            <button type="submit" class="btn btn-outline-dark mt-auto" value="">댓글 추가</button>                 
+         <% } else { %>
+          <button type="button" class="btn btn-outline-dark mt-auto" disabled>매니저로 작성 가능</button>
+        <% } %>
         </form>			  
 	</div>      
 	  

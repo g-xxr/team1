@@ -11,7 +11,7 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
-	
+
 	
 	QuestionDao qd = new QuestionDao();
 //	ArrayList<HashMap<String, Object>> qNo = qd.selectQuestionOne(questionNo);

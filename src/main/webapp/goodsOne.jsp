@@ -1,12 +1,11 @@
-<%@ page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map"%>
 <%@ page import ="dao.*"%>
 <%@ page import ="vo.*" %>
 
 <%
 	int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
-	String quantityParam = request.getParameter("quantity");
-	int quantity = (quantityParam != null && !quantityParam.isEmpty()) ? Integer.parseInt(quantityParam) : 1;
+
 	// goodsOne 호출
 	GoodsDao gd = new GoodsDao();
 	Goods g = gd.goodsOne(goodsNo);
@@ -93,8 +92,6 @@
 			    </div>
 			    	<!-- 상품 수량 설정 -->
 			    	<div>
-				    <label for="quantity">수량:</label>
-				    <input type="number" id="quantity" name="quantity" value="1" min="1">
 			    	<br>
 			    	<!-- 상품 관련 액션 -->
     				<div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">

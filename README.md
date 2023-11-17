@@ -1,4 +1,4 @@
-<img src="/head.png">   
+<img src="/src/pic/head.png">   
 
 # 🧑🏻‍💻팀 프로젝트🧑🏻‍💻
 > * 참여자 : 강유정, 권도헌, 이유섭   
@@ -17,11 +17,11 @@
 > * 매니저 관리 페이지 따로 생성해 필요 기능들 활성화
 
 # 🔗
-<img src="/erd.png">    
-<img src="/dao.jpg">   
-<img src="/1.png">   
-<img src="/2.png">   
-<img src="/3.png">   
+<img src="/src/pic/erd.png">    
+<img src="/src/pic/dao.jpg">   
+<img src="/src/pic/1.png">   
+<img src="/src/pic/2.png">   
+<img src="/src/pic/3.png">   
  
 
 # ⚙️담당 파트⚙️
@@ -56,7 +56,7 @@
 > ```Eclipse``` ```HeidiSQL```   
 
 # 쇼핑몰 메인 화면
-<img src="/home.png">
+<img src="/src/pic/home.png">
 
 # 상품 목록
-<img src="/goodslist.png">
+<img src="/src/pic/goodslist.png">

@@ -17,8 +17,12 @@
 > * 매니저 관리 페이지 따로 생성해 필요 기능들 활성화
 
 # 🔗
-<img src="/erd.png">
-
+<img src="/erd.png">    
+<img src="/dao.jpg">   
+<img src="/1.png">   
+<img src="/2.png">   
+<img src="/3.png">   
+ 
 
 # ⚙️담당 파트⚙️
 > ### 강유정

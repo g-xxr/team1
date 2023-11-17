@@ -5,8 +5,9 @@
 <%@ page import="java.util.*" %>
 <%
 	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+	System.out.println(questionNo + "<--questionNo");
 	QuestionDao qd = new QuestionDao();
-	ArrayList<HashMap<String, Object>> list = qd.QuestionOne(questionNo);
+	Question qo = qd.QuestionOne(questionNo);
 
 
 
@@ -43,9 +44,9 @@
 	</header>
         <hr>
     <div class="container" >      				
-		   <form action="<%=request.getContextPath()%>/updateQuestionAction.jsp" method = "post">
-		   	<input type="hidden" name ="managerNo" value="<%=session.getAttribute("managerNo")%>">
-		   		<input type="hidden" name ="questionNo" value="<%=questionNo%>">	  
+		   <form action="<%=request.getContextPath()%>/updateQuestionAction.jsp">		   
+		   <input type="hidden" name ="customerNo" value="<%=session.getAttribute("customerNo")%>">
+		   <input type="hidden" name ="questionNo" value="<%=questionNo%>">	
 			<h2>문의사항 수정</h2> 			
      		<div class="mb-3 mt-3">
   
@@ -56,12 +57,12 @@
      		  
      		  <div>
      			<label for="comment">제목:</label>      		
-      			<input class="form-control w-50 p-1" type="text" name="questionTitle" value="<%=questionTitle%>">
+      			<input class="form-control w-50 p-1" type="text" name="questionTitle" value="<%=qo.getQuestionTitle()%>">
       		  </div>
       		  
       		  <div>
       			<label for="comment">내용:</label>
-      			<textarea class="form-control" rows="5" name="questionContent" value="<%=questionContent%>"></textarea>     		
+      			<textarea class="form-control" rows="5" name="questionContent" value="<%=qo.getQuestionContent()%>"><%=qo.getQuestionContent()%></textarea>     		
    		      </div>
    		      <br>
            <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 

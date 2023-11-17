@@ -6,6 +6,7 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+	int customerNo = Integer.parseInt(request.getParameter("customerNo"));
 	String questionTitle = request.getParameter("questionTitle");
 	String questionContent = request.getParameter("questionContent");
 	
@@ -16,7 +17,7 @@
 	
 	QuestionDao qd = new QuestionDao();
 	qd.updateQuestion(questionNo, questionTitle, questionContent);
-		
+	
 	response.sendRedirect(request.getContextPath()+"/question.jsp");
 
 %>

@@ -14,9 +14,9 @@
 	}
 	
 	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
+	System.out.println(questionNo + "<-- questionNo");
 	QuestionDao qd = new QuestionDao();
-	ArrayList<HashMap<String, Object>> list = qd.QuestionOne(questionNo);
-	
+	Question qo = qd.QuestionOne(questionNo);	
 
 %> 
 <!DOCTYPE html>
@@ -51,42 +51,35 @@
         <!-- 문의사항 상세보기-->
         <div class="container">
         	<h1>문의사항 상세보기</h1>   	     	    
-        	  <table class="table table-hover">    	
-        		<%
-        			for(HashMap<String, Object> o : list){
-        		%>        			
+        	  <table class="table table-hover">    	    			
         			  <tr>
         			  	<th>상품번호</th>
- 						<td><%=o.get("goodsNo")%></td> 						        			  				  
+ 						<td><%=qo.getGoodsNo()%></td> 						        			  				  
         			  </tr>
         			  <tr>
         			  	<th>작성자</th>
- 						<td><%=o.get("customerNo") %></td>       			  				  
+ 						<td><%=qo.getCustomerNo() %></td>       			  				  
         			  </tr> 
         			  <tr>
         			  	<th>제목</th>
- 						<td><%=o.get("questionTitle")%></td>       			  				  
+ 						<td><%=qo.getQuestionTitle()%></td>       			  				  
         			  </tr> 
         			  <tr>
         			  	<th>내용</th>
- 						<td><%=o.get("questionContent")%></td>       			  				  
+ 						<td><%=qo.getQuestionContent()%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>작성일</th>
- 						<td><%=o.get("createdate")%></td>       			  				  
+ 						<td><%=qo.getCreatedate()%></td>       			  				  
         			  </tr>  
         			  <tr>
         			  	<th>수정일</th>
- 						<td><%=o.get("updatedate")%></td>       			  				  
+ 						<td><%=qo.getUpdatedate()%></td>       			  				  
         			  </tr> 
         			  	   			
-        			  	 <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto" style="float:right">수정</a>
-			             <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?QuestionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto" style="float:right">삭제</a> 
+        			  	 
         		
-        		<%
-        			}
-        		%>  
-        		      		
+        		  		
         	  </table>	
     	  
         </div>	  

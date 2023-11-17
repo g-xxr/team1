@@ -5,18 +5,12 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.*" %>     
 <%
-	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
-	
+	int questionNo = Integer.parseInt(request.getParameter("questionNo"));	
 	QuestionDao qd = new QuestionDao();
-	 = qd.deleteQuestion(questionNo);
+	qd.deleteQuestion(questionNo);
 	
-	if(row != 0){
-		System.out.println("삭제성공");
-		response.sendRedirect(request.getContextPath()+"/question.jsp");
-	}else{
-		System.out.println("삭제실패");
-		response.sendRedirect(request.getContextPath()+"/question.jsp");
-	}
-
+	response.sendRedirect(request.getContextPath()+"/question.jsp");
+	
+	
 %>    
     

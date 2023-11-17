@@ -93,36 +93,39 @@ public class QuestionDao {
 	}
 
 	// questionOne.jsp 문의사항 상세확인
-		public ArrayList<HashMap<String, Object>> QuestionOne(int questionNo) throws Exception {
+		public Question QuestionOne(int questionNo) throws Exception {
 			
-			int row = 0;
 			Class.forName("org.mariadb.jdbc.Driver");
 			String url = "jdbc:mariadb://localhost:3306/mall";
 			String dbuser = "root";
 			String dbpw = "java1234";
 			Connection conn = DriverManager.getConnection(url, dbuser, dbpw);
 			
-			String sql = "SELECT  q.question_no questionNo, g.goods_no goodsNo, c.customer_no customerNo, q.question_title questionTitle, q.question_content questionContent, q.createdate, q.updatedate FROM question q  INNER JOIN customer c ON q.customer_no = c.customer_no INNER JOIN goods g ON q.goods_no = g.goods_no ORDER BY q.createdate DESC";
+			String sql = "SELECT question_no questionNo, goods_no goodsNo, customer_no customerNo, question_title questionTitle, question_content questionContent, createdate, updatedate FROM question WHERE question_No = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, questionNo);		
 			ResultSet rs = stmt.executeQuery(); // jdbc환경의 모델
 			
-			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>(); 
+			Question q = null;
 			if(rs.next()) {
-				HashMap<String, Object> q = new HashMap<String, Object>();
-				q.put("questionNo", rs.getInt("questionNo"));
-				q.put("goodsNo", rs.getInt("goodsNo"));
-				q.put("customerNo", rs.getInt("customerNo"));
-				q.put("questionTitle", rs.getString("questionTitle"));
-				q.put("questionContent", rs.getString("questionContent"));
-				q.put("createdate", rs.getString("createdate"));
-				q.put("updatedate", rs.getString("updatedate"));
-				list.add(q);
+				q = new Question();
+				q.setQuestionNo(rs.getInt("questionNo"));
+				q.setGoodsNo(rs.getInt("goodsNo"));
+				q.setCustomerNo(rs.getInt("customerNo"));
+				q.setQuestionTitle(rs.getString("questionTitle"));
+				q.setQuestionContent(rs.getString("questionContent"));
+				q.setCreatedate(rs.getString("createdate"));
+				q.setUpdatedate(rs.getString("updatedate"));
+				
+				
 			}
 			conn.close();
+			rs.close();
 			stmt.close();
 			
-			return list;
+			return q;
+			
+		
 		}
 	
 	
@@ -148,7 +151,7 @@ public class QuestionDao {
 	}
 	
 	//updateQuestion문의사항 상세정보 수정
-	public void updateQuestion(int questionNo, String questionTitle, String questionContent ) throws Exception{
+	public void updateQuestion(int questionNo, String questionTitle, String questionContent) throws Exception{
 		
 		int row = 0;
 		Class.forName("org.mariadb.jdbc.Driver");
@@ -160,12 +163,19 @@ public class QuestionDao {
 		String sql = "UPDATE question SET question_title = ?, question_content = ?, updatedate = NOW() WHERE question_no = ?";
 				
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, questionNo);
-		stmt.setString(2, questionTitle);
-		stmt.setString(3, questionContent);
+
+		stmt.setString(1, questionTitle);
+		stmt.setString(2, questionContent);
+		stmt.setInt(3, questionNo);
 		
 		System.out.println(stmt + " <-- stmt updateQuestion()");
 		row = stmt.executeUpdate();
+		
+		if(row == 1) {
+			System.out.println("수정 완료");
+		} else {
+			System.out.println("수정 실패");
+		}
 		
 		conn.close();
 		stmt.close();

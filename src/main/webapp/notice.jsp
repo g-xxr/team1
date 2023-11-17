@@ -11,7 +11,7 @@
 	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 8;
+	int rowPerPage = 10;
 	
 	NoticeDao nd = new NoticeDao();
 	int totalRow =nd.noticePaging();

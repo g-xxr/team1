@@ -12,7 +12,7 @@
 	if(request.getParameter("currentPage") != null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 8;
+	int rowPerPage = 10;
 	
 	NoticeDao nd = new NoticeDao();
 	int totalRow =nd.noticePaging();
@@ -51,6 +51,7 @@
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">공지사항</h1>
+	            <p class="lead fw-normal text-white-50 mb-0">😊공지사항 꼭 확인해주세여😊</p>
 	        </div>
 	    </div>
 	</header>
@@ -58,14 +59,12 @@
         <!-- 공지사항 -->
         <div class="container">
         	<h1>공지사항</h1>
-        	<br>
-        	<a class="btn btn-outline-dark mt-auto" style="float:right" href="<%=request.getContextPath()%>/insertNoticeForm.jsp">공지사항 추가</a>      	     	    
-        	  <table class="table table-hover">
-       		
+        	<div><a class="btn btn-outline-dark mt-auto" style="float:right" href="<%=request.getContextPath()%>/insertNoticeForm.jsp">공지사항 추가</a></div>
+        	  <table class="table table-hover table-bordered" style="text-align:center;">
         		<tr>
         			<th class="col-sm-1">번호</th>    			
         			<th class="col-sm-7">제목</th>        			
-        			<th class="col-sm-1">작성일</th>
+        			<th class="col-sm-2">작성일</th>
         			<th class="col-sm-1">수정</th>	
         			<th class="col-sm-1">삭제</th>		
         		</tr>		

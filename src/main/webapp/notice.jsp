@@ -51,9 +51,26 @@
 </head>
 <body>
 	
-	<!-- 메뉴 시작 (절대주소 적으세요)-->
-	<jsp:include page="/inc/menu.jsp"></jsp:include>
-	<!-- 메뉴 끝 -->
+	<!-- 고객 메뉴 시작 (절대주소 적으세요)-->
+	<%
+			if(session.getAttribute("customerNo") != null) {
+			// 고객이 로그인한 상태라면
+	%>
+			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
+	<% 	
+			} else if(session.getAttribute("managerNo") != null){
+			// 관리자가 로그인한 상태라면
+	%>
+			<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
+	<% 				
+			}else{
+			// 로그아웃 상태라면
+	%>
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+	<%			
+			return;
+			}
+	%>
 	
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-1">

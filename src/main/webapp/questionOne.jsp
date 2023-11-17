@@ -72,14 +72,7 @@
 	 	   <textarea class="form-control" rows="5" name="questionContent"><%=o.get("questionContent")%></textarea>
 			</div>
 
-			
-        			  	   			
-        			  	 <a href="<%=request.getContextPath()%>/updateQuestionForm.jsp?questionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto" style="float:right">수정</a>
-			             <a href="<%=request.getContextPath()%>/deleteQuestionAction.jsp?QuestionNo=<%=o.get("questionNo")%>" class="btn btn-outline-dark mt-auto" style="float:right">삭제</a> 
-        		
-        		  
-        
-			    <div class="container mb-3 mt-3 " > 
+			<div class="container mb-3 mt-3 " > 
 			      <h5>댓글</h5>
 			        <form  action="<%=request.getContextPath()%>/qCommentAction.jsp" method="post">	
 			          <div>                             	
@@ -95,11 +88,11 @@
         </div>         
 	      </form>			  
 				</div>      
-				
 				<%
         			}
-        		%> 
-				
+        		%> 				
+		</div>
+		<br>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
@@ -108,5 +101,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+	
     </body>
 </html>

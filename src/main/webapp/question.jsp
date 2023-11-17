@@ -40,26 +40,33 @@
 </head>
 <body>
 	
-	<!-- 메뉴 시작 (절대주소 적으세요)-->
+	<!-- 고객 메뉴 시작 (절대주소 적으세요)-->
 	<%
 			if(session.getAttribute("customerNo") != null) {
 			// 고객이 로그인한 상태라면
 	%>
 			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	<% 	
-			} else {
-			// 고객이 로그아웃한 상태라면
+			} else if(session.getAttribute("managerNo") != null){
+			// 관리자가 로그인한 상태라면
+	%>
+			<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
+	<% 				
+			}else{
+			// 로그아웃 상태라면
 	%>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
-	<% 	
+	<%			
+			return;
 			}
 	%>
 	
+
 	<!-- 헤드 배너 부분 -->
 	<header class="bg-dark py-5">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
-	            <h1 class="display-4 fw-bolder">🎊가을맞이 빅세일🎊</h1>
+	            <h1 class="display-4 fw-bolder">🎊문의사항🎊</h1>
 	            <p class="lead fw-normal text-white-50 mb-0">오늘도 즐거운 하루 되세요</p>
 	        </div>
 	    </div>
@@ -148,9 +155,7 @@
 	            %>
 	        </div>
 	  </div>
-       <br>
-       <br>
-       <br>
+	  <br>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

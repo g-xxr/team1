@@ -7,7 +7,7 @@
 	int questionNo = Integer.parseInt(request.getParameter("questionNo"));
 	System.out.println(questionNo + "<--questionNo");
 	QuestionDao qd = new QuestionDao();
-	Question qo = qd.QuestionOne(questionNo);
+	ArrayList<HashMap<String, Object>> list = qd.QuestionOne(questionNo);
 
 
 
@@ -47,27 +47,34 @@
 		   <form action="<%=request.getContextPath()%>/updateQuestionAction.jsp">		   
 		   <input type="hidden" name ="customerNo" value="<%=session.getAttribute("customerNo")%>">
 		   <input type="hidden" name ="questionNo" value="<%=questionNo%>">	
+		<div class="mb-3 mt-3">
 			<h2>문의사항 수정</h2> 			
-     		<div class="mb-3 mt-3">
+     			<%
+        			for(HashMap<String, Object> q : list){
+        		%>
+	        		<div>
+	     			<label for="comment">번호:</label>      		
+	      			<input class="form-control w-50 p-1" type = "text" name="questionNo" value="<%=questionNo%>" disabled>
+	      		    </div>
+	     		  
+	     		    <div>
+	     			  <label for="comment">제목:</label>      		
+	      			  <input class="form-control w-50 p-1" type="text" name="questionTitle" value="<%=q.get("questTitle")%>">	      		   
+	      		    </div>	      		  
+	      		  	<div>
+	      			  <label for="comment">내용:</label>
+	      			  <textarea class="form-control" rows="5" name="questionContent" value="<%=q.get("questionContent")%>"></textarea>     		
+	   		     	</div>
+	   		        <br>
+	          	 		<button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
+	  		 	 	  </form>		  
+				    </div>		     	
+        		<% 
+        		
+        			}
+        		%>  
   
-     		  <div>
-     			<label for="comment">번호:</label>      		
-      			<input class="form-control w-50 p-1" type = "text" name="questionNo" value="<%=questionNo%>" disabled>
-      		  </div>
      		  
-     		  <div>
-     			<label for="comment">제목:</label>      		
-      			<input class="form-control w-50 p-1" type="text" name="questionTitle" value="<%=qo.getQuestionTitle()%>">
-      		  </div>
-      		  
-      		  <div>
-      			<label for="comment">내용:</label>
-      			<textarea class="form-control" rows="5" name="questionContent" value="<%=qo.getQuestionContent()%>"><%=qo.getQuestionContent()%></textarea>     		
-   		      </div>
-   		      <br>
-           <button class="btn btn-outline-dark mt-auto" type="submit">작성완료</button>    		 
-  		  </form>		  
-	</div>		     
 	 <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>

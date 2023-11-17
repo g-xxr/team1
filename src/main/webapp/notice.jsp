@@ -58,17 +58,11 @@
 	%>
 			<jsp:include page="/inc/privateMenu.jsp"></jsp:include>
 	<% 	
-			} else if(session.getAttribute("managerNo") != null){
-			// 관리자가 로그인한 상태라면
-	%>
-			<jsp:include page="/inc/managerMenu.jsp"></jsp:include>
-	<% 				
 			}else{
 			// 로그아웃 상태라면
 	%>
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 	<%			
-			return;
 			}
 	%>
 	

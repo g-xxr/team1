@@ -20,7 +20,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title>홈페이지 팀플</title>
+		<title>매니저 관리 페이지</title>
 		<!-- 파비콘 코드 -->
 		<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 		<!-- 부트스트랩 아이콘 -->
@@ -35,7 +35,7 @@
 	<!-- 메뉴 끝 -->
 		
 	<!-- 헤드 배너 부분 -->
-	<header class="bg-dark py-5">
+	<header class="bg-dark py-1">
 	    <div class="container px-4 px-lg-5 my-5">
 	        <div class="text-center text-white">
 	            <h1 class="display-4 fw-bolder">매니저 관리 페이지</h1>
@@ -46,13 +46,13 @@
 	<!-- 로그인한 매니저만 볼 수 있는 홈페이지 -->	
 	<section>
 	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row row-cols-1 row-cols-md-5 g-3">
+		<div class="row row-cols-1 row-cols-md-4 g-3">
 		
 			<!-- 매니저 상품관리 게시판 링크 -->
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 상품관리 홈 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/goods.png">
 	                <!-- 상품 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">상품관리</h3>
@@ -64,27 +64,11 @@
             	</div>
 			</div>
 			
-			<!-- 매니저 회원 주문·배송 관리 게시판 링크 -->
-			<div class="col mb-5">
-				<div class="card h-100">
-	                <!-- 상품관리 홈 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
-	                <!-- 상품 관리 페이지 제목 -->
-	                <div class="card-body p-4 text-center">
-	                <h3 class="fw-bolder">주문·배송<br>관리</h3>
-	                </div>
-	                <!-- 상품 관리 페이지 링크 -->
-	                <div class="card-footer p-3 pt-0 border-top-0 bg-transparent text-center">
-	            	<a class="btn btn-outline-dark mt-auto" href="<%=request.getContextPath()%>/ordersListManager.jsp">클릭!</a>
-	      			</div>
-            	</div>
-			</div>
-			
 			<!-- 매니저 공지사항 관리 게시판 링크 -->
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 공지사항 관리 홈 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/notice.png">
 	                <!-- 공지사항 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">공지사항 관리</h3>
@@ -100,7 +84,7 @@
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 문의게시판 관리 홈 이미지 -->
-	                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/community.png">
 	                <!-- 문의게시판 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">문의게시판<br>관리</h3>
@@ -116,7 +100,7 @@
 			<div class="col mb-5">
 				<div class="card h-100">
 	                <!-- 리뷰게시판 관리 홈 이미지 -->
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/qna.jpg">
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/upload/review.png">
 	                <!-- 리뷰게시판 관리 페이지 제목 -->
 	                <div class="card-body p-4 text-center">
 	                <h3 class="fw-bolder">리뷰게시판<br>관리</h3>
@@ -134,7 +118,7 @@
 
 
 	<!-- 맨 아래 배너 -->
-	<footer class="py-5 bg-dark">
+	<footer class="py-3 bg-dark">
 	<div class="container"><p class="m-0 text-center text-white"> Copyright &copy; 유정 도헌 유섭 </p></div>
 	</footer>
 	<!-- Bootstrap core JS-->

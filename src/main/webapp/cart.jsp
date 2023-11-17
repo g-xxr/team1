@@ -79,7 +79,7 @@
 			
 			int goodsPrice = (Integer) map.get("goodsPrice");
       		int quantity = (Integer) map.get("quantity");
-      		int goodsSum = goodsPrice * quantity;
+      		int goodsSum = (Integer) map.get("goodsPrice") * (Integer) map.get("quantity");
       		
       		totalPrice += goodsSum;
 	%>

@@ -33,7 +33,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 		<!-- 파비콘 코드 -->
 		<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 		<!-- 부트스트랩 아이콘 -->

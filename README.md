@@ -16,7 +16,7 @@
 > * 회원 / 비회원 접근 가능한 부분 나누어서 개발
 > * 매니저 관리 페이지 따로 생성해 필요 기능들 활성화
 
-# 🔗
+# 🔗 ERD 다이어그램
 <img src="/src/pic/erd.png">    
 <img src="/src/pic/dao.jpg">   
 <img src="/src/pic/1.png">   
